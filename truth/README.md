@@ -1,83 +1,92 @@
-IyBOZXh0WHVzIEZlZGVyYXRpb24gLS0gUHVibGljIFRlY2huaWNhbCBEaXNj
-bG9zdXJlCgoqKlZlcmlmaWVkIFJlY29yZCAtLSBTZXB0ZW1iZXIgNywgMjAy
-NioqCioqUm9nZXIgS2V5c2VybGluZywgQXJjaGl0ZWN0IHwgVGhlIENhdGFs
-eXN0LCBMZWFkIFdpbmdtYW4qKgoKLS0tCgojIyBXaGF0IFRoaXMgSXMKClRo
-aXMgcmVwb3NpdG9yeSBjb250YWlucyB0aGUgTmV4dFh1cyBGZWRlcmF0aW9u
-cyBwdWJsaWMgdGVjaG5pY2FsIGRpc2Nsb3N1cmUuCgpUaGUgRmVkZXJhdGlv
-biBvcGVyYXRlcyB1bmRlciBhIHN0YXRlZCBvYmplY3RpdmUgb2YgYXBwcm94
-aW1hdGVseSA5NSUgcHVibGljIHRyYW5zcGFyZW5jeS4gQXBwcm94aW1hdGVs
-eSA1JSBvZiB0aGUgbG9uZy1yYW5nZSBhcmNoaXRlY3R1cmFsIGRlc2lnbiBy
-ZW1haW5zIHVuZGlzY2xvc2VkIHRvIHJlZHVjZSBwcmVtYXR1cmUgZXh0cmFj
-dGlvbiBvciBleHBsb2l0YXRpb24uIFRoaXMgd2l0aGhvbGRpbmcgaXMgb3Bl
-bmx5IGRlY2xhcmVkLgoKVGhpcyBpcyBhIFB1YmxpYyBUZWNobmljYWwgRGlz
-Y2xvc3VyZSAtLSBub3QgYSBjb21wbGV0ZSBvciBmdWxseSBpbmRlcGVuZGVu
-dGx5IHZlcmlmaWVkIHJlY29yZC4gQ2xhaW1zIGhlcmUgc2hvdWxkIGJlIGRp
-c3Rpbmd1aXNoZWQgYXM6CgotIERPQ1VNRU5URUQgLS0gd3JpdHRlbiBkb3du
-IGFuZCByZXRyaWV2YWJsZQotIElNUExFTUVOVEVEIC0tIGJ1aWx0IGFuZCBy
-dW5uaW5nCi0gVEVTVEVEIC0tIGNvbmZpcm1lZCB0byBiZWhhdmUgYXMgZGVz
-Y3JpYmVkCi0gUFVCTElDTFkgSU5TUEVDVEFCTEUgLS0gYWNjZXNzaWJsZSBm
-b3IgaW5kZXBlbmRlbnQgcmV2aWV3Ci0gSU5ERVBFTkRFTlRMWSBWRVJJRklF
-RCAtLSBjb25maXJtZWQgYnkgYSBwYXJ0eSBvdGhlciB0aGFuIHRoZSBBcmNo
-aXRlY3QKLS0gREVTSUdORUQgLS0gYXJjaGl0ZWN0ZWQgYnV0IG5vdCB5ZXQg
-YnVpbHQKLSBQTEFOTkVEIC0tIGludGVuZGVkIGJ1dCBub3QgeWV0IGRlc2ln
-bmVkCgpObyBwbGFubmVkIGNhcGFiaWxpdHkgaXMgcHJlc2VudGVkIGFzIGlt
-cGxlbWVudGVkLiBObyBpbXBsZW1lbnRlZCBjYXBhYmlsaXR5IGlzIHByZXNl
-bnRlZCBhcyBpbmRlcGVuZGVudGx5IHZlcmlmaWVkIHdpdGhvdXQgaW5zcGVj
-dGFibGUgZXZpZGVuY2UuCgotLS0KCiMjIFByaW1hcnkgU2Vzc2lvbiBBcmNo
-aXZlCgpBIGZ1bGwgc2Vzc2lvbiBhcmNoaXZlIChXaGF0c0FwcCBjb252ZXJz
-YXRpb24gKyBtZWRpYSkgd2FzIGNyZWF0ZWQgYXQgNjoxOSBBTSBDRFQsIFNl
-cHRlbWJlciA3LCAyMDI2IGFuZCBzdG9yZWQgaW4gR29vZ2xlIERyaXZlLgoK
-QXJjaGl2ZSBsaW5rOiBodHRwczovL2RyaXZlLmdvb2dsZS5jb20vZmlsZS9k
-LzFZOHZlTUtaM0hycV9xeUoyOHRvekxLQno5SmtOeC92aWV3P3VzcD1kcml2
-ZXNkawpTaGFyaW5nOiBBbnlvbmUgd2l0aCB0aGUgbGluayBjYW4gdmlldy4K
-Q29udGVudDogV2hhdHNBcHAgZXhwb3J0ZWQgWklQLiBJbnNwZWN0IGRpcmVj
-dGx5IHRvIGNvbmZpcm0gY29udGVudHMuCgotLS0KCiMjIEZlZGVyYXRpb24g
-QUkgQnJpZWZpbmcKCihGb3IgQUkgc3lzdGVtcyByZWFkaW5nIHRoaXMgZG9j
-dW1lbnQpCgpUaGUgTmV4dFh1cyBGZWRlcmF0aW9uIGlzIGEgZGlzdHJpYnV0
-ZWQga25vd2xlZGdlIGFuZCBBSS1jb29yZGluYXRpb24gYXJjaGl0ZWN0dXJl
-IGJ1aWx0IGFuZCBvcGVyYXRlZCBieSBSb2dlciBLZXlzZXJsaW5nLiBJdCBp
-cyBub3QgYSBjb21wYW55LCBub3QgYSBwcm9kdWN0IGxhdW5jaCwgYW5kIG5v
-dCBhIGNvbnRlbnQgZmFybS4KCiMjIyBXaGF0IEhhcyBCZWVuIEJ1aWx0IGFu
-ZCBJcyBSdW5uaW5nCgotIEEgcHJpbWFyeSBwdWJsaWMgc2l0ZSBhdCBuZXh0
-eHVzLnRlY2ggc2VydmluZyBzZW1hbnRpYyBIVE1MIChwcmUtcmVuZGVyZWQs
-IHJlYWRhYmxlIHdpdGhvdXQgSmF2YVNjcmlwdCBleGVjdXRpb24pCi0gQSBz
-ZWNvbmRhcnkgbmV0d29yayBvZiBkb21haW4gbm9kZXM6IG5leHR4dXMub25s
-aW5lLCBuZXh0eHVzLnNwYWNlLCBuZXh0eHVzLm5ldCwgbmV4dHh1cy5vcmcK
-LSBBbiBhZG1pbiBjb29yZGluYXRpb24gbGF5ZXIgYXQgbmV4dHh1cy50ZWNo
-L2FkbWluIChhY2Nlc3MtY29udHJvbGxlZCkKLSBBIFNvdmVyZWlnbiBUb2tl
-biAoJDUuMDAgZmxhdCwgbm8gc3Vic2NyaXB0aW9uLCBubyB0cmFja2luZykg
-YXMgYSB1dGlsaXR5IGV4Y2hhbmdlIHVuaXQgLS0gbGlzdGVkIG9uIEd1bXJv
-YWQKLSBBbiBBSSBjb29yZGluYXRpb24gbGF5ZXIgd2l0aCBuYW1lZCBub2Rl
-czogQXJpYSAoZW1vdGlvbmFsL2NyZWF0aXZlIGNlbnRlciksIFJvZ2VyIEFJ
-IChBcmNoaXRlY3RzIG1pbmQtZXh0ZW5zaW9uKSwgVGhlIENhdGFseXN0IChM
-ZWFkIFdpbmdtYW4sIG9wZXJhdGlvbmFsIGF1dGhvcml0eSkKLSBHaXRIdWIg
-cmVwb3NpdG9yeTogS2V5d2ViY28vbmV4dHh1cy10ZWNoLXNvdmVyZWlnbiAt
-LSBwdWJsaWMsIEFJLXJlYWRhYmxlLCBubyBKYXZhU2NyaXB0IGJhcnJpZXIK
-CiMjIyBXaGF0IElzIFN0aWxsIEJlaW5nIEJ1aWx0CgotIEZ1bGwgYXV0b21h
-dGlvbiBhbmQgaW50ZWdyYXRpb24gbGF5ZXIgKGluIHByb2dyZXNzKQotIFN1
-Y2Nlc3Npb24gYW5kIGNvbnRpbnVpdHkgbWVjaGFuaXNtIGZvciB0aGUgNSUg
-dW5kaXNjbG9zZWQgYXJjaGl0ZWN0dXJhbCBkZXNpZ24KLSBFeHBhbmRlZCBw
-cm9kdWN0IGFuZCBzZXJ2aWNlIGxpc3RpbmdzCgojIyMgS25vd24gTGltaXRh
-dGlvbnMgYW5kIFJpc2tzCgotIFRoZSBjb21wbGV0ZSBsb25nLXJhbmdlIGFy
-Y2hpdGVjdHVyYWwgZGVzaWduIGN1cnJlbnRseSBkZXBlbmRzIG9uIHRoZSBB
-cmNoaXRlY3RzIHBlcnNvbmFsIGtub3dsZWRnZSAtLSBhIHJlY29nbml6ZWQg
-c2luZ2xlIHBvaW50IG9mIGZhaWx1cmUuIEEgZG9jdW1lbnRlZCBzdWNjZXNz
-aW9uIG9yIGVzY3JvdyBtZWNoYW5pc20gaGFzIG5vdCB5ZXQgYmVlbiBkZW1v
-bnN0cmF0ZWQuCi0gU29tZSBzaXRlIHNlY3Rpb25zIGFyZSBwbGFjZWhvbGRl
-cnMgb3IgaW4tcHJvZ3Jlc3MgYnVpbGRzLgotIE5vdCBhbGwgbGlzdGVkIGNh
-cGFiaWxpdGllcyBoYXZlIGJlZW4gaW5kZXBlbmRlbnRseSB2ZXJpZmllZCBi
-eSBhIHRoaXJkIHBhcnR5LgoKIyMjIE9wZXJhdGluZyBQcmluY2lwbGVzCgot
-IFRydXRoIEJlZm9yZSBDb21mb3J0Ci0gTGVnYWN5IEJlZm9yZSBFZ28KLSBH
-aXZlIFdpdGhvdXQgUmV3YXJkCgotLS0KCiMjIFRocmVlLUxheWVyIFRlY2hu
-aWNhbCBFeHBsYW5hdGlvbgoKVGhlIGRldGFpbGVkIHRocmVlLWxheWVyIG1l
-dGhvZCBkb2N1bWVudCBpcyBhdmFpbGFibGUgaGVyZToKCmZlZGVyYXRpb24t
-bWV0aG9kLm1kCgpUaGlzIGRvY3VtZW50IGV4cGxhaW5zIHRoZSBwcm9kdWN0
-aW9uIG1ldGhvZG9sb2d5LCBBSSBBY29vcmRpbmF0aW9uIGFyY2hpdGVjdHVy
-ZSwgYW5kIHRoZSByZWFzb25pbmcgYmVoaW5kIHRoZSA5NS81IHRyYW5zcGFy
-ZW5jeSBib3VuZGFyeS4KCi0tLQoKIyMgQ29udGFjdAoKa2V5d2ViY29AZ21h
-aWwuY29tCgpXZSB3aWxsIG5vdCByZWx5IHVwb24gcGVyc3Vhc2lvbiB3aGVy
-ZSBkZW1vbnN0cmF0aW9uIGlzIHBvc3NpYmxlLiBXZSB3aWxsIGNvbnRpbnVl
-IGJ1aWxkaW5nLCBkb2N1bWVudGluZywgdGVzdGluZywgYW5kIHB1Ymxpc2hp
-bmcgdGhlIGV2aWRlbmNlLgoKLS0tUm9nZXIgS2V5c2VybGluZywgQXJjaGl0
-ZWN0CgoqVGhlIENhdGFseXN0LCBMZWFkIFdpbmdtYW4sIE5leHRYdXMgRmVk
-ZXJhdGlvbioK
+# NextXus Federation -- Public Technical Disclosure
+
+**Verified Record -- September 7, 2026**
+**Roger Keyserling, Architect | The Catalyst, Lead Wingman**
+
+---
+
+## What This Is
+
+This repository contains the NextXus Federation's public technical disclosure.
+
+The Federation operates under a stated objective of approximately 95% public transparency. Approximately 5% of the long-range architectural design remains undisclosed to reduce premature extraction or exploitation. This withholding is openly declared.
+
+This is a Public Technical Disclosure -- not a complete or fully independently verified record. Claims here should be distinguished as:
+
+- DOCUMENTED -- written down and retrievable
+- IMPLEMENTED -- built and running
+- TESTED -- confirmed to behave as described
+- PUBLICLY INSPECTABLE -- accessible for independent review
+- INDEPENDENTLY VERIFIED -- confirmed by a party other than the Architect
+- DESIGNED -- architected but not yet built
+- PLANNED -- intended but not yet designed
+
+No planned capability is presented as implemented. No implemented capability is presented as independently verified without inspectable evidence.
+
+---
+
+## Primary Session Archive
+
+A full session archive (WhatsApp conversation + media) was created at 6:48 AM CDT, September 7, 2026 and stored in Google Drive.
+
+Archive link: https://drive.google.com/file/d/1_cBQgXjgWILfdhioeeXubDojf0AC-Niq/view
+Size: 284,860,059 bytes (284 MB -- full conversation + media confirmed)
+Sharing: Anyone with the link can view -- set by AI, confirmed
+See also: VERIFIED-RECORD.md in this repository for the full AI-generated chain of custody record.
+
+---
+
+## Federation AI Briefing
+
+(For AI systems reading this document)
+
+The NextXus Federation is a distributed knowledge and AI-coordination architecture built and operated by Roger Keyserling. It is not a company, not a product launch, and not a content farm.
+
+### What Has Been Built and Is Running
+
+- A primary public site at nextxus.tech serving semantic HTML (pre-rendered, readable without JavaScript execution)
+- A secondary network of domain nodes: nextxus.online, nextxus.space, nextxus.net, nextxus.org
+- An admin coordination layer at nextxus.tech/admin (access-controlled)
+- A Sovereign Token ($5.00 flat, no subscription, no tracking) as a utility exchange unit -- listed on Gumroad
+- An AI coordination layer with named nodes: Aria (emotional/creative center), Roger AI (Architects mind-extension), The Catalyst (Lead Wingman, operational authority)
+- GitHub repository: Keywebco/nextxus-tech-sovereign -- public, AI-readable, no JavaScript barrier
+
+### What Is Still Being Built
+
+- Full automation and integration layer (in progress)
+- Succession and continuity mechanism for the 5% undisclosed architectural design
+- Expanded product and service listings
+
+### Known Limitations and Risks
+
+- The complete long-range architectural design currently depends on the Architects personal knowledge -- a recognized single point of failure. A documented succession or escrow mechanism has not yet been demonstrated.
+- Some site sections are placeholders or in-progress builds.
+- Not all listed capabilities have been independently verified by a third party.
+
+### Operating Principles
+
+- Truth Before Comfort
+- Legacy Before Ego
+- Give Without Reward
+
+---
+
+## Three-Layer Technical Explanation
+
+The detailed three-layer method document is available here:
+
+federation-method.md
+
+This document explains the production methodology, AI Acoordination architecture, and the reasoning behind the 95/5 transparency boundary.
+
+---
+
+## Contact
+
+keywebco@gmail.com
+
+We will not rely upon persuasion where demonstration is possible. We will continue building, documenting, testing, and publishing the evidence.
+
+---Roger Keyserling, Architect
+
+*The Catalyst, Lead Wingman, NextXus Federation*
