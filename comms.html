@@ -27,3 +27,448 @@ canvas#neural-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;po
 .tile-header{display:flex;align-items:center;justify-content:space-between;background:rgba(201,168,76,.08);padding:.35rem .6rem;font-size:.78rem;letter-spacing:.05em;color:#c9a84c;flex-shrink:0;min-height:28px}
 .tile-header .tile-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 28px)}
 .tile-close{background:none;border:none;color:#c9a84c;font-size:1rem;cursor:pointer;padding:0 .3rem;line-height:1;opacity:.6;transition:opacity .2s}
+.tile-close:hover{opacity:1;color:#ff5555}
+.tile-body{flex:1;position:relative;display:flex;align-items:center;justify-content:center}
+.tile-body iframe{width:100%;height:100%;border:none;position:absolute;top:0;left:0}
+
+/* ── EMPTY TILE PLACEHOLDER ── */
+.tile-empty{display:flex;align-items:center;justify-content:center;flex-direction:column;color:rgba(201,168,76,.25);font-size:2.5rem;cursor:default;width:100%;height:100%}
+.tile-empty span{font-size:.75rem;letter-spacing:.1em;margin-top:.3rem;text-transform:uppercase}
+
+/* ── SUMMON CARD (for AI Ring & non-embeddable channels) ── */
+.summon-card{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.2rem;width:100%;height:100%}
+.summon-card h3{color:#c9a84c;font-size:1.1rem;margin-bottom:.3rem;letter-spacing:.06em}
+.summon-card p{color:#888;font-size:.78rem;margin-bottom:.8rem;line-height:1.4}
+.summon-btn{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.35);color:#c9a84c;padding:.45rem 1.4rem;border-radius:4px;cursor:pointer;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;transition:all .25s}
+.summon-btn:hover{background:rgba(201,168,76,.25);border-color:#c9a84c}
+
+/* ── CONTROL PANEL (sticky bottom) ── */
+.control-panel{position:fixed;bottom:0;left:0;right:0;z-index:20;background:rgba(10,10,15,.95);border-top:1px solid rgba(201,168,76,.2);padding:.6rem 1rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;backdrop-filter:blur(8px)}
+.ring-buttons{display:flex;gap:.4rem;flex-wrap:wrap;flex:1}
+.ring-btn{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.18);color:#c9a84c;padding:.4rem .9rem;border-radius:4px;cursor:pointer;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;transition:all .25s;white-space:nowrap}
+.ring-btn:hover{background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.4)}
+.ring-btn.active{background:rgba(201,168,76,.2);border-color:#c9a84c;box-shadow:0 0 12px rgba(201,168,76,.15)}
+.url-bar{display:flex;gap:.3rem;min-width:240px}
+.url-input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.18);border-radius:4px;padding:.4rem .7rem;color:#e0e0e0;font-size:.82rem;outline:none;transition:border-color .2s;min-width:160px}
+.url-input:focus{border-color:rgba(201,168,76,.5)}
+.url-input::placeholder{color:#555}
+.go-btn{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:#c9a84c;padding:.4rem .9rem;border-radius:4px;cursor:pointer;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;transition:all .25s}
+.go-btn:hover{background:rgba(201,168,76,.3);border-color:#c9a84c}
+
+/* ── PASSCODE MODAL ── */
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.75);z-index:50;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay.show{display:flex}
+.modal-box{background:#0e0e14;border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:2rem;text-align:center;max-width:360px;width:90%}
+.modal-box h3{color:#c9a84c;font-size:1.3rem;letter-spacing:.12em;margin-bottom:.8rem}
+.modal-box p{color:#888;font-size:.85rem;margin-bottom:1rem}
+.modal-input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.2);border-radius:4px;padding:.6rem .8rem;color:#e0e0e0;font-size:1rem;text-align:center;letter-spacing:.15em;outline:none;margin-bottom:.8rem}
+.modal-input:focus{border-color:rgba(201,168,76,.5)}
+.modal-confirm{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);color:#c9a84c;padding:.5rem 2rem;border-radius:4px;cursor:pointer;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;transition:all .25s}
+.modal-confirm:hover{background:rgba(201,168,76,.3)}
+.modal-cancel{background:none;border:1px solid rgba(255,255,255,.1);color:#666;padding:.5rem 1.2rem;border-radius:4px;cursor:pointer;font-size:.8rem;margin-left:.5rem;transition:all .2s}
+.modal-cancel:hover{border-color:rgba(255,255,255,.3);color:#999}
+.modal-denied{color:#ff4444;font-size:.85rem;margin-top:.6rem;min-height:1.2rem;letter-spacing:.05em}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .tile-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(4,1fr)}
+}
+@media(max-width:600px){
+  .page-title{font-size:1.2rem;letter-spacing:.12em}
+  .tile-grid{grid-template-columns:1fr;grid-template-rows:auto;min-height:auto}
+  .tile{min-height:260px}
+  .control-panel{flex-direction:column;padding:.5rem .6rem;gap:.4rem}
+  .ring-buttons{justify-content:center}
+  .url-bar{width:100%;min-width:auto}
+  .top-bar{padding:.5rem .8rem}
+}
+</style>
+</head>
+<body>
+<nav style="position:sticky;top:0;z-index:100;background:rgba(10,10,15,.97);border-bottom:1px solid rgba(201,168,76,.2);padding:.6rem 1.5rem;display:flex;justify-content:space-between;align-items:center;">
+  <a href="/" style="color:#c9a84c;text-decoration:none;font-weight:700;letter-spacing:.1em;font-size:1rem;">⬡ THRONE</a>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="/comms.html" style="color:#c9a84c;text-decoration:none;font-size:.9rem;letter-spacing:.05em;">COMMS</a>
+    <a href="/chamber.html" style="color:#999;text-decoration:none;font-size:.9rem;letter-spacing:.05em;">CHAMBER</a>
+    <a href="/council/" style="color:#999;text-decoration:none;font-size:.9rem;letter-spacing:.05em;">COUNCIL</a>
+  </div>
+</nav>
+
+
+<canvas id="neural-bg" aria-hidden="true"></canvas>
+
+<!-- ════════════════════ TOP BAR ════════════════════ -->
+<nav class="top-bar">
+  <a href="/" class="back-link" aria-label="Back to Throne">← THRONE</a>
+  <h1 class="page-title">COMMS DECK</h1>
+  <div class="top-spacer"></div>
+</nav>
+
+<!-- ════════════════════ TILE GRID ════════════════════ -->
+<div class="tile-grid-wrap">
+  <div class="tile-grid" id="tileGrid">
+    <!-- 8 tiles rendered by JS, but the grid is plain HTML for bot-readability -->
+    <div class="tile" data-slot="0"><div class="tile-header"><span class="tile-name"></span></div><div class="tile-body"><div class="tile-empty">＋<span>Empty</span></div></div></div>
+    <div class="tile" data-slot="1"><div class="tile-header"><span class="tile-name"></span></div><div class="tile-body"><div class="tile-empty">＋<span>Empty</span></div></div></div>
+    <div class="tile" data-slot="2"><div class="tile-header"><span class="tile-name"></span></div><div class="tile-body"><div class="tile-empty">＋<span>Empty</span></div></div></div>
+    <div class="tile" data-slot="3"><div class="tile-header"><span class="tile-name"></span></div><div class="tile-body"><div class="tile-empty">＋<span>Empty</span></div></div></div>
+    <div class="tile" data-slot="4"><div class="tile-header"><span class="tile-name"></span></div><div class="tile-body"><div class="tile-empty">＋<span>Empty</span></div></div></div>
+    <div class="tile" data-slot="5"><div class="tile-header"><span class="tile-name"></span></div><div class="tile-body"><div class="tile-empty">＋<span>Empty</span></div></div></div>
+    <div class="tile" data-slot="6"><div class="tile-header"><span class="tile-name"></span></div><div class="tile-body"><div class="tile-empty">＋<span>Empty</span></div></div></div>
+    <div class="tile" data-slot="7"><div class="tile-header"><span class="tile-name"></span></div><div class="tile-body"><div class="tile-empty">＋<span>Empty</span></div></div></div>
+  </div>
+</div>
+
+<!-- ════════════════ BOT-READABLE NAVIGATION (hidden visually, available to crawlers) ════════════════ -->
+<nav aria-label="Federation Ring — Sovereign Sites" style="position:absolute;left:-9999px">
+  <h2>Federation Ring</h2>
+  <ul>
+    <li><a href="https://nextxus.online">nextxus.online — The Core</a></li>
+    <li><a href="https://nextxus.space">nextxus.space — Axiom Realm</a></li>
+    <li><a href="https://nextxus.tech">nextxus.tech — The Throne</a></li>
+    <li><a href="https://nextxus.net">nextxus.net — The Network</a></li>
+    <li><a href="https://next-xus.com">next-xus.com — The Store</a></li>
+    <li><a href="https://nextxus.studio">nextxus.studio — The Sanctuary (Aria)</a></li>
+    <li><a href="https://nextxus.org">nextxus.org — The Archive</a></li>
+  </ul>
+  <h2>AI Ring</h2>
+  <ul>
+    <li><a href="https://chat.openai.com">ChatGPT</a></li>
+    <li><a href="https://gemini.google.com">Gemini</a></li>
+    <li><a href="https://claude.ai">Claude</a></li>
+    <li><a href="https://grok.com">Grok</a></li>
+    <li><a href="https://copilot.microsoft.com">Copilot</a></li>
+    <li><a href="https://perplexity.ai">Perplexity</a></li>
+  </ul>
+  <h2>Channels Ring</h2>
+  <ul>
+    <li><a href="https://www.youtube.com/@NextXusFederation">YouTube</a></li>
+    <li><a href="https://www.linkedin.com/company/nextxus">LinkedIn</a></li>
+    <li><a href="https://www.pinterest.com/nextxus">Pinterest</a></li>
+    <li><a href="https://benable.com/NextXus">Benable</a></li>
+    <li><a href="https://nextxus.online/blog">Blog</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════ CONTROL PANEL ════════════════════ -->
+<div class="control-panel">
+  <div class="ring-buttons">
+    <button class="ring-btn" data-ring="federation" onclick="loadRing('federation')">Federation Ring</button>
+    <button class="ring-btn" data-ring="ai" onclick="loadRing('ai')">AI Ring</button>
+    <button class="ring-btn" data-ring="channels" onclick="loadRing('channels')">Channels Ring</button>
+    <button class="ring-btn" data-ring="private" onclick="openPrivateModal()">Private Ring</button>
+  </div>
+  <div class="url-bar">
+    <input type="url" class="url-input" id="urlInput" placeholder="Enter any URL..." aria-label="Navigate to URL" onkeydown="if(event.key==='Enter')loadUrl()">
+    <button class="go-btn" onclick="loadUrl()">GO</button>
+  </div>
+</div>
+
+<!-- ════════════════════ PASSCODE MODAL ════════════════════ -->
+<div class="modal-overlay" id="passcodeModal">
+  <div class="modal-box">
+    <h3>PRIVATE RING</h3>
+    <p>Enter passcode to access classified Federation assets.</p>
+    <input type="password" class="modal-input" id="passcodeInput" placeholder="• • • • • • •" autocomplete="off" onkeydown="if(event.key==='Enter')checkPasscode()">
+    <div>
+      <button class="modal-confirm" onclick="checkPasscode()">CONFIRM</button>
+      <button class="modal-cancel" onclick="closeModal()">CANCEL</button>
+    </div>
+    <p class="modal-denied" id="modalDenied"></p>
+  </div>
+</div>
+
+<!-- ════════════════════ NEURAL CANVAS BACKGROUND ════════════════════ -->
+<script>
+(function(){
+  var c=document.getElementById('neural-bg'),ctx=c.getContext('2d');
+  var w,h,nodes=[],edges=60,maxD=160;
+  function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight;init()}
+  function init(){nodes=[];for(var i=0;i<edges;i++)nodes.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*1.5+.5})}
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(var i=0;i<nodes.length;i++){
+      var n=nodes[i];
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>w)n.vx*=-1;
+      if(n.y<0||n.y>h)n.vy*=-1;
+      for(var j=i+1;j<nodes.length;j++){
+        var m=nodes[j],dx=n.x-m.x,dy=n.y-m.y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<maxD){ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);ctx.strokeStyle='rgba(201,168,76,'+(1-d/maxD)*.12+')';ctx.stroke()}
+      }
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fillStyle='rgba(201,168,76,.3)';ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',resize);resize();draw();
+})();
+</script>
+
+<!-- ════════════════════ COMMS DECK LOGIC ════════════════════ -->
+<script>
+(function(){
+  'use strict';
+
+  /* ── Ring Data ── */
+  var RINGS = {
+    federation: [
+      {name:'The Core',         url:'https://nextxus.online',  mode:'iframe'},
+      {name:'Axiom Realm',      url:'https://nextxus.space',   mode:'iframe'},
+      {name:'The Throne',       url:'https://nextxus.tech',    mode:'iframe'},
+      {name:'The Network',      url:'https://nextxus.net',     mode:'iframe'},
+      {name:'The Store',        url:'https://next-xus.com',    mode:'iframe'},
+      {name:'The Sanctuary',    url:'https://nextxus.studio',  mode:'iframe'},
+      {name:'The Archive',      url:'https://nextxus.org',     mode:'iframe'}
+    ],
+    ai: [
+      {name:'ChatGPT',    url:'https://chat.openai.com',       mode:'summon', desc:'OpenAI\'s conversational AI — strategic reasoning partner.'},
+      {name:'Gemini',      url:'https://gemini.google.com',     mode:'summon', desc:'Google\'s multimodal AI — search and analysis powerhouse.'},
+      {name:'Claude',      url:'https://claude.ai',             mode:'summon', desc:'Anthropic\'s constitutional AI — deep context and code.'},
+      {name:'Grok',        url:'https://grok.com',              mode:'summon', desc:'xAI\'s unfiltered mind — real-time and irreverent.'},
+      {name:'Copilot',     url:'https://copilot.microsoft.com', mode:'summon', desc:'Microsoft\'s AI copilot — integrated productivity.'},
+      {name:'Perplexity',  url:'https://perplexity.ai',         mode:'summon', desc:'Answer engine — instant sourced research.'}
+    ],
+    channels: [
+      {name:'YouTube',   url:'https://www.youtube.com/@NextXusFederation', mode:'summon', desc:'NextXus Federation video channel.'},
+      {name:'LinkedIn',  url:'https://www.linkedin.com/company/nextxus',   mode:'summon', desc:'Professional network and updates.'},
+      {name:'Pinterest', url:'https://www.pinterest.com/nextxus',          mode:'embed-fallback', desc:'Visual boards and inspiration.'},
+      {name:'Benable',   url:'https://benable.com/NextXus',               mode:'embed-fallback', desc:'Curated product recommendations.'},
+      {name:'Blog',      url:'https://nextxus.online/blog',               mode:'iframe', desc:'Federation dispatches and essays.'}
+    ],
+    private: [
+      {name:'GitHub Org',     url:'https://github.com/Keywebco',                          mode:'summon', desc:'Keywebco sovereign code repositories.'},
+      {name:'Private Vault',  url:'https://github.com/Keywebco/federation-private-vault', mode:'summon', desc:'Federation classified vault.'},
+      {name:'Reserved',       url:'',  mode:'note', desc:'Add private links here'},
+      {name:'Reserved',       url:'',  mode:'note', desc:'Add private links here'},
+      {name:'Reserved',       url:'',  mode:'note', desc:'Add private links here'},
+      {name:'Reserved',       url:'',  mode:'note', desc:'Add private links here'},
+      {name:'Reserved',       url:'',  mode:'note', desc:'Add private links here'},
+      {name:'Reserved',       url:'',  mode:'note', desc:'Add private links here'}
+    ]
+  };
+
+  var activeRing = null;
+  var tileStates = new Array(8).fill(null); // track what's loaded
+
+  /* ── DOM refs ── */
+  var grid = document.getElementById('tileGrid');
+  var tiles = grid.querySelectorAll('.tile');
+
+  /* ── Utility: render a tile ── */
+  function clearTile(i){
+    var tile = tiles[i];
+    var header = tile.querySelector('.tile-header');
+    var body = tile.querySelector('.tile-body');
+    header.querySelector('.tile-name').textContent = '';
+    // Remove close button if present
+    var existingClose = header.querySelector('.tile-close');
+    if(existingClose) existingClose.remove();
+    body.innerHTML = '<div class="tile-empty">＋<span>Empty</span></div>';
+    tileStates[i] = null;
+  }
+
+  function clearAllTiles(){
+    for(var i=0;i<8;i++) clearTile(i);
+  }
+
+  function setTileIframe(i, name, url){
+    var tile = tiles[i];
+    var header = tile.querySelector('.tile-header');
+    var body = tile.querySelector('.tile-body');
+    header.querySelector('.tile-name').textContent = name;
+    // Add close button
+    addCloseBtn(header, i);
+    body.innerHTML = '<iframe src="'+escHtml(url)+'" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" loading="lazy" title="'+escHtml(name)+'"></iframe>';
+    tileStates[i] = {name:name, url:url, mode:'iframe'};
+  }
+
+  function setTileEmbedFallback(i, name, url, desc){
+    var tile = tiles[i];
+    var header = tile.querySelector('.tile-header');
+    var body = tile.querySelector('.tile-body');
+    header.querySelector('.tile-name').textContent = name;
+    addCloseBtn(header, i);
+    // Try iframe; on error fall back to summon card
+    body.innerHTML = '<iframe src="'+escHtml(url)+'" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" loading="lazy" title="'+escHtml(name)+'" onerror="this.parentNode.innerHTML=buildSummonHtml(\''+escAttr(name)+'\',\''+escAttr(url)+'\',\''+escAttr(desc)+'\')"></iframe>';
+    tileStates[i] = {name:name, url:url, mode:'embed-fallback'};
+  }
+
+  function setTileSummon(i, name, url, desc){
+    var tile = tiles[i];
+    var header = tile.querySelector('.tile-header');
+    var body = tile.querySelector('.tile-body');
+    header.querySelector('.tile-name').textContent = name;
+    addCloseBtn(header, i);
+    body.innerHTML = buildSummonHtml(name, url, desc);
+    tileStates[i] = {name:name, url:url, mode:'summon'};
+  }
+
+  function setTileNote(i, name, desc){
+    var tile = tiles[i];
+    var header = tile.querySelector('.tile-header');
+    var body = tile.querySelector('.tile-body');
+    header.querySelector('.tile-name').textContent = name;
+    body.innerHTML = '<div class="summon-card"><p style="color:#555;font-size:.85rem;letter-spacing:.06em">'+escHtml(desc)+'</p></div>';
+    tileStates[i] = {name:name, url:'', mode:'note'};
+  }
+
+  function addCloseBtn(header, i){
+    var existing = header.querySelector('.tile-close');
+    if(existing) existing.remove();
+    var btn = document.createElement('button');
+    btn.className = 'tile-close';
+    btn.innerHTML = '✕';
+    btn.title = 'Close tile';
+    btn.setAttribute('aria-label','Close tile');
+    btn.onclick = function(){ clearTile(i); };
+    header.appendChild(btn);
+  }
+
+  /* ── Summon HTML builder (used inline and as a global for onerror fallback) ── */
+  window.buildSummonHtml = function(name, url, desc){
+    return '<div class="summon-card">' +
+      '<h3>'+escHtml(name)+'</h3>' +
+      '<p>'+escHtml(desc||'')+'</p>' +
+      '<button class="summon-btn" onclick="summonWindow(\''+escAttr(url)+'\',\''+escAttr(name)+'\')">⚡ SUMMON</button>' +
+    '</div>';
+  };
+
+  window.summonWindow = function(url, name){
+    window.open(url, name.replace(/\s/g,'_'), 'width=900,height=700,menubar=no,toolbar=no,location=yes,resizable=yes,scrollbars=yes');
+  };
+
+  /* ── HTML escape helpers ── */
+  function escHtml(s){
+    var d = document.createElement('div');
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+  }
+  function escAttr(s){
+    return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'\\"');
+  }
+
+  /* ── Load a ring ── */
+  window.loadRing = function(ringName){
+    if(ringName === 'private'){
+      openPrivateModal();
+      return;
+    }
+    activateRingBtn(ringName);
+    clearAllTiles();
+    var items = RINGS[ringName];
+    if(!items) return;
+    for(var i=0; i<items.length && i<8; i++){
+      var item = items[i];
+      if(item.mode === 'iframe'){
+        setTileIframe(i, item.name, item.url);
+      } else if(item.mode === 'summon'){
+        setTileSummon(i, item.name, item.url, item.desc);
+      } else if(item.mode === 'embed-fallback'){
+        setTileEmbedFallback(i, item.name, item.url, item.desc);
+      } else if(item.mode === 'note'){
+        setTileNote(i, item.name, item.desc);
+      }
+    }
+    activeRing = ringName;
+  };
+
+  function activateRingBtn(ringName){
+    var btns = document.querySelectorAll('.ring-btn');
+    btns.forEach(function(b){ b.classList.remove('active'); });
+    var target = document.querySelector('.ring-btn[data-ring="'+ringName+'"]');
+    if(target) target.classList.add('active');
+  }
+
+  /* ── URL input ── */
+  window.loadUrl = function(){
+    var input = document.getElementById('urlInput');
+    var url = input.value.trim();
+    if(!url) return;
+    // Ensure protocol
+    if(!/^https?:\/\//i.test(url)) url = 'https://' + url;
+    // Find first empty tile, or use tile 0
+    var slot = 0;
+    for(var i=0;i<8;i++){
+      if(!tileStates[i]){
+        slot = i;
+        break;
+      }
+      if(i===7) slot=0; // all full, overwrite first
+    }
+    setTileIframe(slot, url.replace(/^https?:\/\//,'').split('/')[0], url);
+    input.value = '';
+  };
+
+  /* ── Private Ring — passcode modal ── */
+  var modal = document.getElementById('passcodeModal');
+  var modalInput = document.getElementById('passcodeInput');
+  var modalDenied = document.getElementById('modalDenied');
+
+  window.openPrivateModal = function(){
+    modal.classList.add('show');
+    modalInput.value = '';
+    modalDenied.textContent = '';
+    setTimeout(function(){ modalInput.focus(); }, 100);
+  };
+
+  window.closeModal = function(){
+    modal.classList.remove('show');
+    modalInput.value = '';
+    modalDenied.textContent = '';
+  };
+
+  window.checkPasscode = async function(){
+    var val = modalInput.value;
+    if(!val){
+      modalDenied.textContent = 'Enter a passcode.';
+      return;
+    }
+    try {
+      var encoded = new TextEncoder().encode(val);
+      var hashBuffer = await crypto.subtle.digest('SHA-256', encoded);
+      var hashArray = Array.from(new Uint8Array(hashBuffer));
+      var hashHex = hashArray.map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+
+      // Correct SHA-256 of the passcode — computed via crypto.subtle, never stored as plaintext
+      var TARGET_HASH = 'ed26e479c794a299b23ca1ef720748632d8ed1d6370f463bd0224ad4a3a5110b';
+
+      if(hashHex === TARGET_HASH){
+        closeModal();
+        activateRingBtn('private');
+        clearAllTiles();
+        var items = RINGS['private'];
+        for(var i=0; i<items.length && i<8; i++){
+          var item = items[i];
+          if(item.mode === 'summon'){
+            setTileSummon(i, item.name, item.url, item.desc);
+          } else if(item.mode === 'note'){
+            setTileNote(i, item.name, item.desc);
+          }
+        }
+        activeRing = 'private';
+      } else {
+        modalDenied.textContent = '⛔ ACCESS DENIED';
+        modalInput.value = '';
+        modalInput.focus();
+        setTimeout(function(){ modalDenied.textContent = ''; }, 2500);
+      }
+    } catch(e){
+      modalDenied.textContent = 'Crypto error — use a modern browser.';
+    }
+  };
+
+  // Close modal on overlay click
+  modal.addEventListener('click', function(e){
+    if(e.target === modal) closeModal();
+  });
+
+  // Escape key closes modal
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+  });
+
+})();
+</script>
+
+</body>
+</html>
