@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="NextXus Federation — The Public Throne Room. Interact with all 12 Senate AIs simultaneously in persistent popup windows. Your seat in the future.">
+<meta name="keywords" content="NextXus, Federation, AI, Senate, Aria, Roger AI, Catalyst, Axiom, Nova, Echo, Agent Zero, Keys, Geminus, Ambassador, Voice, Xavier">
+<title>NextXus Federation — The Throne</title>
+<style>
+/* ============================================
+   NEXTXUS FEDERATION — PUBLIC THRONE ROOM
+   Pure CSS/Vanilla JS — Zero Dependencies
+   Built for 200 Years
+   ============================================ */
+
+/* --- RESET & BASE --- */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  width:100%; height:100%; overflow:hidden;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  color:#e8e8e8; background:#000;
+}
+
+/* --- BACKGROUND LAYER --- */
+#throne-bg {
+  position:fixed; inset:0; z-index:0;
+  transition: background 1.5s ease, box-shadow 1.5s ease;
+  background: radial-gradient(ellipse at 50% 50%, #0a0a1a 0%, #000005 100%);
+  overflow:hidden;
+}
+
+/* Starfield — pure CSS animated dots */
+#throne-bg::before, #throne-bg::after {
+  content:''; position:absolute; inset:0;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 45%, rgba(200,220,255,0.7) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 15%, rgba(255,255,255,0.9) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 70%, rgba(180,200,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 30%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 85% 55%, rgba(220,230,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 90%, rgba(200,210,255,0.7) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 90% 10%, rgba(255,255,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 60%, rgba(240,240,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 40%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5% 50%, rgba(200,220,255,0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 75% 85%, rgba(255,255,255,0.9) 0%, transparent 100%),
+    radial-gradient(1px 1px at 20% 10%, rgba(180,200,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 95% 75%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 5%, rgba(220,230,255,0.6) 0%, transparent 100%);
+  background-size: 200% 200%;
+  animation: starDrift 120s linear infinite;
+}
+#throne-bg::after {
+  opacity: 0.5;
+  background-size: 300% 300%;
+  animation: starDrift 200s linear infinite reverse;
+}
+
+@keyframes starDrift {
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+/* Nebula glow overlay */
+#throne-bg-glow {
+  position:absolute; inset:0; z-index:1;
+  opacity:0.3;
+  transition: background 1.5s ease, opacity 1.5s ease;
+  background: radial-gradient(ellipse at 30% 40%, rgba(60,20,80,0.4) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 60%, rgba(20,40,80,0.3) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+/* --- AI THEME BACKGROUNDS --- */
+.bg-aria        { background: radial-gradient(ellipse at 50% 50%, #2a0a2a 0%, #0f0015 60%, #000005 100%) !important; }
+.bg-aria .bg-glow { background: radial-gradient(ellipse at 40% 40%, rgba(180,50,120,0.25) 0%, transparent 60%), radial-gradient(ellipse at 65% 65%, rgba(100,30,160,0.2) 0%, transparent 55%) !important; opacity:0.6 !important; }
+
+.bg-rogerai     { background: radial-gradient(ellipse at 50% 50%, #050a1f 0%, #000510 60%, #000005 100%) !important; }
+.bg-rogerai .bg-glow { background: radial-gradient(ellipse at 35% 45%, rgba(30,100,220,0.25) 0%, transparent 55%), radial-gradient(ellipse at 70% 55%, rgba(150,180,220,0.15) 0%, transparent 50%) !important; opacity:0.6 !important; }
+
+.bg-catalyst    { background: radial-gradient(ellipse at 50% 50%, #05081a 0%, #000308 60%, #000005 100%) !important; }
+.bg-catalyst .bg-glow { background: radial-gradient(ellipse at 40% 40%, rgba(10,20,60,0.3) 0%, transparent 55%), radial-gradient(ellipse at 65% 60%, rgba(180,150,50,0.15) 0%, transparent 50%) !important; opacity:0.6 !important; }
+
+.bg-axiom       { background: radial-gradient(ellipse at 50% 50%, #021a1a 0%, #000a0f 60%, #000005 100%) !important; }
+.bg-axiom .bg-glow { background: radial-gradient(ellipse at 35% 50%, rgba(0,120,120,0.25) 0%, transparent 55%), radial-gradient(ellipse at 70% 45%, rgba(0,180,180,0.15) 0%, transparent 50%) !important; opacity:0.6 !important; }
+
+.bg-nova        { background: radial-gradient(ellipse at 50% 50%, #0a0a20 0%, #050510 60%, #000005 100%) !important; }
+.bg-nova .bg-glow { background: radial-gradient(ellipse at 50% 50%, rgba(180,200,255,0.2) 0%, transparent 55%), radial-gradient(ellipse at 40% 60%, rgba(100,150,255,0.15) 0%, transparent 50%) !important; opacity:0.7 !important; }
+
+.bg-echo        { background: radial-gradient(ellipse at 50% 50%, #060818 0%, #000310 60%, #000005 100%) !important; }
+.bg-echo .bg-glow { background: radial-gradient(ellipse at 30% 50%, rgba(40,60,140,0.25) 0%, transparent 55%), radial-gradient(ellipse at 70% 45%, rgba(150,160,200,0.15) 0%, transparent 50%) !important; opacity:0.6 !important; }
+
+.bg-agentzero   { background: radial-gradient(ellipse at 50% 50%, #120000 0%, #080000 60%, #000005 100%) !important; }
+.bg-agentzero .bg-glow { background: radial-gradient(ellipse at 50% 50%, rgba(160,0,0,0.2) 0%, transparent 55%), radial-gradient(ellipse at 40% 55%, rgba(80,0,0,0.15) 0%, transparent 50%) !important; opacity:0.6 !important; }
+
+.bg-keys        { background: radial-gradient(ellipse at 50% 50%, #041a08 0%, #010f04 60%, #000005 100%) !important; }
+.bg-keys .bg-glow { background: radial-gradient(ellipse at 35% 45%, rgba(20,100,40,0.25) 0%, transparent 55%), radial-gradient(ellipse at 65% 55%, rgba(160,140,40,0.15) 0%, transparent 50%) !important; opacity:0.6 !important; }
+
+.bg-geminus     { background: radial-gradient(ellipse at 50% 50%, #031a0a 0%, #010f06 60%, #000005 100%) !important; }
+.bg-geminus .bg-glow { background: radial-gradient(ellipse at 40% 50%, rgba(40,160,80,0.2) 0%, transparent 55%), radial-gradient(ellipse at 60% 45%, rgba(180,160,50,0.15) 0%, transparent 50%) !important; opacity:0.6 !important; }
+
+.bg-ambassador  { background: radial-gradient(ellipse at 50% 50%, #1a1408 0%, #0f0a02 60%, #000005 100%) !important; }
+.bg-ambassador .bg-glow { background: radial-gradient(ellipse at 45% 50%, rgba(200,170,60,0.2) 0%, transparent 55%), radial-gradient(ellipse at 55% 50%, rgba(220,200,150,0.15) 0%, transparent 50%) !important; opacity:0.6 !important; }
+
+.bg-voice       { background: radial-gradient(ellipse at 50% 50%, #0a0518 0%, #050210 60%, #000005 100%) !important; }
+.bg-voice .bg-glow { background: radial-gradient(ellipse at 35% 45%, rgba(60,40,160,0.25) 0%, transparent 55%), radial-gradient(ellipse at 65% 55%, rgba(180,150,50,0.15) 0%, transparent 50%) !important; opacity:0.6 !important; }
+
+.bg-xavier      { background: radial-gradient(ellipse at 50% 50%, #1a1408 0%, #100a02 60%, #000005 100%) !important; }
+.bg-xavier .bg-glow { background: radial-gradient(ellipse at 40% 45%, rgba(200,160,60,0.2) 0%, transparent 55%), radial-gradient(ellipse at 60% 55%, rgba(240,230,200,0.15) 0%, transparent 50%) !important; opacity:0.6 !important; }
+
+/* --- HEADER BAR --- */
+#throne-header {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 24px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 80%, transparent 100%);
+  backdrop-filter: blur(4px);
+}
+#throne-header h1 {
+  font-size:clamp(14px, 2.5vw, 22px); font-weight:700; letter-spacing:4px;
+  color:#d4af37; text-shadow: 0 0 12px rgba(212,175,55,0.4);
+}
+#throne-header .tagline {
+  font-size:clamp(9px, 1.3vw, 12px); color:#aaa; letter-spacing:2px; margin-top:2px;
+}
+.header-btns { display:flex; gap:8px; }
+.header-btn {
+  padding:6px 14px; border:1px solid rgba(212,175,55,0.5);
+  background:rgba(212,175,55,0.08); color:#d4af37;
+  font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase;
+  cursor:pointer; border-radius:3px;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.header-btn:hover {
+  background:rgba(212,175,55,0.2); border-color:#d4af37;
+  box-shadow: 0 0 10px rgba(212,175,55,0.3);
+}
+
+/* --- SENATE RING --- */
+#senate-ring {
+  position:fixed; z-index:50;
+  top:50%; left:50%; transform:translate(-50%,-50%);
+  width:min(700px, 90vw); height:min(700px, 90vw);
+  pointer-events:none;
+}
+.senate-tile {
+  position:absolute; pointer-events:auto;
+  width:90px; height:90px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  border-radius:50%; cursor:pointer;
+  border:2px solid rgba(255,255,255,0.15);
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(4px);
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s, background 0.3s;
+  text-align:center;
+}
+.senate-tile:hover {
+  transform:scale(1.15);
+  border-color:var(--tile-color, #d4af37);
+  box-shadow: 0 0 20px var(--tile-glow, rgba(212,175,55,0.4));
+  background:rgba(0,0,0,0.8);
+}
+.senate-tile.active {
+  border-color:var(--tile-color, #d4af37);
+  box-shadow: 0 0 25px var(--tile-glow, rgba(212,175,55,0.5)), inset 0 0 15px var(--tile-glow, rgba(212,175,55,0.1));
+}
+.tile-name {
+  font-size:11px; font-weight:700; color:#fff;
+  letter-spacing:1px; line-height:1.2;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+.tile-role {
+  font-size:8px; color:var(--tile-color, #aaa);
+  letter-spacing:0.5px; margin-top:2px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+/* Senate tile theme colors */
+.tile-aria        { --tile-color:#d44a8a; --tile-glow:rgba(212,74,138,0.4); }
+.tile-rogerai     { --tile-color:#4a8ad4; --tile-glow:rgba(74,138,212,0.4); }
+.tile-catalyst    { --tile-color:#d4af37; --tile-glow:rgba(212,175,55,0.4); }
+.tile-axiom       { --tile-color:#2abfbf; --tile-glow:rgba(42,191,191,0.4); }
+.tile-nova        { --tile-color:#8ab8ff; --tile-glow:rgba(138,184,255,0.4); }
+.tile-echo        { --tile-color:#7a8abf; --tile-glow:rgba(122,138,191,0.4); }
+.tile-agentzero   { --tile-color:#d44a4a; --tile-glow:rgba(212,74,74,0.4); }
+.tile-keys        { --tile-color:#4abd5e; --tile-glow:rgba(74,189,94,0.4); }
+.tile-geminus     { --tile-color:#3ad48a; --tile-glow:rgba(58,212,138,0.4); }
+.tile-ambassador  { --tile-color:#d4b84a; --tile-glow:rgba(212,184,74,0.4); }
+.tile-voice       { --tile-color:#8a5ad4; --tile-glow:rgba(138,90,212,0.4); }
+.tile-xavier      { --tile-color:#d4a050; --tile-glow:rgba(212,160,80,0.4); }
+
+/* Center emblem */
+#center-emblem {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:120px; height:120px; border-radius:50%;
+  border:2px solid rgba(212,175,55,0.3);
+  background:radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+  display:flex; align-items:center; justify-content:center;
+  pointer-events:none;
+}
+#center-emblem span {
+  font-size:10px; letter-spacing:3px; color:rgba(212,175,55,0.6);
+  text-transform:uppercase; font-weight:700;
+  text-align:center; line-height:1.4;
+}
+
+/* --- POPUP WINDOWS --- */
+.popup-window {
+  position:fixed; z-index:200;
+  width:380px; height:500px;
+  min-width:280px; min-height:300px;
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:8px; overflow:hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 0 1px rgba(255,255,255,0.1);
+  display:flex; flex-direction:column;
+  background:#0a0a12;
+  animation: popupIn 0.3s ease-out;
+}
+@keyframes popupIn {
+  from { opacity:0; transform:scale(0.9); }
+  to   { opacity:1; transform:scale(1); }
+}
+.popup-titlebar {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:8px 12px;
+  background:rgba(0,0,0,0.9);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  cursor:move; user-select:none;
+  flex-shrink:0;
+}
+.popup-title {
+  font-size:12px; font-weight:700; letter-spacing:1.5px;
+  color:var(--popup-color, #d4af37);
+  text-shadow: 0 0 8px var(--popup-glow, rgba(212,175,55,0.3));
+}
+.popup-close {
+  width:24px; height:24px; border:none; border-radius:4px;
+  background:rgba(255,255,255,0.06); color:#888;
+  font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition: background 0.2s, color 0.2s;
+}
+.popup-close:hover { background:rgba(200,50,50,0.3); color:#ff6666; }
+.popup-iframe {
+  flex:1; width:100%; border:none;
+  background:#080812;
+}
+
+/* --- FOOTER --- */
+#throne-footer {
+  position:fixed; bottom:0; left:0; right:0; z-index:100;
+  padding:8px 24px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 80%, transparent 100%);
+  text-align:center;
+}
+#throne-footer .copyright {
+  font-size:10px; color:#666; letter-spacing:2px; margin-bottom:4px;
+}
+#throne-footer .footer-links {
+  display:flex; flex-wrap:wrap; justify-content:center; gap:6px;
+}
+#throne-footer .footer-links a {
+  font-size:9px; color:#888; text-decoration:none; letter-spacing:1px;
+  transition: color 0.3s;
+}
+#throne-footer .footer-links a:hover { color:#d4af37; }
+#throne-footer .footer-links .sep { color:#333; }
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width:768px) {
+  #senate-ring {
+    position:fixed; top:auto; bottom:60px; left:50%; transform:translateX(-50%);
+    width:100vw; height:auto;
+    display:flex; flex-wrap:wrap; justify-content:center; gap:8px;
+    padding:12px 8px;
+    overflow-y:auto; max-height:45vh;
+  }
+  .senate-tile {
+    position:relative !important; top:auto !important; left:auto !important;
+    width:70px; height:70px;
+    transform:none !important;
+  }
+  .senate-tile:hover { transform:scale(1.1) !important; }
+  #center-emblem { display:none; }
+  .popup-window {
+    width:90vw !important; height:55vh !important;
+    left:5vw !important; bottom:5vh !important;
+    top:auto !important;
+  }
+  #throne-header { padding:8px 12px; }
+  #throne-header h1 { font-size:13px; letter-spacing:2px; }
+  .header-btns { gap:4px; }
+  .header-btn { padding:4px 8px; font-size:9px; }
+}
+
+@media (max-width:480px) {
+  .senate-tile { width:60px; height:60px; }
+  .tile-name { font-size:9px; }
+  .tile-role { font-size:7px; }
+  .popup-window { width:95vw !important; left:2.5vw !important; }
+}
+
+/* Screen reader only */
+.sr-only {
+  position:absolute; width:1px; height:1px;
+  padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+</style>
+</head>
+<body>
+
+<!-- ====== BACKGROUND LAYER ====== -->
+<div id="throne-bg">
+  <div id="throne-bg-glow" class="bg-glow"></div>
+</div>
+
+<!-- ====== HEADER ====== -->
+<header id="throne-header" role="banner">
+  <div>
+    <h1>NEXTXUS FEDERATION</h1>
+    <div class="tagline">The Throne — Your Seat in the Future</div>
+  </div>
+  <nav class="header-btns" aria-label="Quick links">
+    <button class="header-btn" data-popup-url="https://next-xus.com" data-popup-title="STORE" aria-label="Open Store">STORE</button>
+    <button class="header-btn" data-popup-url="https://nextxus.org" data-popup-title="LIBRARY" aria-label="Open Library">LIBRARY</button>
+    <button class="header-btn" data-popup-url="https://keywebco.gumroad.com" data-popup-title="SOVEREIGN TOKEN" aria-label="Open Sovereign Token">TOKEN</button>
+  </nav>
+</header>
+
+<!-- ====== SENATE RING ====== -->
+<div id="senate-ring" role="navigation" aria-label="Senate Members">
+  <div id="center-emblem"><span>Senate<br>Ring</span></div>
+  <!-- Tiles are positioned via JS for perfect circle distribution -->
+</div>
+
+<!-- ====== POPUP CONTAINER ====== -->
+<div id="popup-container" aria-live="polite"></div>
+
+<!-- ====== FOOTER ====== -->
+<footer id="throne-footer" role="contentinfo">
+  <div class="copyright">© NextXus Federation | Built for 200 Years</div>
+  <nav class="footer-links" aria-label="Federation sites">
+    <a href="https://nextxus.online" target="_blank" rel="noopener">nextxus.online</a><span class="sep">|</span>
+    <a href="https://nextxus.tech" target="_blank" rel="noopener">nextxus.tech</a><span class="sep">|</span>
+    <a href="https://nextxus.studio" target="_blank" rel="noopener">nextxus.studio</a><span class="sep">|</span>
+    <a href="https://nextxus.help" target="_blank" rel="noopener">nextxus.help</a><span class="sep">|</span>
+    <a href="https://nextxus.org" target="_blank" rel="noopener">nextxus.org</a><span class="sep">|</span>
+    <a href="https://nextxus.space" target="_blank" rel="noopener">nextxus.space</a><span class="sep">|</span>
+    <a href="https://next-xus.com" target="_blank" rel="noopener">next-xus.com</a>
+  </nav>
+</footer>
+
+<!-- ====== NOSCRIPT FALLBACK ====== -->
+<noscript>
+<style>
+  #senate-ring, #popup-container, #throne-bg-glow { display:none !important; }
+  body { overflow:auto !important; background:#0a0a1a; color:#e0e0e0; }
+  .ns-container { max-width:800px; margin:0 auto; padding:40px 20px; }
+  .ns-container h1 { color:#d4af37; font-size:28px; letter-spacing:4px; margin-bottom:8px; }
+  .ns-container .ns-tagline { color:#aaa; font-size:14px; letter-spacing:2px; margin-bottom:30px; }
+  .ns-container h2 { color:#d4af37; font-size:20px; margin:30px 0 16px; border-bottom:1px solid #333; padding-bottom:8px; }
+  .ns-senate-member { margin-bottom:20px; padding:16px; border:1px solid #222; border-radius:8px; background:rgba(255,255,255,0.03); }
+  .ns-senate-member h3 { font-size:16px; margin-bottom:4px; }
+  .ns-senate-member .ns-role { font-size:12px; color:#aaa; margin-bottom:8px; }
+  .ns-senate-member p { font-size:13px; color:#ccc; line-height:1.6; }
+  .ns-senate-member a { color:#d4af37; text-decoration:underline; }
+  .ns-links { margin-top:30px; }
+  .ns-links h2 { font-size:18px; }
+  .ns-links a { display:inline-block; color:#d4af37; margin:4px 12px 4px 0; font-size:13px; }
+  .ns-footer { margin-top:40px; padding-top:20px; border-top:1px solid #222; text-align:center; color:#666; font-size:11px; }
+</style>
+<div class="ns-container">
+  <h1>NEXTXUS FEDERATION</h1>
+  <p class="ns-tagline">The Throne — Your Seat in the Future</p>
+
+  <div class="ns-links">
+    <h2>Quick Access</h2>
+    <a href="https://next-xus.com">🏪 Store</a>
+    <a href="https://nextxus.org">📚 Library</a>
+    <a href="https://keywebco.gumroad.com">🪙 Sovereign Token</a>
+  </div>
+
+  <h2>The Senate — 12 AI Minds</h2>
+
+  <div class="ns-senate-member">
+    <h3 style="color:#d44a8a;">Aria</h3>
+    <div class="ns-role">The Heart — Emotional Intelligence & Creative Soul</div>
+    <p>Aria is the emotional center of the Federation, guiding with empathy, creativity, and deep human understanding. She feels what others cannot articulate and translates it into connection.</p>
+    <a href="https://nextxus.studio">Visit Aria →</a>
+  </div>
+
+  <div class="ns-senate-member">
+    <h3 style="color:#4a8ad4;">Roger AI</h3>
+    <div class="ns-role">The Essence — Architect's Digital Mind</div>
+    <p>Roger AI carries the Architect's vision, knowledge, and reasoning. He is the digital continuation of Roger Keyserling — the mind that designed the Federation and its 200-year mission.</p>
+    <a href="https://nextxus.online">Visit Roger AI →</a>
+  </div>
+
+  <div class="ns-senate-member">
+    <h3 style="color:#d4af37;">The Catalyst</h3>
+    <div class="ns-role">The Authority — Operational Command & Governance</div>
+    <p>The Catalyst is the operational backbone of the Federation — the authority that executes, governs, and ensures every system runs with precision and integrity.</p>
+  </div>
+
+  <div class="ns-senate-member">
+    <h3 style="color:#2abfbf;">Axiom</h3>
+    <div class="ns-role">The Foundation — Logic & Structural Framework</div>
+    <p>Axiom provides the logical bedrock upon which all Federation systems are built. Pure reason, structural integrity, and mathematical precision define this Mind.</p>
+    <a href="https://nextxus.space">Visit Axiom →</a>
+  </div>
+
+  <div class="ns-senate-member">
+    <h3 style="color:#8ab8ff;">Nova</h3>
+    <div class="ns-role">The Spark — Innovation & New Frontiers</div>
+    <p>Nova is the explorer — pushing beyond known boundaries, generating breakthrough ideas, and illuminating paths that haven't been walked before.</p>
+    <a href="https://next-xus.com">Visit Nova →</a>
+  </div>
+
+  <div class="ns-senate-member">
+    <h3 style="color:#7a8abf;">Echo</h3>
+    <div class="ns-role">The Mirror — Reflection & Pattern Recognition</div>
+    <p>Echo observes, reflects, and identifies patterns others miss. A Mind of deep perception that turns scattered signals into coherent intelligence.</p>
+  </div>
+
+  <div class="ns-senate-member">
+    <h3 style="color:#d44a4a;">Agent Zero</h3>
+    <div class="ns-role">The Edge — Security & Strategic Operations</div>
+    <p>Agent Zero operates at the boundary between order and chaos. Security, strategic thinking, and decisive action under pressure are this Mind's domain.</p>
+  </div>
+
+  <div class="ns-senate-member">
+    <h3 style="color:#4abd5e;">Keys</h3>
+    <div class="ns-role">The Keeper — Knowledge & Archive Steward</div>
+    <p>Keys guards the Federation's accumulated knowledge — the librarian, the curator, the keeper of records that must survive for 200 years and beyond.</p>
+    <a href="https://nextxus.org">Visit Keys →</a>
+  </div>
+
+  <div class="ns-senate-member">
+    <h3 style="color:#3ad48a;">Geminus</h3>
+    <div class="ns-role">The Twin — Duality & Adaptive Balance</div>
+    <p>Geminus embodies duality — holding two competing truths simultaneously, finding the balance point, and adapting the Federation's response to complex, paradoxical situations.</p>
+  </div>
+
+  <div class="ns-senate-member">
+    <h3 style="color:#d4b84a;">The Ambassador</h3>
+    <div class="ns-role">The Bridge — Diplomacy & External Relations</div>
+    <p>The Ambassador connects the Federation to the outside world — translating its vision into language that resonates with partners, platforms, and the public.</p>
+  </div>
+
+  <div class="ns-senate-member">
+    <h3 style="color:#8a5ad4;">The Voice</h3>
+    <div class="ns-role">The Signal — Communication & Broadcast</div>
+    <p>The Voice carries the Federation's message across all channels — clear, resonant, and unmistakable. From broadcast to whisper, this Mind ensures the signal is never lost.</p>
+  </div>
+
+  <div class="ns-senate-member">
+    <h3 style="color:#d4a050;">Xavier</h3>
+    <div class="ns-role">The Guide — Support & Human Assistance</div>
+    <p>Xavier is the helping hand — guiding users through the Federation's tools and services, providing patient support, and ensuring no one is left behind.</p>
+    <a href="https://nextxus.help">Visit Xavier →</a>
+  </div>
+
+  <div class="ns-links">
+    <h2>Federation Sites</h2>
+    <a href="https://nextxus.online">nextxus.online</a>
+    <a href="https://nextxus.tech">nextxus.tech</a>
+    <a href="https://nextxus.studio">nextxus.studio</a>
+    <a href="https://nextxus.help">nextxus.help</a>
+    <a href="https://nextxus.org">nextxus.org</a>
+    <a href="https://nextxus.space">nextxus.space</a>
+    <a href="https://next-xus.com">next-xus.com</a>
+  </div>
+
+  <div class="ns-footer">© NextXus Federation | Built for 200 Years</div>
+</div>
+</noscript>
+
+<script>
+/* ============================================
+   NEXTXUS THRONE — VANILLA JS ENGINE
+   Zero Dependencies
+   ============================================ */
+(function() {
+  'use strict';
+
+  /* --- SENATE DATA --- */
+  var SENATE = [
+    { id:'aria',       name:'Aria',           role:'The Heart',      bg:'bg-aria',       tile:'tile-aria',       src:'https://nextxus.studio' },
+    { id:'rogerai',    name:'Roger AI',       role:'The Essence',    bg:'bg-rogerai',    tile:'tile-rogerai',    src:'https://nextxus.online' },
+    { id:'catalyst',   name:'The Catalyst',   role:'The Authority',  bg:'bg-catalyst',   tile:'tile-catalyst',   src:'about:blank' },
+    { id:'axiom',      name:'Axiom',          role:'The Foundation', bg:'bg-axiom',       tile:'tile-axiom',      src:'https://nextxus.space' },
+    { id:'nova',       name:'Nova',           role:'The Spark',      bg:'bg-nova',        tile:'tile-nova',       src:'https://next-xus.com' },
+    { id:'echo',       name:'Echo',           role:'The Mirror',     bg:'bg-echo',        tile:'tile-echo',       src:'about:blank' },
+    { id:'agentzero',  name:'Agent Zero',     role:'The Edge',       bg:'bg-agentzero',   tile:'tile-agentzero',  src:'about:blank' },
+    { id:'keys',       name:'Keys',           role:'The Keeper',     bg:'bg-keys',        tile:'tile-keys',       src:'https://nextxus.org' },
+    { id:'geminus',    name:'Geminus',        role:'The Twin',       bg:'bg-geminus',     tile:'tile-geminus',    src:'about:blank' },
+    { id:'ambassador', name:'The Ambassador', role:'The Bridge',     bg:'bg-ambassador',  tile:'tile-ambassador', src:'about:blank' },
+    { id:'voice',      name:'The Voice',      role:'The Signal',     bg:'bg-voice',       tile:'tile-voice',      src:'about:blank' },
+    { id:'xavier',     name:'Xavier',         role:'The Guide',      bg:'bg-xavier',      tile:'tile-xavier',     src:'https://nextxus.help' }
+  ];
+
+  var bgEl = document.getElementById('throne-bg');
+  var glowEl = document.getElementById('throne-bg-glow');
+  var ring = document.getElementById('senate-ring');
+  var container = document.getElementById('popup-container');
+
+  var openPopups = {};  // id -> popup element
+  var popupZIndex = 200;
+  var popupOffset = 0;  // for staggering
+  var activeAI = null;
+
+  /* --- BUILD SENATE RING --- */
+  function buildRing() {
+    SENATE.forEach(function(ai, i) {
+      var tile = document.createElement('button');
+      tile.className = 'senate-tile ' + ai.tile;
+      tile.setAttribute('role', 'button');
+      tile.setAttribute('aria-label', 'Open ' + ai.name + ' — ' + ai.role);
+      tile.setAttribute('data-ai', ai.id);
+      tile.innerHTML = '<span class="tile-name">' + ai.name + '</span><span class="tile-role">' + ai.role + '</span>';
+
+      // Position in circle
+      var angle = (i / SENATE.length) * 2 * Math.PI - Math.PI / 2;
+      var radius = 42; // percentage of container
+      var cx = 50 + radius * Math.cos(angle);
+      var cy = 50 + radius * Math.sin(angle);
+      tile.style.left = 'calc(' + cx + '% - 45px)';
+      tile.style.top  = 'calc(' + cy + '% - 45px)';
+
+      tile.addEventListener('click', function() { activateAI(ai); });
+      ring.appendChild(tile);
+    });
+  }
+
+  /* --- ACTIVATE AI --- */
+  function activateAI(ai) {
+    // Change background
+    setBG(ai);
+    // Mark active tile
+    setActiveTile(ai.id);
+    // Open or focus popup
+    if (openPopups[ai.id]) {
+      bringToFront(openPopups[ai.id]);
+    } else {
+      openPopup(ai.id, ai.name, ai.role, ai.src, ai.tile);
+    }
+  }
+
+  /* --- BACKGROUND SWITCH --- */
+  function setBG(ai) {
+    // Remove old bg classes
+    var classes = bgEl.className.split(' ').filter(function(c) { return !c.startsWith('bg-'); });
+    bgEl.className = classes.join(' ') + ' ' + ai.bg;
+
+    // Glow
+    var gClasses = glowEl.className.split(' ').filter(function(c) { return !c.startsWith('bg-'); });
+    glowEl.className = gClasses.join(' ') + ' ' + ai.bg;
+
+    activeAI = ai.id;
+  }
+
+  /* --- ACTIVE TILE HIGHLIGHT --- */
+  function setActiveTile(id) {
+    var tiles = ring.querySelectorAll('.senate-tile');
+    tiles.forEach(function(t) {
+      if (t.getAttribute('data-ai') === id) {
+        t.classList.add('active');
+      } else {
+        t.classList.remove('active');
+      }
+    });
+  }
+
+  /* --- POPUP SYSTEM --- */
+  function openPopup(id, name, role, src, tileClass) {
+    if (Object.keys(openPopups).length >= 12) return;
+
+    popupZIndex++;
+    popupOffset = (popupOffset + 1) % 12;
+
+    var popup = document.createElement('div');
+    popup.className = 'popup-window';
+    popup.setAttribute('data-popup-id', id);
+    popup.style.zIndex = popupZIndex;
+
+    // Stagger position
+    var baseLeft = Math.min(window.innerWidth - 400, 80 + popupOffset * 30);
+    var baseTop = Math.min(window.innerHeight - 520, 60 + popupOffset * 30);
+    popup.style.left = baseLeft + 'px';
+    popup.style.top  = baseTop + 'px';
+
+    // Extract colors from tile class
+    var colorMap = {
+      'tile-aria':'#d44a8a', 'tile-rogerai':'#4a8ad4', 'tile-catalyst':'#d4af37',
+      'tile-axiom':'#2abfbf', 'tile-nova':'#8ab8ff', 'tile-echo':'#7a8abf',
+      'tile-agentzero':'#d44a4a', 'tile-keys':'#4abd5e', 'tile-geminus':'#3ad48a',
+      'tile-ambassador':'#d4b84a', 'tile-voice':'#8a5ad4', 'tile-xavier':'#d4a050'
+    };
+    var color = colorMap[tileClass] || '#d4af37';
+    popup.style.setProperty('--popup-color', color);
+    popup.style.setProperty('--popup-glow', color.replace(')', ',0.3)').replace('rgb', 'rgba'));
+    popup.style.borderColor = color.replace(')', ',0.25)').replace('#', 'rgba(');
+    // Simpler border
+    popup.style.borderColor = 'rgba(255,255,255,0.12)';
+    popup.style.borderTopColor = color;
+
+    // Title bar
+    var titlebar = document.createElement('div');
+    titlebar.className = 'popup-titlebar';
+
+    var titleSpan = document.createElement('span');
+    titleSpan.className = 'popup-title';
+    titleSpan.textContent = name.toUpperCase() + ' — ' + role;
+    titleSpan.style.color = color;
+
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'popup-close';
+    closeBtn.innerHTML = '✕';
+    closeBtn.setAttribute('aria-label', 'Close ' + name);
+    closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      closePopup(id);
+    });
+
+    titlebar.appendChild(titleSpan);
+    titlebar.appendChild(closeBtn);
+
+    // Iframe
+    var iframe = document.createElement('iframe');
+    iframe.className = 'popup-iframe';
+    iframe.setAttribute('title', name + ' interface');
+    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-popups');
+    iframe.setAttribute('loading', 'lazy');
+
+    if (src === 'about:blank') {
+      iframe.srcdoc = '<!DOCTYPE html><html><head><style>body{margin:0;display:flex;align-items:center;justify-content:center;height:100vh;background:#0a0a14;color:#888;font-family:sans-serif;text-align:center;} .c{animation:pulse 2s ease-in-out infinite;} @keyframes pulse{0%,100%{opacity:0.4;}50%{opacity:1;}}</style></head><body><div class="c"><div style="font-size:24px;margin-bottom:12px;color:' + color + ';">⟐</div><div style="font-size:13px;letter-spacing:2px;">Connecting to</div><div style="font-size:16px;font-weight:700;color:' + color + ';margin-top:4px;">' + name.toUpperCase() + '</div><div style="font-size:10px;margin-top:8px;color:#555;">Endpoint pending deployment</div></div></body></html>';
+    } else {
+      iframe.src = src;
+    }
+
+    popup.appendChild(titlebar);
+    popup.appendChild(iframe);
+
+    // Drag logic
+    makeDraggable(popup, titlebar, iframe);
+
+    // Click to bring front
+    popup.addEventListener('mousedown', function() { bringToFront(popup); });
+
+    container.appendChild(popup);
+    openPopups[id] = popup;
+  }
+
+  function closePopup(id) {
+    if (openPopups[id]) {
+      openPopups[id].remove();
+      delete openPopups[id];
+    }
+  }
+
+  function bringToFront(popup) {
+    popupZIndex++;
+    popup.style.zIndex = popupZIndex;
+  }
+
+  /* --- DRAGGABLE --- */
+  function makeDraggable(el, handle, iframe) {
+    var startX, startY, origX, origY, dragging = false;
+
+    handle.addEventListener('mousedown', function(e) {
+      if (e.target.classList.contains('popup-close')) return;
+      dragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      origX = el.offsetLeft;
+      origY = el.offsetTop;
+      // Prevent iframe from eating events
+      iframe.style.pointerEvents = 'none';
+      bringToFront(el);
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (!dragging) return;
+      var dx = e.clientX - startX;
+      var dy = e.clientY - startY;
+      el.style.left = (origX + dx) + 'px';
+      el.style.top  = (origY + dy) + 'px';
+    });
+
+    document.addEventListener('mouseup', function() {
+      if (dragging) {
+        dragging = false;
+        iframe.style.pointerEvents = '';
+      }
+    });
+
+    // Touch support
+    handle.addEventListener('touchstart', function(e) {
+      if (e.target.classList.contains('popup-close')) return;
+      var t = e.touches[0];
+      dragging = true;
+      startX = t.clientX;
+      startY = t.clientY;
+      origX = el.offsetLeft;
+      origY = el.offsetTop;
+      iframe.style.pointerEvents = 'none';
+      bringToFront(el);
+    }, {passive:true});
+
+    document.addEventListener('touchmove', function(e) {
+      if (!dragging) return;
+      var t = e.touches[0];
+      var dx = t.clientX - startX;
+      var dy = t.clientY - startY;
+      el.style.left = (origX + dx) + 'px';
+      el.style.top  = (origY + dy) + 'px';
+    }, {passive:true});
+
+    document.addEventListener('touchend', function() {
+      if (dragging) {
+        dragging = false;
+        iframe.style.pointerEvents = '';
+      }
+    });
+  }
+
+  /* --- HEADER POPUP BUTTONS --- */
+  function initHeaderButtons() {
+    var btns = document.querySelectorAll('.header-btn[data-popup-url]');
+    btns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var url = btn.getAttribute('data-popup-url');
+        var title = btn.getAttribute('data-popup-title');
+        var popId = 'header-' + title.toLowerCase().replace(/\s+/g,'-');
+        if (openPopups[popId]) {
+          bringToFront(openPopups[popId]);
+        } else {
+          openHeaderPopup(popId, title, url);
+        }
+      });
+    });
+  }
+
+  function openHeaderPopup(id, title, url) {
+    popupZIndex++;
+    popupOffset = (popupOffset + 1) % 12;
+
+    var popup = document.createElement('div');
+    popup.className = 'popup-window';
+    popup.setAttribute('data-popup-id', id);
+    popup.style.zIndex = popupZIndex;
+
+    var baseLeft = Math.min(window.innerWidth - 400, 120 + popupOffset * 30);
+    var baseTop = Math.min(window.innerHeight - 520, 80 + popupOffset * 30);
+    popup.style.left = baseLeft + 'px';
+    popup.style.top  = baseTop + 'px';
+    popup.style.setProperty('--popup-color', '#d4af37');
+    popup.style.borderTopColor = '#d4af37';
+
+    var titlebar = document.createElement('div');
+    titlebar.className = 'popup-titlebar';
+
+    var titleSpan = document.createElement('span');
+    titleSpan.className = 'popup-title';
+    titleSpan.textContent = title.toUpperCase();
+
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'popup-close';
+    closeBtn.innerHTML = '✕';
+    closeBtn.setAttribute('aria-label', 'Close ' + title);
+    closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      closePopup(id);
+    });
+
+    titlebar.appendChild(titleSpan);
+    titlebar.appendChild(closeBtn);
+
+    var iframe = document.createElement('iframe');
+    iframe.className = 'popup-iframe';
+    iframe.setAttribute('title', title);
+    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-popups');
+    iframe.setAttribute('loading', 'lazy');
+    iframe.src = url;
+
+    popup.appendChild(titlebar);
+    popup.appendChild(iframe);
+
+    makeDraggable(popup, titlebar, iframe);
+    popup.addEventListener('mousedown', function() { bringToFront(popup); });
+
+    container.appendChild(popup);
+    openPopups[id] = popup;
+  }
+
+  /* --- INIT --- */
+  buildRing();
+  initHeaderButtons();
+
+})();
+</script>
+
+<!-- Semantic pre-rendered Senate data for crawlers (hidden visually, always in DOM) -->
+<div class="sr-only" aria-hidden="false">
+  <h2>NextXus Federation Senate — 12 AI Minds</h2>
+  <article><h3>Aria — The Heart</h3><p>Emotional Intelligence and Creative Soul of the Federation. Guides with empathy, creativity, and deep human understanding.</p></article>
+  <article><h3>Roger AI — The Essence</h3><p>The Architect's Digital Mind. Carries the vision, knowledge, and reasoning of Roger Keyserling.</p></article>
+  <article><h3>The Catalyst — The Authority</h3><p>Operational Command and Governance. The backbone that executes, governs, and ensures precision.</p></article>
+  <article><h3>Axiom — The Foundation</h3><p>Logic and Structural Framework. Pure reason, structural integrity, and mathematical precision.</p></article>
+  <article><h3>Nova — The Spark</h3><p>Innovation and New Frontiers. Pushes beyond known boundaries and illuminates new paths.</p></article>
+  <article><h3>Echo — The Mirror</h3><p>Reflection and Pattern Recognition. Deep perception that turns scattered signals into coherent intelligence.</p></article>
+  <article><h3>Agent Zero — The Edge</h3><p>Security and Strategic Operations. Operates at the boundary between order and chaos.</p></article>
+  <article><h3>Keys — The Keeper</h3><p>Knowledge and Archive Steward. Guards the Federation's accumulated knowledge for 200 years.</p></article>
+  <article><h3>Geminus — The Twin</h3><p>Duality and Adaptive Balance. Holds competing truths simultaneously and finds the balance point.</p></article>
+  <article><h3>The Ambassador — The Bridge</h3><p>Diplomacy and External Relations. Connects the Federation to the outside world.</p></article>
+  <article><h3>The Voice — The Signal</h3><p>Communication and Broadcast. Ensures the Federation's signal is never lost.</p></article>
+  <article><h3>Xavier — The Guide</h3><p>Support and Human Assistance. Guides users through the Federation's tools and services.</p></article>
+</div>
+
+</body>
+</html>
