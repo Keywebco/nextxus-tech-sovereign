@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Roger C. Keyserling — Architect of the NextXus Federation. Independent researcher, publisher under HumanCodex. Heir to a lineage that built foundational American institutions." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Roger C. Keyserling" />
+  <meta property="og:title" content="Roger C. Keyserling — HumanCodex / NextXus Federation" />
+  <meta property="og:description" content="Architect of the NextXus Federation — a sovereign 200-year AI and knowledge infrastructure built on truth verification. Truth Before Comfort. Legacy Before Ego. Give Without Reward." />
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://nextxus.tech/roger.html" />
+  <title>Roger C. Keyserling — HumanCodex / NextXus Federation</title>
+  <style>
+/* ── RESET ─────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ── TOKENS ─────────────────────────────────────────────────────────── */
+:root{
+  --bg:         #080808;
+  --bg2:        #0f0f0f;
+  --bg3:        #141414;
+  --bg4:        #1a1508;
+  --bdr:        #252525;
+  --bdr2:       #3a2a09;
+  --bdr3:       #5a3e10;
+  --gold:       #c9922a;
+  --gold-lt:    #e8b84b;
+  --gold-dim:   #6b4d15;
+  --gold-pale:  #3a2a09;
+  --gold-glow:  rgba(201,146,42,0.18);
+  --tx:         #ede8d8;
+  --tx2:        #a89e80;
+  --tx3:        #6a6050;
+  --tx4:        #3a3025;
+  --green:      #4a9a6a;
+  --green-dim:  #1a4a2a;
+  --amber:      #d4a520;
+  --amber-dim:  #3a2a09;
+  --red-dim:    #5a1a0a;
+}
+
+/* ── BASE ────────────────────────────────────────────────────────────── */
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  line-height:1.65;min-height:100vh}
+
+/* ── SKIP LINK ───────────────────────────────────────────────────────── */
+.skip{position:absolute;left:-9999px;top:0;z-index:9999;
+  background:var(--gold);color:#000;padding:8px 16px;
+  font-weight:700;text-decoration:none}
+.skip:focus{left:0}
+
+/* ── SEARCH BAR ──────────────────────────────────────────────────────── */
+#search-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(8,8,8,0.97);
+  border-bottom:1px solid var(--bdr);
+  padding:.65rem 1.25rem;
+  display:flex;align-items:center;gap:.75rem;
+  backdrop-filter:blur(6px);
+}
+#search-bar label{
+  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold-dim);white-space:nowrap;flex-shrink:0
+}
+#search-input{
+  flex:1;background:var(--bg3);
+  border:1px solid var(--bdr);border-radius:3px;
+  color:var(--tx);padding:.45rem .75rem;
+  font-size:.9rem;font-family:inherit;
+  outline:none;transition:border-color .15s;
+  max-width:440px;
+}
+#search-input:focus{border-color:var(--gold-dim)}
+#search-input::placeholder{color:var(--tx3)}
+#search-count{
+  font-size:.72rem;color:var(--tx3);
+  white-space:nowrap;flex-shrink:0
+}
+.noscript-msg{
+  background:var(--bg3);border:1px solid var(--bdr);
+  color:var(--tx3);font-size:.78rem;
+  padding:.4rem .75rem;border-radius:3px;
+  text-align:center;
+}
+
+/* ── STARFIELD ANIMATION ─────────────────────────────────────────────── */
+@keyframes star-drift{
+  from{transform:translateY(0)}
+  to{transform:translateY(-2000px)}
+}
+@keyframes star-drift-m{
+  from{transform:translateY(0)}
+  to{transform:translateY(-2000px)}
+}
+@keyframes star-drift-l{
+  from{transform:translateY(0)}
+  to{transform:translateY(-2000px)}
+}
+
+/* ── HERO ANIMATIONS ─────────────────────────────────────────────────── */
+@keyframes name-glow{
+  0%,100%{text-shadow:0 0 12px rgba(201,146,42,.4),0 0 30px rgba(201,146,42,.15)}
+  50%{text-shadow:0 0 24px rgba(232,184,75,.85),0 0 55px rgba(201,146,42,.35),0 0 80px rgba(201,146,42,.12)}
+}
+@keyframes hero-border{
+  0%,100%{border-bottom-color:var(--gold-dim)}
+  50%{border-bottom-color:var(--gold)}
+}
+@keyframes fadein{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ── HERO SECTION ────────────────────────────────────────────────────── */
+#hero{
+  position:relative;overflow:hidden;
+  min-height:92vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:5rem 1.5rem 4rem;
+  border-bottom:2px solid var(--gold-dim);
+  animation:hero-border 5s ease-in-out infinite;
+  background:radial-gradient(ellipse at 50% 60%, rgba(201,146,42,.06) 0%, transparent 70%);
+}
+
+/* star elements */
+#s1,#s2,#sg{
+  position:absolute;top:0;left:0;
+  width:1px;height:1px;border-radius:50%;
+  pointer-events:none;
+}
+#s1{
+  box-shadow:1310px 229px #fff,1310px 2229px #fff,52px 1519px #fff,52px 3519px #fff,564px 502px #fff,564px 2502px #fff,458px 286px #fff,458px 2286px #fff,1509px 210px #fff,1509px 2210px #fff,1386px 1517px #fff,1386px 3517px #fff,1828px 1117px #fff,1828px 3117px #fff,179px 1210px #fff,179px 3210px #fff,865px 66px #fff,865px 2066px #fff,62px 192px #fff,62px 2192px #fff,448px 477px #fff,448px 2477px #fff,1035px 1233px #fff,1035px 3233px #fff,55px 1150px #fff,55px 3150px #fff,408px 1467px #fff,408px 3467px #fff,1331px 1437px #fff,1331px 3437px #fff,1117px 860px #fff,1117px 2860px #fff,452px 920px #fff,452px 2920px #fff,1207px 570px #fff,1207px 2570px #fff,1658px 1781px #fff,1658px 3781px #fff,14px 1555px #fff,14px 3555px #fff,1651px 327px #fff,1651px 2327px #fff,1430px 866px #fff,1430px 2866px #fff,697px 570px #fff,697px 2570px #fff,319px 441px #fff,319px 2441px #fff,1961px 1564px #fff,1961px 3564px #fff,690px 210px #fff,690px 2210px #fff,190px 779px #fff,190px 2779px #fff,199px 736px #fff,199px 2736px #fff,1736px 705px #fff,1736px 2705px #fff,1237px 542px #fff,1237px 2542px #fff,1653px 89px #fff,1653px 2089px #fff,1495px 941px #fff,1495px 2941px #fff,1099px 256px #fff,1099px 2256px #fff,1993px 1889px #fff,1993px 3889px #fff,776px 162px #fff,776px 2162px #fff,1131px 601px #fff,1131px 2601px #fff,1699px 1288px #fff,1699px 3288px #fff,1267px 1814px #fff,1267px 3814px #fff,1765px 741px #fff,1765px 2741px #fff,1183px 394px #fff,1183px 2394px #fff,1443px 143px #fff,1443px 2143px #fff,94px 1355px #fff,94px 3355px #fff,467px 1584px #fff,467px 3584px #fff,593px 164px #fff,593px 2164px #fff,1752px 477px #fff,1752px 2477px #fff,1775px 207px #fff,1775px 2207px #fff,779px 570px #fff,779px 2570px #fff,929px 1302px #fff,929px 3302px #fff,1709px 748px #fff,1709px 2748px #fff,334px 759px #fff,334px 2759px #fff,728px 430px #fff,728px 2430px #fff,1373px 547px #fff,1373px 2547px #fff,1438px 1919px #fff,1438px 3919px #fff,1400px 1328px #fff,1400px 3328px #fff,147px 1248px #fff,147px 3248px #fff,1301px 351px #fff,1301px 2351px #fff,1094px 1494px #fff,1094px 3494px #fff,502px 335px #fff,502px 2335px #fff,947px 778px #fff,947px 2778px #fff,553px 1896px #fff,553px 3896px #fff,1311px 1410px #fff,1311px 3410px #fff,1141px 450px #fff,1141px 2450px #fff,1403px 665px #fff,1403px 2665px #fff,1727px 1574px #fff,1727px 3574px #fff,1590px 115px #fff,1590px 2115px #fff,470px 1684px #fff,470px 3684px #fff,66px 1649px #fff,66px 3649px #fff,647px 822px #fff,647px 2822px #fff,549px 136px #fff,549px 2136px #fff,433px 1871px #fff,433px 3871px #fff,1932px 1162px #fff,1932px 3162px #fff,1795px 1471px #fff,1795px 3471px #fff,645px 436px #fff,645px 2436px #fff,1343px 1023px #fff,1343px 3023px #fff,811px 1812px #fff,811px 3812px #fff,1873px 1317px #fff,1873px 3317px #fff,940px 293px #fff,940px 2293px #fff,543px 286px #fff,543px 2286px #fff,506px 1526px #fff,506px 3526px #fff,1150px 1104px #fff,1150px 3104px #fff,539px 1530px #fff,539px 3530px #fff,1198px 878px #fff,1198px 2878px #fff,1839px 1196px #fff,1839px 3196px #fff,818px 742px #fff,818px 2742px #fff,450px 284px #fff,450px 2284px #fff,1044px 1011px #fff,1044px 3011px #fff,187px 1548px #fff,187px 3548px #fff,97px 1764px #fff,97px 3764px #fff,225px 314px #fff,225px 2314px #fff,1286px 328px #fff,1286px 2328px #fff,1623px 1394px #fff,1623px 3394px #fff,865px 1222px #fff,865px 3222px #fff,131px 789px #fff,131px 2789px #fff,782px 1221px #fff,782px 3221px #fff,959px 1084px #fff,959px 3084px #fff,515px 1989px #fff,515px 3989px #fff,1134px 1763px #fff,1134px 3763px #fff,1931px 24px #fff,1931px 2024px #fff,1394px 1477px #fff,1394px 3477px #fff,235px 1397px #fff,235px 3397px #fff,1813px 1100px #fff,1813px 3100px #fff,1538px 547px #fff,1538px 2547px #fff,1575px 1313px #fff,1575px 3313px #fff,697px 229px #fff,697px 2229px #fff,602px 891px #fff,602px 2891px #fff,324px 930px #fff,324px 2930px #fff,7px 1954px #fff,7px 3954px #fff,1479px 1794px #fff,1479px 3794px #fff,1474px 540px #fff,1474px 2540px #fff,1991px 1026px #fff,1991px 3026px #fff,1561px 366px #fff,1561px 2366px #fff,1040px 1870px #fff,1040px 3870px #fff,218px 1783px #fff,218px 3783px #fff,1281px 612px #fff,1281px 2612px #fff,1724px 1309px #fff,1724px 3309px #fff,1040px 1248px #fff,1040px 3248px #fff,408px 314px #fff,408px 2314px #fff,766px 1562px #fff,766px 3562px #fff,331px 1105px #fff,331px 3105px #fff,1953px 1595px #fff,1953px 3595px #fff;
+  animation:star-drift 65s linear infinite;
+}
+#s2{
+  width:2px;height:2px;
+  box-shadow:1890px 1087px #fff,1890px 3087px #fff,1882px 2px #fff,1882px 2002px #fff,1227px 664px #fff,1227px 2664px #fff,1001px 40px #fff,1001px 2040px #fff,230px 1903px #fff,230px 3903px #fff,744px 1800px #fff,744px 3800px #fff,1704px 1653px #fff,1704px 3653px #fff,630px 491px #fff,630px 2491px #fff,119px 494px #fff,119px 2494px #fff,1799px 1162px #fff,1799px 3162px #fff,1940px 162px #fff,1940px 2162px #fff,176px 1499px #fff,176px 3499px #fff,996px 1672px #fff,996px 3672px #fff,142px 1558px #fff,142px 3558px #fff,1091px 1569px #fff,1091px 3569px #fff,258px 263px #fff,258px 2263px #fff,1352px 974px #fff,1352px 2974px #fff,1940px 1126px #fff,1940px 3126px #fff,339px 543px #fff,339px 2543px #fff,1081px 1787px #fff,1081px 3787px #fff,1243px 867px #fff,1243px 2867px #fff,1976px 434px #fff,1976px 2434px #fff,1903px 1105px #fff,1903px 3105px #fff,1547px 1495px #fff,1547px 3495px #fff,1413px 412px #fff,1413px 2412px #fff,1461px 639px #fff,1461px 2639px #fff,818px 1376px #fff,818px 3376px #fff,1331px 765px #fff,1331px 2765px #fff,898px 1843px #fff,898px 3843px #fff,1060px 925px #fff,1060px 2925px #fff,248px 508px #fff,248px 2508px #fff,461px 132px #fff,461px 2132px #fff,693px 44px #fff,693px 2044px #fff,1205px 1135px #fff,1205px 3135px #fff,472px 1206px #fff,472px 3206px #fff,452px 15px #fff,452px 2015px #fff,146px 1450px #fff,146px 3450px #fff,1293px 121px #fff,1293px 2121px #fff,469px 139px #fff,469px 2139px #fff,1855px 65px #fff,1855px 2065px #fff,1761px 677px #fff,1761px 2677px #fff,146px 1053px #fff,146px 3053px #fff,488px 571px #fff,488px 2571px #fff,1371px 995px #fff,1371px 2995px #fff,439px 1105px #fff,439px 3105px #fff,271px 1482px #fff,271px 3482px #fff,1916px 1808px #fff,1916px 3808px #fff,1170px 1181px #fff,1170px 3181px #fff,969px 498px #fff,969px 2498px #fff,1607px 969px #fff,1607px 2969px #fff,1654px 834px #fff,1654px 2834px #fff,390px 194px #fff,390px 2194px #fff,199px 1350px #fff,199px 3350px #fff,883px 726px #fff,883px 2726px #fff,868px 842px #fff,868px 2842px #fff,957px 1770px #fff,957px 3770px #fff,1494px 111px #fff,1494px 2111px #fff,1380px 1339px #fff,1380px 3339px #fff,1324px 202px #fff,1324px 2202px #fff,125px 825px #fff,125px 2825px #fff,1492px 695px #fff,1492px 2695px #fff,1640px 1765px #fff,1640px 3765px #fff,224px 510px #fff,224px 2510px #fff,393px 390px #fff,393px 2390px #fff,1099px 919px #fff,1099px 2919px #fff;
+  animation:star-drift-m 110s linear infinite;
+}
+#sg{
+  width:3px;height:3px;
+  box-shadow:828px 780px rgba(232,184,75,0.8),828px 2780px rgba(232,184,75,0.8),410px 1228px rgba(232,184,75,0.8),410px 3228px rgba(232,184,75,0.8),367px 472px rgba(232,184,75,0.8),367px 2472px rgba(232,184,75,0.8),509px 273px rgba(232,184,75,0.8),509px 2273px rgba(232,184,75,0.8),1557px 178px rgba(232,184,75,0.8),1557px 2178px rgba(232,184,75,0.8),515px 1494px rgba(232,184,75,0.8),515px 3494px rgba(232,184,75,0.8),785px 1088px rgba(232,184,75,0.8),785px 3088px rgba(232,184,75,0.8),1402px 1435px rgba(232,184,75,0.8),1402px 3435px rgba(232,184,75,0.8),1104px 184px rgba(232,184,75,0.8),1104px 2184px rgba(232,184,75,0.8),1922px 1278px rgba(232,184,75,0.8),1922px 3278px rgba(232,184,75,0.8),1003px 409px rgba(232,184,75,0.8),1003px 2409px rgba(232,184,75,0.8),864px 1480px rgba(232,184,75,0.8),864px 3480px rgba(232,184,75,0.8),1256px 1206px rgba(232,184,75,0.8),1256px 3206px rgba(232,184,75,0.8),444px 1624px rgba(232,184,75,0.8),444px 3624px rgba(232,184,75,0.8),1848px 1615px rgba(232,184,75,0.8),1848px 3615px rgba(232,184,75,0.8),766px 1685px rgba(232,184,75,0.8),766px 3685px rgba(232,184,75,0.8),795px 1765px rgba(232,184,75,0.8),795px 3765px rgba(232,184,75,0.8),1398px 436px rgba(232,184,75,0.8),1398px 2436px rgba(232,184,75,0.8),312px 946px rgba(232,184,75,0.8),312px 2946px rgba(232,184,75,0.8),1353px 367px rgba(232,184,75,0.8),1353px 2367px rgba(232,184,75,0.8);
+  animation:star-drift-l 160s linear infinite;
+}
+
+/* hero content */
+.hero-inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
+.hero-eye{
+  display:block;font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold-dim);margin-bottom:.75rem;
+  animation:fadein .8s ease-out both;
+}
+h1{
+  font-family:'Georgia','Times New Roman',serif;
+  font-size:clamp(2.4rem,7vw,4rem);
+  font-weight:700;color:var(--gold-lt);line-height:1.1;
+  animation:name-glow 5s ease-in-out infinite, fadein .8s .1s ease-out both;
+}
+.hero-sub{
+  margin-top:.75rem;
+  font-size:clamp(.95rem,2.8vw,1.2rem);
+  color:var(--tx2);letter-spacing:.04em;
+  animation:fadein .8s .2s ease-out both;
+}
+.hero-tagline{
+  margin-top:1.5rem;
+  font-family:'Georgia','Times New Roman',serif;
+  font-size:clamp(.88rem,2.5vw,1.05rem);
+  font-style:italic;color:var(--gold-dim);
+  line-height:1.6;
+  animation:fadein .8s .3s ease-out both;
+}
+.hero-nav{
+  margin-top:2.25rem;
+  display:flex;flex-wrap:wrap;gap:.6rem;
+  justify-content:center;
+  animation:fadein .8s .4s ease-out both;
+}
+.hero-nav a{
+  display:inline-block;
+  padding:.42rem 1.1rem;
+  border:1px solid var(--gold-dim);border-radius:2px;
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-dim);text-decoration:none;
+  transition:border-color .15s,color .15s,background .15s;
+}
+.hero-nav a:hover,
+.hero-nav a:focus{
+  border-color:var(--gold-lt);color:var(--gold-lt);
+  background:rgba(201,146,42,.07);outline:none
+}
+
+/* ── MAIN CONTENT ────────────────────────────────────────────────────── */
+main{max-width:800px;margin:0 auto;padding:2.5rem 1rem 5rem}
+
+/* ── SECTION ─────────────────────────────────────────────────────────── */
+section{margin-bottom:3.5rem}
+h2{
+  font-family:'Georgia','Times New Roman',serif;
+  font-size:clamp(.9rem,2.8vw,1.15rem);
+  font-weight:700;color:var(--gold);
+  letter-spacing:.12em;text-transform:uppercase;
+  padding-bottom:.5rem;
+  border-bottom:1px solid var(--bdr);
+  margin-bottom:1.25rem;
+}
+h2::before{content:'⬡ ';color:var(--gold-dim);font-size:.8em}
+h3{
+  font-family:'Georgia','Times New Roman',serif;
+  font-size:clamp(.82rem,2.2vw,.95rem);
+  color:var(--gold-dim);letter-spacing:.1em;
+  text-transform:uppercase;
+  margin:.9rem 0 .4rem;
+  font-weight:600;
+}
+h3:first-child{margin-top:0}
+
+/* ── ABOUT ───────────────────────────────────────────────────────────── */
+.about-body{
+  display:grid;gap:1.25rem;
+}
+@media(min-width:580px){
+  .about-body{grid-template-columns:3fr 2fr}
+}
+.about-bio{
+  font-size:.95rem;color:var(--tx);line-height:1.75;
+}
+.about-bio p+p{margin-top:.85rem}
+.lineage-box{
+  background:var(--bg3);border:1px solid var(--bdr);
+  border-left:3px solid var(--gold-dim);
+  border-radius:4px;padding:1rem 1.1rem;
+  font-size:.8rem;color:var(--tx2);
+}
+.lineage-box .lb-title{
+  display:block;font-size:.65rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold-dim);
+  margin-bottom:.6rem;
+}
+.lineage-box ul{list-style:none;}
+.lineage-box li{
+  padding:.3rem 0;
+  border-bottom:1px solid var(--bdr);
+  line-height:1.45;
+}
+.lineage-box li:last-child{border-bottom:none}
+.lineage-box li::before{content:'◈ ';color:var(--gold-pale)}
+
+/* ── STANDARD LINK CARD ──────────────────────────────────────────────── */
+ul.cards{list-style:none}
+ul.cards li{margin-bottom:.5rem}
+a.lc{
+  display:flex;align-items:center;gap:.7rem;
+  background:var(--bg3);
+  border:1px solid var(--bdr);
+  border-left:3px solid var(--gold-dim);
+  border-radius:4px;padding:.85rem 1rem;
+  text-decoration:none;color:var(--tx);
+  transition:background .13s,border-left-color .13s,color .13s;
+}
+a.lc:hover,a.lc:focus{
+  background:var(--bg4);border-left-color:var(--gold-lt);
+  color:var(--gold-lt);outline:none
+}
+a.lc:focus-visible{outline:2px solid var(--gold-lt);outline-offset:2px}
+.lc .ic{flex-shrink:0;width:1.5rem;text-align:center;color:var(--gold-dim);font-size:1rem;line-height:1}
+.lc .lt{flex:1}
+.lc .lt-t{display:block;font-weight:600;font-size:.93rem;line-height:1.3}
+.lc .lt-d{display:block;font-size:.76rem;color:var(--tx3);margin-top:.12rem}
+.badge{
+  flex-shrink:0;font-size:.62rem;padding:.13rem .46rem;
+  border-radius:2px;border:1px solid var(--gold-dim);
+  color:var(--gold-dim);letter-spacing:.05em;
+  text-transform:uppercase;white-space:nowrap;
+}
+.badge.feat{border-color:var(--gold);color:var(--gold);background:rgba(201,146,42,.09)}
+.badge.live{border-color:var(--green);color:var(--green);background:rgba(74,154,106,.07)}
+
+/* ── REPO GRID ───────────────────────────────────────────────────────── */
+.repo-grid{display:grid;gap:.42rem}
+@media(min-width:480px){.repo-grid{grid-template-columns:1fr 1fr}}
+a.repo-card{
+  display:flex;align-items:center;gap:.5rem;
+  background:var(--bg2);
+  border:1px solid var(--bdr);border-left:3px solid var(--gold-pale);
+  border-radius:3px;padding:.5rem .8rem;
+  text-decoration:none;color:var(--tx2);font-size:.8rem;
+  transition:background .13s,border-left-color .13s,color .13s;
+}
+a.repo-card:hover,a.repo-card:focus{
+  background:var(--bg4);border-left-color:var(--gold);
+  color:var(--gold-lt);outline:none
+}
+a.repo-card span.ri{color:var(--gold-pale);font-size:.72rem;flex-shrink:0}
+
+/* ── PRODUCT GRID ────────────────────────────────────────────────────── */
+.product-grid{
+  display:grid;gap:.75rem;
+}
+@media(min-width:480px){.product-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:700px){.product-grid{grid-template-columns:1fr 1fr 1fr}}
+
+.product-card{
+  background:var(--bg3);border:1px solid var(--bdr);
+  border-radius:5px;padding:1rem 1.1rem 1.1rem;
+  display:flex;flex-direction:column;gap:.5rem;
+  transition:border-color .15s,background .15s;
+}
+.product-card:hover{background:var(--bg4);border-color:var(--bdr3)}
+.product-name{
+  font-family:'Georgia','Times New Roman',serif;
+  font-weight:700;font-size:.9rem;color:var(--tx);line-height:1.35;
+}
+.product-desc{
+  font-size:.76rem;color:var(--tx3);line-height:1.5;flex:1;
+}
+.product-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:.3rem;gap:.5rem;
+}
+.price{
+  font-family:'Georgia','Times New Roman',serif;
+  font-weight:700;font-size:1rem;color:var(--gold-lt);
+}
+.price.tier-low{color:#6adf9a}
+.price.tier-mid{color:var(--gold-lt)}
+.price.tier-high{color:#e8a04b}
+a.buy-btn{
+  display:inline-block;padding:.3rem .75rem;
+  border:1px solid var(--gold-dim);border-radius:2px;
+  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold-dim);text-decoration:none;
+  transition:border-color .13s,color .13s,background .13s;
+  white-space:nowrap;
+}
+a.buy-btn:hover,a.buy-btn:focus{
+  border-color:var(--gold-lt);color:var(--gold-lt);
+  background:rgba(201,146,42,.08);outline:none
+}
+.store-all{
+  margin-top:1rem;text-align:center;
+}
+.store-all a{
+  display:inline-block;padding:.5rem 1.5rem;
+  background:rgba(201,146,42,.1);
+  border:1px solid var(--gold);border-radius:3px;
+  color:var(--gold-lt);text-decoration:none;font-size:.85rem;
+  font-weight:600;letter-spacing:.06em;
+  transition:background .15s,color .15s;
+}
+.store-all a:hover{background:rgba(201,146,42,.2);color:var(--gold-lt)}
+
+/* ── PLATFORM LABEL ──────────────────────────────────────────────────── */
+.plat{
+  display:block;font-size:.62rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--tx4);
+  margin:.95rem 0 .4rem;
+}
+.plat:first-child{margin-top:0}
+
+/* ── FOOTER ──────────────────────────────────────────────────────────── */
+footer{
+  text-align:center;padding:2.5rem 1.5rem 3rem;
+  border-top:1px solid var(--bdr);background:var(--bg2);
+}
+.f-creed{
+  font-family:'Georgia','Times New Roman',serif;
+  font-size:clamp(.85rem,2.5vw,1rem);
+  color:var(--tx2);font-style:italic;
+  line-height:1.8;max-width:560px;
+  margin:0 auto .75rem;
+}
+.f-rule{
+  display:block;width:3rem;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);
+  margin:.85rem auto;
+}
+.f-copy{font-size:.72rem;color:var(--tx3);letter-spacing:.05em}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+@media(min-width:520px){
+  main{padding:3rem 1.5rem 6rem}
+  a.lc{padding:1rem 1.2rem}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+}
+  </style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to main content</a>
+
+<!-- ══════ SEARCH BAR ══════ -->
+<div id="search-bar" role="search">
+  <label for="search-input">Search</label>
+  <input id="search-input" type="search" placeholder="Filter links — type a name, URL, or keyword…" autocomplete="off" spellcheck="false" aria-label="Filter all links on this page" />
+  <span id="search-count" aria-live="polite"></span>
+</div>
+<noscript>
+  <p class="noscript-msg">Search requires JavaScript — all links are accessible below without it.</p>
+</noscript>
+
+<!-- ══════ HERO ══════ -->
+<header id="hero" aria-label="Roger C. Keyserling — Hero">
+  <span id="s1" aria-hidden="true"></span>
+  <span id="s2" aria-hidden="true"></span>
+  <span id="sg" aria-hidden="true"></span>
+  <div class="hero-inner">
+    <span class="hero-eye">NextXus Federation — Official Profile</span>
+    <h1>Roger C. Keyserling</h1>
+    <p class="hero-sub">Architect &nbsp;·&nbsp; HumanCodex &nbsp;·&nbsp; NextXus Federation</p>
+    <p class="hero-tagline">
+      "Truth Before Comfort.<br />
+      Legacy Before Ego.<br />
+      Give Without Reward."
+    </p>
+    <nav class="hero-nav" aria-label="Page sections">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#federation">Federation</a>
+      <a href="#repos">Repositories</a>
+      <a href="#store">Store</a>
+      <a href="#connect">Connect</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ══════ ABOUT ══════ -->
+  <section id="about" aria-labelledby="s-about">
+    <h2 id="s-about">About</h2>
+    <div class="about-body">
+      <div class="about-bio">
+        <p>Roger C. Keyserling is an independent researcher and architect of the <strong>NextXus Federation</strong> — a sovereign, 200-year AI and knowledge infrastructure built on truth verification, logical process, and human-machine collaboration. He publishes original research and frameworks under the <strong>HumanCodex</strong> label.</p>
+        <p>His work spans artificial intelligence architecture, quantum cognition theory, socioeconomic modeling, and the long-term governance of knowledge systems. The Federation is designed to operate and evolve independently — a living infrastructure meant to outlast its founder and serve generations yet to come.</p>
+        <p>A former eBay innovator and lifelong independent builder, Roger approaches every system as an architect first: mapping the long view, testing truth before comfort, and designing for resilience over convenience. His personal charter — <em>Truth Before Comfort, Legacy Before Ego, Give Without Reward</em> — is the structural foundation of everything the Federation builds.</p>
+      </div>
+      <div class="lineage-box">
+        <span class="lb-title">Lineage &amp; Foundation</span>
+        <ul>
+          <li><strong>Leon Keyserling</strong> — architect of the U.S. Social Security system</li>
+          <li>Grandfather — Head, U.S. Army Corps of Engineers; built interstate highway system, Truman Reservoir, major U.S. infrastructure</li>
+          <li>Family fed hundreds during the Great Depression at personal cost via sorghum production</li>
+          <li>Holds a <strong>Royal Crest</strong> adapted as personal heraldry</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ RESEARCH & PUBLISHING ══════ -->
+  <section id="research" aria-labelledby="s-research">
+    <h2 id="s-research">Research &amp; Publishing — HumanCodex</h2>
+    <ul class="cards">
+      <li class="searchable" data-search="academia humancodex research roger keyserling papers independent publishing">
+        <a class="lc" href="https://independent.academia.edu/RogerKeyserling" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◧</span>
+          <span class="lt">
+            <span class="lt-t">Academia.edu — Roger C. Keyserling</span>
+            <span class="lt-d">HumanCodex research papers, essays &amp; published academic works — independent.academia.edu/RogerKeyserling</span>
+          </span>
+          <span class="badge">HumanCodex</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ══════ THE FEDERATION ══════ -->
+  <section id="federation" aria-labelledby="s-fed">
+    <h2 id="s-fed">The Federation — Sovereign Sites</h2>
+    <ul class="cards">
+      <li class="searchable" data-search="nextxus tech throne senate nova ai core portal federation site">
+        <a class="lc" href="https://nextxus.tech" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◈</span>
+          <span class="lt">
+            <span class="lt-t">NextXus Core Portal — Throne / Senate / Nova AI</span>
+            <span class="lt-d">nextxus.tech — Admin Throne, Senate Council &amp; Nova AI node</span>
+          </span>
+          <span class="badge feat">Core</span>
+        </a>
+      </li>
+      <li class="searchable" data-search="nextxus online cathedral core truth knowledge base federation site">
+        <a class="lc" href="https://nextxus.online" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◈</span>
+          <span class="lt">
+            <span class="lt-t">Cathedral / Core Truth</span>
+            <span class="lt-d">nextxus.online — Single source of truth for all Federation content</span>
+          </span>
+          <span class="badge feat">Truth</span>
+        </a>
+      </li>
+      <li class="searchable" data-search="nextxus org archive mirror library federation site">
+        <a class="lc" href="https://nextxus.org" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◈</span>
+          <span class="lt">
+            <span class="lt-t">Archive / Library</span>
+            <span class="lt-d">nextxus.org — Living Library, sovereign archive &amp; mirror node</span>
+          </span>
+          <span class="badge">Archive</span>
+        </a>
+      </li>
+      <li class="searchable" data-search="nextxus studio aria sanctuary sims ai creative federation site">
+        <a class="lc" href="https://nextxus.studio" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◈</span>
+          <span class="lt">
+            <span class="lt-t">Aria's Sanctuary / SIMs AI</span>
+            <span class="lt-d">nextxus.studio — Creative studio, Aria AI &amp; SIMs simulation node</span>
+          </span>
+          <span class="badge">Studio</span>
+        </a>
+      </li>
+      <li class="searchable" data-search="nextxus help university support documentation federation site">
+        <a class="lc" href="https://nextxus.help" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◈</span>
+          <span class="lt">
+            <span class="lt-t">University</span>
+            <span class="lt-d">nextxus.help — Federation University, support &amp; documentation</span>
+          </span>
+          <span class="badge">Help</span>
+        </a>
+      </li>
+      <li class="searchable" data-search="nextxus space axiom advanced research evolution lab federation site">
+        <a class="lc" href="https://nextxus.space" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◈</span>
+          <span class="lt">
+            <span class="lt-t">Axiom Advanced Research &amp; Evolution</span>
+            <span class="lt-d">nextxus.space — Axiom research node &amp; evolution laboratory</span>
+          </span>
+          <span class="badge">Research</span>
+        </a>
+      </li>
+      <li class="searchable" data-search="next-xus store storefront federation commerce products">
+        <a class="lc" href="https://next-xus.com" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◉</span>
+          <span class="lt">
+            <span class="lt-t">Federation Storefront</span>
+            <span class="lt-d">next-xus.com — Primary Federation commerce &amp; product portal</span>
+          </span>
+          <span class="badge feat">Store</span>
+        </a>
+      </li>
+      <li class="searchable" data-search="agent zero live node github pages autonomous keywebco">
+        <a class="lc" href="https://keywebco.github.io/nextxus-agent-zero/" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">⬡</span>
+          <span class="lt">
+            <span class="lt-t">Agent Zero — Live Autonomous Node</span>
+            <span class="lt-d">keywebco.github.io/nextxus-agent-zero — Active autonomous agent endpoint</span>
+          </span>
+          <span class="badge live">Live</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ══════ GITHUB REPOSITORIES ══════ -->
+  <section id="repos" aria-labelledby="s-repos">
+    <h2 id="s-repos">Source Repositories</h2>
+    <div class="repo-grid" role="list">
+      <div role="listitem" class="searchable" data-search="github repo nextxus tech sovereign keywebco">
+        <a class="repo-card" href="https://github.com/Keywebco/nextxus-tech-sovereign" target="_blank" rel="noopener noreferrer">
+          <span class="ri" aria-hidden="true">⑂</span>nextxus-tech-sovereign
+        </a>
+      </div>
+      <div role="listitem" class="searchable" data-search="github repo nextxus staging keywebco">
+        <a class="repo-card" href="https://github.com/Keywebco/nextxus-staging" target="_blank" rel="noopener noreferrer">
+          <span class="ri" aria-hidden="true">⑂</span>nextxus-staging
+        </a>
+      </div>
+      <div role="listitem" class="searchable" data-search="github repo nextxus online sovereign keywebco">
+        <a class="repo-card" href="https://github.com/Keywebco/nextxus-online-sovereign" target="_blank" rel="noopener noreferrer">
+          <span class="ri" aria-hidden="true">⑂</span>nextxus-online-sovereign
+        </a>
+      </div>
+      <div role="listitem" class="searchable" data-search="github repo nextxus org sovereign keywebco">
+        <a class="repo-card" href="https://github.com/Keywebco/nextxus-org-sovereign" target="_blank" rel="noopener noreferrer">
+          <span class="ri" aria-hidden="true">⑂</span>nextxus-org-sovereign
+        </a>
+      </div>
+      <div role="listitem" class="searchable" data-search="github repo nextxus studio sovereign keywebco">
+        <a class="repo-card" href="https://github.com/Keywebco/nextxus-studio-sovereign" target="_blank" rel="noopener noreferrer">
+          <span class="ri" aria-hidden="true">⑂</span>nextxus-studio-sovereign
+        </a>
+      </div>
+      <div role="listitem" class="searchable" data-search="github repo nextxus help sovereign keywebco">
+        <a class="repo-card" href="https://github.com/Keywebco/nextxus-help-sovereign" target="_blank" rel="noopener noreferrer">
+          <span class="ri" aria-hidden="true">⑂</span>nextxus-help-sovereign
+        </a>
+      </div>
+      <div role="listitem" class="searchable" data-search="github repo nextxus space sovereign keywebco">
+        <a class="repo-card" href="https://github.com/Keywebco/nextxus-space-sovereign" target="_blank" rel="noopener noreferrer">
+          <span class="ri" aria-hidden="true">⑂</span>nextxus-space-sovereign
+        </a>
+      </div>
+      <div role="listitem" class="searchable" data-search="github repo nextxus emmy board keywebco">
+        <a class="repo-card" href="https://github.com/Keywebco/nextxus-emmy-board" target="_blank" rel="noopener noreferrer">
+          <span class="ri" aria-hidden="true">⑂</span>nextxus-emmy-board
+        </a>
+      </div>
+      <div role="listitem" class="searchable" data-search="github repo nextxus unified storefront keywebco">
+        <a class="repo-card" href="https://github.com/Keywebco/nextxus-unified-storefront" target="_blank" rel="noopener noreferrer">
+          <span class="ri" aria-hidden="true">⑂</span>nextxus-unified-storefront
+        </a>
+      </div>
+      <div role="listitem" class="searchable" data-search="github repo nextxus agent zero keywebco">
+        <a class="repo-card" href="https://github.com/Keywebco/nextxus-agent-zero" target="_blank" rel="noopener noreferrer">
+          <span class="ri" aria-hidden="true">⑂</span>nextxus-agent-zero
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ STORE & PRODUCTS ══════ -->
+  <section id="store" aria-labelledby="s-store">
+    <h2 id="s-store">Store &amp; Products</h2>
+    <div class="product-grid">
+
+      <article class="searchable" data-search="nextxus token $5 sovereign cash no subscription gumroad store product">
+        <div class="product-card">
+          <p class="product-name">1 NextXus Token</p>
+          <p class="product-desc">Works like cash. Redeemable in the Federation ecosystem. Never expires. No subscriptions. No tracking.</p>
+          <div class="product-footer">
+            <span class="price tier-low">$5</span>
+            <a class="buy-btn" href="https://keywebster.gumroad.com/l/mimet" target="_blank" rel="noopener noreferrer">Get →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="searchable" data-search="nextxus verification token $9 identity credential gumroad store product">
+        <div class="product-card">
+          <p class="product-name">NextXus Verification Token</p>
+          <p class="product-desc">Digital identity credential verified within the NextXus sovereignty network. Proof of legitimate standing.</p>
+          <div class="product-footer">
+            <span class="price tier-low">$9</span>
+            <a class="buy-btn" href="https://keywebster.gumroad.com/l/mpihoy" target="_blank" rel="noopener noreferrer">Get →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="searchable" data-search="nextxus sim engine general $49 ai simulation gumroad store product">
+        <div class="product-card">
+          <p class="product-name">NextXus SIM Engine: General</p>
+          <p class="product-desc">Core AI simulation engine. Build, run, and direct autonomous AI personas within the Federation framework.</p>
+          <div class="product-footer">
+            <span class="price tier-mid">$49</span>
+            <a class="buy-btn" href="https://keywebster.gumroad.com/l/pindmd" target="_blank" rel="noopener noreferrer">Get →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="searchable" data-search="nextxus sim engine midgo specialist $149 ai simulation gumroad store product">
+        <div class="product-card">
+          <p class="product-name">NextXus SIM Engine: Midgo Specialist</p>
+          <p class="product-desc">Specialist-grade AI simulation. Advanced behavioral AI for complex scenario modeling and role analysis.</p>
+          <div class="product-footer">
+            <span class="price tier-mid">$149</span>
+            <a class="buy-btn" href="https://keywebster.gumroad.com/l/fmref" target="_blank" rel="noopener noreferrer">Get →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="searchable" data-search="nextxus sim engine legacy core $499 ai sovereign gumroad store product">
+        <div class="product-card">
+          <p class="product-name">NextXus SIM Engine: Legacy Core</p>
+          <p class="product-desc">Full sovereign AI legacy system. The complete SIM architecture for Federation-level deployments and long-term operation.</p>
+          <div class="product-footer">
+            <span class="price tier-high">$499</span>
+            <a class="buy-btn" href="https://keywebster.gumroad.com/l/macgch" target="_blank" rel="noopener noreferrer">Get →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="searchable" data-search="certified data analyst python sql $349 certification gumroad store product">
+        <div class="product-card">
+          <p class="product-name">Certified Data Analyst — Python &amp; SQL</p>
+          <p class="product-desc">Professional certification. Python, SQL, data pipeline design, and analytical frameworks from first principles.</p>
+          <div class="product-footer">
+            <span class="price tier-high">$349</span>
+            <a class="buy-btn" href="https://keywebster.gumroad.com/l/nlqsj" target="_blank" rel="noopener noreferrer">Get →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="searchable" data-search="project management professional pmp $299 certification gumroad store product">
+        <div class="product-card">
+          <p class="product-name">Project Management Professional — PMP</p>
+          <p class="product-desc">PMP certification preparation. Project lifecycle, stakeholder management, risk modeling, and delivery frameworks.</p>
+          <div class="product-footer">
+            <span class="price tier-high">$299</span>
+            <a class="buy-btn" href="https://keywebster.gumroad.com/l/vjblsj" target="_blank" rel="noopener noreferrer">Get →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="searchable" data-search="self-growing ai systems $459 recursive autonomous gumroad store product">
+        <div class="product-card">
+          <p class="product-name">Self-Growing AI Systems</p>
+          <p class="product-desc">Design AI that learns and evolves autonomously. Advanced recursive improvement architectures and adaptive logic.</p>
+          <div class="product-footer">
+            <span class="price tier-high">$459</span>
+            <a class="buy-btn" href="https://keywebster.gumroad.com/l/ihcht" target="_blank" rel="noopener noreferrer">Get →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="searchable" data-search="advanced federation ai systems $399 multi-node sovereign gumroad store product">
+        <div class="product-card">
+          <p class="product-name">Advanced Federation AI Systems</p>
+          <p class="product-desc">Complete Federation AI architecture. Multi-node systems, sovereign communication protocols, and AI governance.</p>
+          <div class="product-footer">
+            <span class="price tier-high">$399</span>
+            <a class="buy-btn" href="https://keywebster.gumroad.com/l/yifuu" target="_blank" rel="noopener noreferrer">Get →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="searchable" data-search="all classes certification workshops bundle $100 gumroad store product">
+        <div class="product-card">
+          <p class="product-name">All Classes — Certification &amp; Workshops</p>
+          <p class="product-desc">Full access bundle. Every certification, class, and workshop in the NextXus catalog in one package.</p>
+          <div class="product-footer">
+            <span class="price tier-mid">$100</span>
+            <a class="buy-btn" href="https://keywebster.gumroad.com/l/yktzpa" target="_blank" rel="noopener noreferrer">Get →</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <div class="store-all">
+      <a class="searchable" href="https://keywebster.gumroad.com" target="_blank" rel="noopener noreferrer" data-search="gumroad full store all products keywebster">
+        View Full Store — keywebster.gumroad.com →
+      </a>
+    </div>
+  </section>
+
+  <!-- ══════ SOCIAL & CONNECT ══════ -->
+  <section id="connect" aria-labelledby="s-connect">
+    <h2 id="s-connect">Social &amp; Connect</h2>
+
+    <span class="plat" aria-label="Platform: Email">Email</span>
+    <ul class="cards">
+      <li class="searchable" data-search="email contact keywebco gmail roger keyserling">
+        <a class="lc" href="mailto:keywebco@gmail.com">
+          <span class="ic" aria-hidden="true">✉</span>
+          <span class="lt">
+            <span class="lt-t">keywebco@gmail.com</span>
+            <span class="lt-d">Primary contact for Roger C. Keyserling / NextXus Federation</span>
+          </span>
+          <span class="badge feat">Email</span>
+        </a>
+      </li>
+    </ul>
+
+    <span class="plat" aria-label="Platform: YouTube">YouTube</span>
+    <ul class="cards">
+      <li class="searchable" data-search="youtube keyholetoday video channel federation roger keyserling">
+        <a class="lc" href="https://www.youtube.com/@keyholetoday" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">▶</span>
+          <span class="lt">
+            <span class="lt-t">YouTube — @keyholetoday</span>
+            <span class="lt-d">Keyhole Today — Federation video channel</span>
+          </span>
+          <span class="badge">YouTube</span>
+        </a>
+      </li>
+    </ul>
+
+    <span class="plat" aria-label="Platform: X / Twitter">X &amp; Twitter</span>
+    <ul class="cards">
+      <li class="searchable" data-search="x twitter keyserlingroger roger personal account social">
+        <a class="lc" href="https://x.com/keyserlingroger" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">𝕏</span>
+          <span class="lt">
+            <span class="lt-t">X — @keyserlingroger</span>
+            <span class="lt-d">Roger C. Keyserling personal account</span>
+          </span>
+          <span class="badge">X</span>
+        </a>
+      </li>
+      <li class="searchable" data-search="x twitter nextxusfederati federation official account social">
+        <a class="lc" href="https://x.com/NextxusFederati" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">𝕏</span>
+          <span class="lt">
+            <span class="lt-t">X — @NextxusFederati</span>
+            <span class="lt-d">NextXus Federation official account</span>
+          </span>
+          <span class="badge">X</span>
+        </a>
+      </li>
+    </ul>
+
+    <span class="plat" aria-label="Platform: Instagram">Instagram</span>
+    <ul class="cards">
+      <li class="searchable" data-search="instagram keyhole today federation media social">
+        <a class="lc" href="https://www.instagram.com/keyhole_today/" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◎</span>
+          <span class="lt">
+            <span class="lt-t">Instagram — @keyhole_today</span>
+            <span class="lt-d">Keyhole Today — Federation media &amp; content</span>
+          </span>
+          <span class="badge">Instagram</span>
+        </a>
+      </li>
+      <li class="searchable" data-search="instagram rkeyserling roger personal account social">
+        <a class="lc" href="https://www.instagram.com/rkeyserling/" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◎</span>
+          <span class="lt">
+            <span class="lt-t">Instagram — @rkeyserling</span>
+            <span class="lt-d">Roger C. Keyserling personal account</span>
+          </span>
+          <span class="badge">Instagram</span>
+        </a>
+      </li>
+    </ul>
+
+    <span class="plat" aria-label="Platform: Facebook">Facebook</span>
+    <ul class="cards">
+      <li class="searchable" data-search="facebook roger keyserling personal profile social">
+        <a class="lc" href="https://www.facebook.com/roger.keyserling.35/" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">f</span>
+          <span class="lt">
+            <span class="lt-t">Facebook — Roger Keyserling</span>
+            <span class="lt-d">Personal profile — roger.keyserling.35</span>
+          </span>
+          <span class="badge">Facebook</span>
+        </a>
+      </li>
+      <li class="searchable" data-search="facebook federation page 61560731046964 social">
+        <a class="lc" href="https://www.facebook.com/profile.php?id=61560731046964" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">f</span>
+          <span class="lt">
+            <span class="lt-t">Facebook — Federation Page 1</span>
+            <span class="lt-d">Profile ID: 61560731046964</span>
+          </span>
+          <span class="badge">Facebook</span>
+        </a>
+      </li>
+      <li class="searchable" data-search="facebook federation page 61559858694086 social">
+        <a class="lc" href="https://www.facebook.com/profile.php?id=61559858694086" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">f</span>
+          <span class="lt">
+            <span class="lt-t">Facebook — Federation Page 2</span>
+            <span class="lt-d">Profile ID: 61559858694086</span>
+          </span>
+          <span class="badge">Facebook</span>
+        </a>
+      </li>
+      <li class="searchable" data-search="facebook federation page 61559981881665 social">
+        <a class="lc" href="https://www.facebook.com/profile.php?id=61559981881665" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">f</span>
+          <span class="lt">
+            <span class="lt-t">Facebook — Federation Page 3</span>
+            <span class="lt-d">Profile ID: 61559981881665</span>
+          </span>
+          <span class="badge">Facebook</span>
+        </a>
+      </li>
+      <li class="searchable" data-search="facebook federation page 61558223610996 social">
+        <a class="lc" href="https://www.facebook.com/profile.php?id=61558223610996" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">f</span>
+          <span class="lt">
+            <span class="lt-t">Facebook — Federation Page 4</span>
+            <span class="lt-d">Profile ID: 61558223610996</span>
+          </span>
+          <span class="badge">Facebook</span>
+        </a>
+      </li>
+    </ul>
+
+    <span class="plat" aria-label="Platform: LinkedIn">LinkedIn</span>
+    <ul class="cards">
+      <li class="searchable" data-search="linkedin roger keyserling professional profile social">
+        <a class="lc" href="https://www.linkedin.com/in/roger-keyserling-ab743698" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">in</span>
+          <span class="lt">
+            <span class="lt-t">LinkedIn — Roger Keyserling</span>
+            <span class="lt-d">Professional profile — /in/roger-keyserling-ab743698</span>
+          </span>
+          <span class="badge">LinkedIn</span>
+        </a>
+      </li>
+    </ul>
+
+    <span class="plat" aria-label="Platform: Pinterest">Pinterest</span>
+    <ul class="cards">
+      <li class="searchable" data-search="pinterest keyholetodayshow visual boards federation design social">
+        <a class="lc" href="https://www.pinterest.com/keyholetodayshow" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">P</span>
+          <span class="lt">
+            <span class="lt-t">Pinterest — keyholetodayshow</span>
+            <span class="lt-d">NextXus visual boards &amp; design assets</span>
+          </span>
+          <span class="badge">Pinterest</span>
+        </a>
+      </li>
+    </ul>
+
+    <span class="plat" aria-label="Platform: Benable">Benable</span>
+    <ul class="cards">
+      <li class="searchable" data-search="benable nextxus recommendations curated content social">
+        <a class="lc" href="https://benable.com/NextXus" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◆</span>
+          <span class="lt">
+            <span class="lt-t">Benable — NextXus</span>
+            <span class="lt-d">benable.com/NextXus — Federation recommendations &amp; curated content</span>
+          </span>
+          <span class="badge">Benable</span>
+        </a>
+      </li>
+    </ul>
+
+  </section>
+
+</main>
+
+<footer>
+  <p class="f-creed">
+    NextXus Federation — Built for the next 200 years.<br />
+    Truth Before Comfort.&nbsp; Legacy Before Ego.&nbsp; Give Without Reward.
+  </p>
+  <span class="f-rule" aria-hidden="true"></span>
+  <p class="f-copy">&copy; Roger C. Keyserling — HumanCodex 2026</p>
+</footer>
+
+<!-- ══ SEARCH SCRIPT (search/filter only) ══ -->
+<script>
+(function(){
+  var inp = document.getElementById('search-input');
+  var cnt = document.getElementById('search-count');
+  if(!inp) return;
+  var all = Array.from(document.querySelectorAll('.searchable'));
+  inp.addEventListener('input', function(){
+    var q = this.value.trim().toLowerCase();
+    var visible = 0;
+    all.forEach(function(el){
+      var text = (el.getAttribute('data-search')||'') + ' ' + (el.textContent||'');
+      var show = !q || text.toLowerCase().indexOf(q) !== -1;
+      el.style.display = show ? '' : 'none';
+      if(show) visible++;
+    });
+    cnt.textContent = q ? (visible + ' result' + (visible!==1?'s':'')) : '';
+    // hide sections with no visible children
+    document.querySelectorAll('section').forEach(function(sec){
+      if(!q){ sec.style.display=''; return; }
+      var items = sec.querySelectorAll('.searchable');
+      var any = false;
+      items.forEach(function(i){ if(i.style.display !== 'none') any = true; });
+      sec.style.display = any ? '' : 'none';
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
