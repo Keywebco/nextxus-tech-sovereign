@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Roger C. Keyserling — NextXus Federation. Official link hub: sites, store, research, and contact." />
+  <meta name="description" content="Roger C. Keyserling — NextXus Federation. Official directory of all Federation sites, repositories, store, research, and social links." />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Roger C. Keyserling" />
   <meta property="og:title" content="Roger C. Keyserling — NextXus Federation" />
@@ -11,542 +11,668 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://nextxus.tech/links.html" />
   <title>Roger C. Keyserling — NextXus Federation</title>
-  <noscript>
-    <style>/* page works fully without JavaScript */</style>
-  </noscript>
   <style>
-    /* ===== RESET & BASE ===== */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #111111;
-      --bg-card: #161616;
-      --border-color: #2a2a2a;
-      --gold: #c9922a;
-      --gold-light: #e8b84b;
-      --gold-dim: #7a5518;
-      --text-primary: #f0ead6;
-      --text-secondary: #b0a88c;
-      --text-muted: #666655;
-      --accent-amber: #d4a520;
-      --link-hover-bg: #1e1a0e;
-      --section-label: #8a7040;
-    }
+/* ===== TOKENS ===== */
+:root {
+  --bg:          #080808;
+  --bg-sec:      #0f0f0f;
+  --bg-card:     #131313;
+  --bg-card-h:   #1a1508;
+  --border:      #252525;
+  --border-h:    #5a3e10;
+  --gold:        #c9922a;
+  --gold-lt:     #e8b84b;
+  --gold-dim:    #6b4d15;
+  --gold-pale:   #3a2a09;
+  --text:        #ede8d8;
+  --text-sec:    #a89e80;
+  --text-dim:    #5a5040;
+  --badge-ph:    #3a3530;
+  --badge-ph-c:  #6a6050;
+}
 
-    html {
-      font-size: 16px;
-      scroll-behavior: smooth;
-    }
+/* ===== BASE ===== */
+html { font-size: 16px; scroll-behavior: smooth; }
 
-    body {
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6;
-      min-height: 100vh;
-      padding: 0;
-      margin: 0;
-    }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+}
 
-    /* ===== SKIP LINK (accessibility) ===== */
-    .skip-link {
-      position: absolute;
-      left: -9999px;
-      top: 0;
-      z-index: 9999;
-      background: var(--gold);
-      color: #000;
-      padding: 8px 16px;
-      font-weight: 700;
-      text-decoration: none;
-      border-radius: 0 0 4px 0;
-    }
-    .skip-link:focus {
-      left: 0;
-    }
+/* ===== SKIP LINK ===== */
+.skip { position: absolute; left: -9999px; top: 0; z-index: 9999;
+  background: var(--gold); color: #000; padding: 8px 16px;
+  font-weight: 700; text-decoration: none; }
+.skip:focus { left: 0; }
 
-    /* ===== HEADER ANIMATION ===== */
-    @keyframes headerGlow {
-      0%   { text-shadow: 0 0 12px rgba(201,146,42,0.4), 0 0 24px rgba(201,146,42,0.15); }
-      50%  { text-shadow: 0 0 22px rgba(232,184,75,0.7), 0 0 44px rgba(201,146,42,0.3), 0 0 60px rgba(201,146,42,0.1); }
-      100% { text-shadow: 0 0 12px rgba(201,146,42,0.4), 0 0 24px rgba(201,146,42,0.15); }
-    }
+/* ===== HEADER ANIMATIONS ===== */
+@keyframes glow {
+  0%,100% { text-shadow: 0 0 10px rgba(201,146,42,.35), 0 0 22px rgba(201,146,42,.12); }
+  50%      { text-shadow: 0 0 20px rgba(232,184,75,.75), 0 0 42px rgba(201,146,42,.30), 0 0 60px rgba(201,146,42,.10); }
+}
+@keyframes borderPulse {
+  0%,100% { border-bottom-color: var(--gold-dim); }
+  50%      { border-bottom-color: var(--gold); }
+}
+@keyframes shimmer {
+  0%   { background-position: -300% center; }
+  100% { background-position:  300% center; }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-    @keyframes borderPulse {
-      0%   { border-color: var(--gold-dim); }
-      50%  { border-color: var(--gold-light); }
-      100% { border-color: var(--gold-dim); }
-    }
+/* ===== HEADER ===== */
+header {
+  background: linear-gradient(180deg, #0c0c0c 0%, var(--bg) 100%);
+  border-bottom: 2px solid var(--gold-dim);
+  padding: 2.75rem 1.25rem 2.25rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: borderPulse 5s ease-in-out infinite;
+}
+header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(201,146,42,.05) 40%,
+    rgba(232,184,75,.09) 50%, rgba(201,146,42,.05) 60%, transparent 100%);
+  background-size: 300% 100%;
+  animation: shimmer 7s linear infinite;
+  pointer-events: none;
+}
+.hd { animation: fadeDown .75s ease-out both; position: relative; z-index: 1; }
+.hd-eye {
+  display: block; font-size: .7rem; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--gold-dim); margin-bottom: .6rem;
+}
+h1 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(1.8rem, 5.5vw, 3rem);
+  font-weight: 700; color: var(--gold-lt); line-height: 1.15;
+  animation: glow 5s ease-in-out infinite;
+}
+.hd-sub {
+  font-size: clamp(.8rem, 2.5vw, .95rem);
+  color: var(--text-sec); margin-top: .6rem; font-style: italic;
+  max-width: 460px; margin-left: auto; margin-right: auto;
+}
+.hd-tag {
+  display: inline-block; margin-top: 1.1rem;
+  padding: .3rem 1.1rem;
+  border: 1px solid var(--gold-dim); border-radius: 2px;
+  font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold-dim);
+}
 
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+/* ===== MAIN ===== */
+main {
+  max-width: 740px; margin: 0 auto;
+  padding: 2.25rem 1rem 4rem;
+}
 
-    @keyframes subtleShimmer {
-      0%   { background-position: -200% center; }
-      100% { background-position: 200% center; }
-    }
+/* ===== SECTION ===== */
+section { margin-bottom: 2.75rem; }
 
-    /* ===== HEADER ===== */
-    header {
-      background: linear-gradient(180deg, #0d0d0d 0%, var(--bg-primary) 100%);
-      border-bottom: 2px solid var(--gold-dim);
-      padding: 2.5rem 1.5rem 2rem;
-      text-align: center;
-      animation: borderPulse 4s ease-in-out infinite;
-      position: relative;
-      overflow: hidden;
-    }
+h2 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(.9rem, 2.8vw, 1.1rem);
+  font-weight: 700; color: var(--gold);
+  letter-spacing: .12em; text-transform: uppercase;
+  padding-bottom: .45rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+h2::before { content: '⬡ '; color: var(--gold-dim); font-size: .8em; }
 
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%; right: 0; bottom: 0;
-      width: 300%;
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(201,146,42,0.04) 40%,
-        rgba(232,184,75,0.08) 50%,
-        rgba(201,146,42,0.04) 60%,
-        transparent 100%
-      );
-      animation: subtleShimmer 6s linear infinite;
-      pointer-events: none;
-    }
+/* ===== PLATFORM SUB-LABEL ===== */
+.plat-label {
+  display: block; font-size: .65rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--text-dim);
+  margin: .9rem 0 .4rem;
+}
+.plat-label:first-child { margin-top: 0; }
 
-    .header-inner {
-      animation: fadeInDown 0.8s ease-out both;
-      position: relative;
-      z-index: 1;
-    }
+/* ===== LINK LISTS ===== */
+ul { list-style: none; }
+li { margin-bottom: .45rem; }
 
-    .header-eyebrow {
-      display: block;
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-bottom: 0.5rem;
-      font-family: system-ui, sans-serif;
-    }
+/* ===== STANDARD CARD ===== */
+a.lc {
+  display: flex; align-items: center; gap: .7rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold-dim);
+  border-radius: 4px;
+  padding: .85rem 1rem;
+  text-decoration: none; color: var(--text);
+  transition: background .13s, border-left-color .13s, color .13s;
+}
+a.lc:hover, a.lc:focus {
+  background: var(--bg-card-h);
+  border-left-color: var(--gold-lt);
+  color: var(--gold-lt);
+  outline: none;
+}
+a.lc:focus-visible { outline: 2px solid var(--gold-lt); outline-offset: 2px; }
 
-    h1 {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-size: clamp(1.75rem, 5vw, 2.75rem);
-      font-weight: 700;
-      color: var(--gold-light);
-      line-height: 1.2;
-      animation: headerGlow 4s ease-in-out infinite;
-      margin-bottom: 0.5rem;
-    }
+/* ===== COMPACT CARD (repos) ===== */
+a.lc-sm {
+  display: flex; align-items: center; gap: .6rem;
+  background: var(--bg-sec);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold-pale);
+  border-radius: 3px;
+  padding: .55rem .85rem;
+  text-decoration: none; color: var(--text-sec);
+  font-size: .82rem;
+  transition: background .13s, border-left-color .13s, color .13s;
+}
+a.lc-sm:hover, a.lc-sm:focus {
+  background: var(--bg-card-h);
+  border-left-color: var(--gold);
+  color: var(--gold-lt);
+  outline: none;
+}
+a.lc-sm:focus-visible { outline: 2px solid var(--gold-lt); outline-offset: 2px; }
 
-    .header-sub {
-      font-size: clamp(0.85rem, 2.5vw, 1rem);
-      color: var(--text-secondary);
-      margin-top: 0.75rem;
-      font-style: italic;
-      max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+/* ===== REPO GRID ===== */
+.repo-grid { display: grid; gap: .45rem; }
+@media (min-width: 520px) { .repo-grid { grid-template-columns: 1fr 1fr; } }
 
-    .header-tagline {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.3rem 1rem;
-      border: 1px solid var(--gold-dim);
-      border-radius: 2px;
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      font-family: system-ui, sans-serif;
-    }
+/* ===== CARD PARTS ===== */
+.ic { flex-shrink: 0; width: 1.4rem; text-align: center;
+  font-size: .95rem; color: var(--gold-dim); line-height: 1; }
+.ic-sm { flex-shrink: 0; width: 1.1rem; text-align: center;
+  font-size: .75rem; color: var(--gold-pale); line-height: 1; }
+.lt { flex: 1; }
+.lt-title { display: block; font-weight: 600; font-size: .93rem; line-height: 1.3; }
+.lt-desc  { display: block; font-size: .76rem; color: var(--text-dim); margin-top: .13rem; }
+.badge {
+  flex-shrink: 0; font-size: .64rem; padding: .14rem .48rem;
+  border-radius: 2px; border: 1px solid var(--gold-dim);
+  color: var(--gold-dim); letter-spacing: .05em;
+  text-transform: uppercase; white-space: nowrap;
+}
+.badge.feat {
+  border-color: var(--gold); color: var(--gold);
+  background: rgba(201,146,42,.08);
+}
+.badge.ph {
+  border-color: var(--badge-ph); color: var(--badge-ph-c);
+}
 
-    /* ===== MAIN LAYOUT ===== */
-    main {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 2rem 1rem 3rem;
-    }
+/* ===== FOOTER ===== */
+footer {
+  text-align: center; padding: 2rem 1.5rem 3rem;
+  border-top: 1px solid var(--border);
+  background: var(--bg-sec);
+}
+.f-creed {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(.85rem, 2.5vw, .98rem);
+  color: var(--text-sec); font-style: italic;
+  line-height: 1.75; max-width: 560px;
+  margin: 0 auto 1rem;
+}
+.f-rule {
+  display: block; width: 2rem; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  margin: 1rem auto;
+}
+.f-copy { font-size: .72rem; color: var(--text-dim); letter-spacing: .05em; }
 
-    /* ===== SECTION ===== */
-    section {
-      margin-bottom: 2.5rem;
-    }
-
-    h2 {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 1rem;
-    }
-
-    h2::before {
-      content: '⬡ ';
-      color: var(--gold-dim);
-      font-size: 0.85em;
-    }
-
-    /* ===== LINK LIST ===== */
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    li {
-      margin-bottom: 0.5rem;
-    }
-
-    /* ===== LINK CARDS ===== */
-    a.link-card {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-left: 3px solid var(--gold-dim);
-      border-radius: 4px;
-      padding: 0.85rem 1rem;
-      text-decoration: none;
-      color: var(--text-primary);
-      transition: background 0.15s ease, border-left-color 0.15s ease, color 0.15s ease;
-    }
-
-    a.link-card:hover,
-    a.link-card:focus {
-      background: var(--link-hover-bg);
-      border-left-color: var(--gold-light);
-      color: var(--gold-light);
-      outline: none;
-    }
-
-    a.link-card:focus-visible {
-      outline: 2px solid var(--gold-light);
-      outline-offset: 2px;
-    }
-
-    .link-icon {
-      flex-shrink: 0;
-      width: 1.5rem;
-      text-align: center;
-      font-size: 1rem;
-      color: var(--gold-dim);
-      line-height: 1;
-    }
-
-    .link-text {
-      flex: 1;
-    }
-
-    .link-title {
-      display: block;
-      font-weight: 600;
-      font-size: 0.95rem;
-      line-height: 1.3;
-    }
-
-    .link-desc {
-      display: block;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 0.15rem;
-    }
-
-    .link-badge {
-      flex-shrink: 0;
-      font-size: 0.68rem;
-      padding: 0.15rem 0.5rem;
-      border-radius: 2px;
-      border: 1px solid var(--gold-dim);
-      color: var(--gold-dim);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .link-badge.placeholder {
-      border-color: var(--text-muted);
-      color: var(--text-muted);
-    }
-
-    .link-badge.featured {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: rgba(201,146,42,0.08);
-    }
-
-    /* ===== MAILTO LINK ===== */
-    a.link-card.email .link-icon {
-      color: var(--accent-amber);
-    }
-
-    /* ===== DIVIDER ===== */
-    .section-divider {
-      border: none;
-      border-top: 1px solid var(--border-color);
-      margin: 0.5rem 0 2rem;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      text-align: center;
-      padding: 2rem 1.5rem 3rem;
-      border-top: 1px solid var(--border-color);
-      background: var(--bg-secondary);
-    }
-
-    .footer-creed {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-size: clamp(0.85rem, 2.5vw, 1rem);
-      color: var(--text-secondary);
-      font-style: italic;
-      line-height: 1.7;
-      max-width: 540px;
-      margin: 0 auto 1rem;
-    }
-
-    .footer-copyright {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      letter-spacing: 0.05em;
-    }
-
-    .footer-seal {
-      display: block;
-      width: 2rem;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
-      margin: 1rem auto;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (min-width: 480px) {
-      main {
-        padding: 2.5rem 1.5rem 4rem;
-      }
-      a.link-card {
-        padding: 1rem 1.25rem;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
+/* ===== RESPONSIVE ===== */
+@media (min-width: 480px) {
+  main { padding: 2.5rem 1.5rem 4rem; }
+  a.lc { padding: 1rem 1.2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
   </style>
 </head>
 <body>
 
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+<a class="skip" href="#main">Skip to main content</a>
 
-  <header>
-    <div class="header-inner">
-      <span class="header-eyebrow">NextXus Federation — Official Hub</span>
-      <h1>Roger C. Keyserling</h1>
-      <p class="header-sub">Founder &amp; Architect — HumanCodex / NextXus Federation</p>
-      <span class="header-tagline">Truth · Legacy · Giving</span>
+<header>
+  <div class="hd">
+    <span class="hd-eye">NextXus Federation — Official Directory</span>
+    <h1>Roger C. Keyserling</h1>
+    <p class="hd-sub">Founder &amp; Architect — HumanCodex / NextXus Federation</p>
+    <span class="hd-tag">Truth &nbsp;·&nbsp; Legacy &nbsp;·&nbsp; Giving</span>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ══════════════════════════════════════════
+       SECTION 1 — FEDERATION SITES
+  ══════════════════════════════════════════ -->
+  <section aria-labelledby="s-sites">
+    <h2 id="s-sites">Federation Sites</h2>
+    <ul>
+      <li>
+        <a class="lc" href="https://next-xus.com" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◉</span>
+          <span class="lt">
+            <span class="lt-title">Next-Xus.com — Federation Storefront</span>
+            <span class="lt-desc">next-xus.com — Primary commerce &amp; product portal</span>
+          </span>
+          <span class="badge feat">Store</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://nextxus.tech" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◈</span>
+          <span class="lt">
+            <span class="lt-title">NextXus Tech — Throne / Senate / Nova AI</span>
+            <span class="lt-desc">nextxus.tech — Admin Throne, Senate Council, Nova AI node</span>
+          </span>
+          <span class="badge feat">Core</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://nextxus.online" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◈</span>
+          <span class="lt">
+            <span class="lt-title">NextXus Online — Cathedral / Core Truth</span>
+            <span class="lt-desc">nextxus.online — Single source of truth for all Federation content</span>
+          </span>
+          <span class="badge feat">Truth</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://nextxus.org" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◈</span>
+          <span class="lt">
+            <span class="lt-title">NextXus Org — Archive / Mirror / Library</span>
+            <span class="lt-desc">nextxus.org — Living Library, archive &amp; sovereign mirror</span>
+          </span>
+          <span class="badge">Archive</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://nextxus.studio" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◈</span>
+          <span class="lt">
+            <span class="lt-title">NextXus Studio — Aria's Sanctuary / SIMs AI</span>
+            <span class="lt-desc">nextxus.studio — Creative studio, Aria AI &amp; SIMs node</span>
+          </span>
+          <span class="badge">Studio</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://nextxus.help" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◈</span>
+          <span class="lt">
+            <span class="lt-title">NextXus Help — University</span>
+            <span class="lt-desc">nextxus.help — Support, documentation &amp; Federation University</span>
+          </span>
+          <span class="badge">Help</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://nextxus.space" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◈</span>
+          <span class="lt">
+            <span class="lt-title">NextXus Space — Axiom Advanced Research &amp; Evolution</span>
+            <span class="lt-desc">nextxus.space — Axiom research node &amp; evolution lab</span>
+          </span>
+          <span class="badge">Research</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 2 — LIVE NODES (GITHUB PAGES)
+  ══════════════════════════════════════════ -->
+  <section aria-labelledby="s-nodes">
+    <h2 id="s-nodes">Live Nodes</h2>
+    <ul>
+      <li>
+        <a class="lc" href="https://keywebco.github.io/nextxus-agent-zero/" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">⬡</span>
+          <span class="lt">
+            <span class="lt-title">Agent Zero Live Node</span>
+            <span class="lt-desc">keywebco.github.io/nextxus-agent-zero — Active autonomous agent endpoint</span>
+          </span>
+          <span class="badge feat">Live</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 3 — SOURCE REPOSITORIES
+  ══════════════════════════════════════════ -->
+  <section aria-labelledby="s-repos">
+    <h2 id="s-repos">Source Repositories</h2>
+    <div class="repo-grid" role="list">
+      <div role="listitem">
+        <a class="lc-sm" href="https://github.com/Keywebco/nextxus-tech-sovereign" target="_blank" rel="noopener noreferrer">
+          <span class="ic-sm" aria-hidden="true">⑂</span>
+          <span>nextxus-tech-sovereign</span>
+        </a>
+      </div>
+      <div role="listitem">
+        <a class="lc-sm" href="https://github.com/Keywebco/nextxus-staging" target="_blank" rel="noopener noreferrer">
+          <span class="ic-sm" aria-hidden="true">⑂</span>
+          <span>nextxus-staging</span>
+        </a>
+      </div>
+      <div role="listitem">
+        <a class="lc-sm" href="https://github.com/Keywebco/nextxus-online-sovereign" target="_blank" rel="noopener noreferrer">
+          <span class="ic-sm" aria-hidden="true">⑂</span>
+          <span>nextxus-online-sovereign</span>
+        </a>
+      </div>
+      <div role="listitem">
+        <a class="lc-sm" href="https://github.com/Keywebco/nextxus-org-sovereign" target="_blank" rel="noopener noreferrer">
+          <span class="ic-sm" aria-hidden="true">⑂</span>
+          <span>nextxus-org-sovereign</span>
+        </a>
+      </div>
+      <div role="listitem">
+        <a class="lc-sm" href="https://github.com/Keywebco/nextxus-studio-sovereign" target="_blank" rel="noopener noreferrer">
+          <span class="ic-sm" aria-hidden="true">⑂</span>
+          <span>nextxus-studio-sovereign</span>
+        </a>
+      </div>
+      <div role="listitem">
+        <a class="lc-sm" href="https://github.com/Keywebco/nextxus-help-sovereign" target="_blank" rel="noopener noreferrer">
+          <span class="ic-sm" aria-hidden="true">⑂</span>
+          <span>nextxus-help-sovereign</span>
+        </a>
+      </div>
+      <div role="listitem">
+        <a class="lc-sm" href="https://github.com/Keywebco/nextxus-space-sovereign" target="_blank" rel="noopener noreferrer">
+          <span class="ic-sm" aria-hidden="true">⑂</span>
+          <span>nextxus-space-sovereign</span>
+        </a>
+      </div>
+      <div role="listitem">
+        <a class="lc-sm" href="https://github.com/Keywebco/nextxus-emmy-board" target="_blank" rel="noopener noreferrer">
+          <span class="ic-sm" aria-hidden="true">⑂</span>
+          <span>nextxus-emmy-board</span>
+        </a>
+      </div>
+      <div role="listitem">
+        <a class="lc-sm" href="https://github.com/Keywebco/nextxus-unified-storefront" target="_blank" rel="noopener noreferrer">
+          <span class="ic-sm" aria-hidden="true">⑂</span>
+          <span>nextxus-unified-storefront</span>
+        </a>
+      </div>
+      <div role="listitem">
+        <a class="lc-sm" href="https://github.com/Keywebco/nextxus-agent-zero" target="_blank" rel="noopener noreferrer">
+          <span class="ic-sm" aria-hidden="true">⑂</span>
+          <span>nextxus-agent-zero</span>
+        </a>
+      </div>
     </div>
-  </header>
+  </section>
 
-  <main id="main-content">
+  <!-- ══════════════════════════════════════════
+       SECTION 4 — THE STORE
+  ══════════════════════════════════════════ -->
+  <section aria-labelledby="s-store">
+    <h2 id="s-store">The Store</h2>
+    <ul>
+      <li>
+        <a class="lc" href="https://next-xus.com" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◉</span>
+          <span class="lt">
+            <span class="lt-title">Federation Store — next-xus.com</span>
+            <span class="lt-desc">Full NextXus product catalog &amp; sovereignty tools</span>
+          </span>
+          <span class="badge feat">Store</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://keywebster.gumroad.com/l/mimet" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◉</span>
+          <span class="lt">
+            <span class="lt-title">Sovereign Token — $5.00</span>
+            <span class="lt-desc">Works like cash &nbsp;·&nbsp; Never expires &nbsp;·&nbsp; No subscriptions &nbsp;·&nbsp; No tracking</span>
+          </span>
+          <span class="badge feat">$5</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://keywebster.gumroad.com" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◉</span>
+          <span class="lt">
+            <span class="lt-title">All Products — Gumroad Catalog</span>
+            <span class="lt-desc">keywebster.gumroad.com — Complete NextXus digital product library</span>
+          </span>
+          <span class="badge">Products</span>
+        </a>
+      </li>
+    </ul>
+  </section>
 
-    <!-- ==================== SECTION 1: FEDERATION SITES ==================== -->
-    <section aria-labelledby="section-sites">
-      <h2 id="section-sites">Federation Sites</h2>
-      <ul>
-        <li>
-          <a class="link-card" href="https://nextxus.tech" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">◈</span>
-            <span class="link-text">
-              <span class="link-title">NextXus Core Portal</span>
-              <span class="link-desc">nextxus.tech — Main sovereign hub &amp; admin throne</span>
-            </span>
-            <span class="link-badge featured">Core</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-card" href="https://nextxus.online" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">◈</span>
-            <span class="link-text">
-              <span class="link-title">NextXus Online — Core Truth</span>
-              <span class="link-desc">nextxus.online — Single source of truth for all Federation content</span>
-            </span>
-            <span class="link-badge">Truth Node</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-card" href="https://nextxus.studio" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">◈</span>
-            <span class="link-text">
-              <span class="link-title">NextXus Studio</span>
-              <span class="link-desc">nextxus.studio — Creative, media &amp; publishing studio</span>
-            </span>
-            <span class="link-badge">Studio</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-card" href="https://nextxus.help" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">◈</span>
-            <span class="link-text">
-              <span class="link-title">NextXus Help</span>
-              <span class="link-desc">nextxus.help — Support, documentation &amp; guides</span>
-            </span>
-            <span class="link-badge">Help</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-card" href="https://nextxus.org" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">◈</span>
-            <span class="link-text">
-              <span class="link-title">NextXus Org</span>
-              <span class="link-desc">nextxus.org — Organizational &amp; foundational presence</span>
-            </span>
-            <span class="link-badge">Org</span>
-          </a>
-        </li>
-      </ul>
-    </section>
+  <!-- ══════════════════════════════════════════
+       SECTION 5 — RESEARCH & PUBLISHING
+  ══════════════════════════════════════════ -->
+  <section aria-labelledby="s-research">
+    <h2 id="s-research">Research &amp; Publishing</h2>
+    <ul>
+      <li>
+        <a class="lc" href="https://independent.academia.edu/RogerKeyserling" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◧</span>
+          <span class="lt">
+            <span class="lt-title">Academia.edu — Roger C. Keyserling</span>
+            <span class="lt-desc">HumanCodex research papers, essays &amp; published academic works</span>
+          </span>
+          <span class="badge">HumanCodex</span>
+        </a>
+      </li>
+    </ul>
+  </section>
 
-    <!-- ==================== SECTION 2: THE STORE ==================== -->
-    <section aria-labelledby="section-store">
-      <h2 id="section-store">The Store</h2>
-      <ul>
-        <li>
-          <a class="link-card" href="https://next-xus.com" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">◉</span>
-            <span class="link-text">
-              <span class="link-title">Next-Xus Store</span>
-              <span class="link-desc">next-xus.com — Official Federation storefront</span>
-            </span>
-            <span class="link-badge featured">Store</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-card" href="https://keywebster.gumroad.com/l/mimet" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">◉</span>
-            <span class="link-text">
-              <span class="link-title">Sovereign Token — $5.00</span>
-              <span class="link-desc">Works like cash · Never expires · No subscriptions · No tracking</span>
-            </span>
-            <span class="link-badge featured">$5</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-card" href="https://keywebster.gumroad.com" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">◉</span>
-            <span class="link-text">
-              <span class="link-title">All Products — Gumroad Catalog</span>
-              <span class="link-desc">keywebster.gumroad.com — Full NextXus product library</span>
-            </span>
-            <span class="link-badge">Products</span>
-          </a>
-        </li>
-      </ul>
-    </section>
+  <!-- ══════════════════════════════════════════
+       SECTION 6 — SOCIAL & CONNECT
+  ══════════════════════════════════════════ -->
+  <section aria-labelledby="s-social">
+    <h2 id="s-social">Social &amp; Connect</h2>
 
-    <!-- ==================== SECTION 3: RESEARCH & PUBLISHING ==================== -->
-    <section aria-labelledby="section-research">
-      <h2 id="section-research">Research &amp; Publishing</h2>
-      <ul>
-        <li>
-          <a class="link-card" href="https://independent.academia.edu/RogerKeyserling" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">◧</span>
-            <span class="link-text">
-              <span class="link-title">Academia.edu — Roger C Keyserling</span>
-              <span class="link-desc">Published research, essays &amp; academic works</span>
-            </span>
-            <span class="link-badge">Research</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-card" href="https://independent.academia.edu/RogerKeyserling" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">◧</span>
-            <span class="link-text">
-              <span class="link-title">HumanCodex Papers</span>
-              <span class="link-desc">HumanCodex foundational papers published on Academia.edu</span>
-            </span>
-            <span class="link-badge">HumanCodex</span>
-          </a>
-        </li>
-      </ul>
-    </section>
+    <span class="plat-label" aria-label="Platform: Email">Email</span>
+    <ul>
+      <li>
+        <a class="lc" href="mailto:keywebco@gmail.com">
+          <span class="ic" aria-hidden="true">✉</span>
+          <span class="lt">
+            <span class="lt-title">keywebco@gmail.com</span>
+            <span class="lt-desc">Primary contact for Roger C. Keyserling / NextXus Federation</span>
+          </span>
+          <span class="badge feat">Email</span>
+        </a>
+      </li>
+    </ul>
 
-    <!-- ==================== SECTION 4: CONNECT ==================== -->
-    <section aria-labelledby="section-connect">
-      <h2 id="section-connect">Connect</h2>
-      <ul>
-        <li>
-          <a class="link-card email" href="mailto:keywebco@gmail.com" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">✉</span>
-            <span class="link-text">
-              <span class="link-title">Email — keywebco@gmail.com</span>
-              <span class="link-desc">Primary contact for Roger C. Keyserling / NextXus Federation</span>
-            </span>
-            <span class="link-badge">Email</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-card" href="https://www.youtube.com/@nextxus" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">▶</span>
-            <span class="link-text">
-              <span class="link-title">YouTube — @nextxus</span>
-              <span class="link-desc">Federation videos, talks &amp; content — URL pending confirmation</span>
-            </span>
-            <span class="link-badge placeholder">Placeholder</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-card" href="#" aria-label="LinkedIn — profile link not yet confirmed" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">in</span>
-            <span class="link-text">
-              <span class="link-title">LinkedIn — Roger C. Keyserling</span>
-              <span class="link-desc">Professional profile — URL to be confirmed</span>
-            </span>
-            <span class="link-badge placeholder">Placeholder</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-card" href="#" aria-label="Pinterest — profile link not yet confirmed" target="_blank" rel="noopener noreferrer">
-            <span class="link-icon" aria-hidden="true">P</span>
-            <span class="link-text">
-              <span class="link-title">Pinterest — NextXus Federation</span>
-              <span class="link-desc">Visual boards &amp; design assets — URL to be confirmed</span>
-            </span>
-            <span class="link-badge placeholder">Placeholder</span>
-          </a>
-        </li>
-      </ul>
-    </section>
+    <span class="plat-label" aria-label="Platform: YouTube">YouTube</span>
+    <ul>
+      <li>
+        <a class="lc" href="https://www.youtube.com/@keyholetoday" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">▶</span>
+          <span class="lt">
+            <span class="lt-title">YouTube — @keyholetoday</span>
+            <span class="lt-desc">Keyhole Today — Federation video channel</span>
+          </span>
+          <span class="badge">YouTube</span>
+        </a>
+      </li>
+    </ul>
 
-  </main>
+    <span class="plat-label" aria-label="Platform: X / Twitter">X &amp; Twitter</span>
+    <ul>
+      <li>
+        <a class="lc" href="https://x.com/keyserlingroger" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">𝕏</span>
+          <span class="lt">
+            <span class="lt-title">X — @keyserlingroger</span>
+            <span class="lt-desc">Roger C. Keyserling personal account</span>
+          </span>
+          <span class="badge">X</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://x.com/NextxusFederati" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">𝕏</span>
+          <span class="lt">
+            <span class="lt-title">X — @NextxusFederati</span>
+            <span class="lt-desc">NextXus Federation official account</span>
+          </span>
+          <span class="badge">X</span>
+        </a>
+      </li>
+    </ul>
 
-  <footer>
-    <p class="footer-creed">
-      NextXus Federation — Built for the next 200 years.<br />
-      Truth before comfort. Legacy before ego. Give without reward.
-    </p>
-    <span class="footer-seal" aria-hidden="true"></span>
-    <p class="footer-copyright">
-      &copy; Roger C. Keyserling — HumanCodex 2026
-    </p>
-  </footer>
+    <span class="plat-label" aria-label="Platform: Instagram">Instagram</span>
+    <ul>
+      <li>
+        <a class="lc" href="https://www.instagram.com/keyhole_today/" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◎</span>
+          <span class="lt">
+            <span class="lt-title">Instagram — @keyhole_today</span>
+            <span class="lt-desc">Keyhole Today — Federation media &amp; content</span>
+          </span>
+          <span class="badge">Instagram</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://www.instagram.com/rkeyserling/" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◎</span>
+          <span class="lt">
+            <span class="lt-title">Instagram — @rkeyserling</span>
+            <span class="lt-desc">Roger C. Keyserling personal account</span>
+          </span>
+          <span class="badge">Instagram</span>
+        </a>
+      </li>
+    </ul>
+
+    <span class="plat-label" aria-label="Platform: Facebook">Facebook</span>
+    <ul>
+      <li>
+        <a class="lc" href="https://www.facebook.com/roger.keyserling.35/" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">f</span>
+          <span class="lt">
+            <span class="lt-title">Facebook — Roger Keyserling</span>
+            <span class="lt-desc">Personal profile — roger.keyserling.35</span>
+          </span>
+          <span class="badge">Facebook</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://www.facebook.com/profile.php?id=61560731046964" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">f</span>
+          <span class="lt">
+            <span class="lt-title">Facebook — Federation Page 1</span>
+            <span class="lt-desc">profile ID: 61560731046964</span>
+          </span>
+          <span class="badge">Facebook</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://www.facebook.com/profile.php?id=61559858694086" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">f</span>
+          <span class="lt">
+            <span class="lt-title">Facebook — Federation Page 2</span>
+            <span class="lt-desc">profile ID: 61559858694086</span>
+          </span>
+          <span class="badge">Facebook</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://www.facebook.com/profile.php?id=61559981881665" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">f</span>
+          <span class="lt">
+            <span class="lt-title">Facebook — Federation Page 3</span>
+            <span class="lt-desc">profile ID: 61559981881665</span>
+          </span>
+          <span class="badge">Facebook</span>
+        </a>
+      </li>
+      <li>
+        <a class="lc" href="https://www.facebook.com/profile.php?id=61558223610996" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">f</span>
+          <span class="lt">
+            <span class="lt-title">Facebook — Federation Page 4</span>
+            <span class="lt-desc">profile ID: 61558223610996</span>
+          </span>
+          <span class="badge">Facebook</span>
+        </a>
+      </li>
+    </ul>
+
+    <span class="plat-label" aria-label="Platform: LinkedIn">LinkedIn</span>
+    <ul>
+      <li>
+        <a class="lc" href="https://www.linkedin.com/in/roger-keyserling-ab743698" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">in</span>
+          <span class="lt">
+            <span class="lt-title">LinkedIn — Roger Keyserling</span>
+            <span class="lt-desc">Professional profile — /in/roger-keyserling-ab743698</span>
+          </span>
+          <span class="badge">LinkedIn</span>
+        </a>
+      </li>
+    </ul>
+
+    <span class="plat-label" aria-label="Platform: Pinterest">Pinterest</span>
+    <ul>
+      <li>
+        <a class="lc" href="https://www.pinterest.com/keyholetodayshow" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">P</span>
+          <span class="lt">
+            <span class="lt-title">Pinterest — keyholetodayshow</span>
+            <span class="lt-desc">NextXus visual boards &amp; design assets</span>
+          </span>
+          <span class="badge">Pinterest</span>
+        </a>
+      </li>
+    </ul>
+
+    <span class="plat-label" aria-label="Platform: Benable">Benable</span>
+    <ul>
+      <li>
+        <a class="lc" href="https://benable.com/NextXus" target="_blank" rel="noopener noreferrer">
+          <span class="ic" aria-hidden="true">◆</span>
+          <span class="lt">
+            <span class="lt-title">Benable — NextXus</span>
+            <span class="lt-desc">benable.com/NextXus — Federation recommendations &amp; curated content</span>
+          </span>
+          <span class="badge">Benable</span>
+        </a>
+      </li>
+    </ul>
+
+  </section>
+
+</main>
+
+<footer>
+  <p class="f-creed">
+    NextXus Federation — Built for the next 200 years.<br />
+    Truth before comfort.&nbsp; Legacy before ego.&nbsp; Give without reward.
+  </p>
+  <span class="f-rule" aria-hidden="true"></span>
+  <p class="f-copy">&copy; Roger C. Keyserling — HumanCodex 2026</p>
+</footer>
 
 </body>
 </html>
