@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMEGA THRONE — NextXus Federation Admin Cockpit</title>
+<meta name="description" content="The Omega Throne — NextXus Federation sovereign admin cockpit. One screen. Four domains. 200-Year Mandate Active. Fuel gauge, domain status, Federation command center.">
+<meta name="keywords" content="NextXus, Federation, Admin, Throne, Cockpit, HumanCodex, Sovereign, CORE, Storefront, University, Library">
+<meta name="author" content="NextXus Federation — The Catalyst">
+<meta name="robots" content="noindex, nofollow">
+<!--
+  ╔══════════════════════════════════════════════════════════╗
+  ║  OMEGA THRONE — NextXus Federation Admin Cockpit         ║
+  ║  Pure HTML/CSS — Zero Dependencies — Built for 200 Years ║
+  ║  Semantic pre-rendered HTML. No JS required to read.     ║
+  ║  Every element accessible to screen readers and crawlers.║
+  ╚═══════════════════════════════════════════════════════════╝
+-->
+<style>
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html {
+  width:100%;
+  overflow-x:hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  color:#e0e0e0; background:#050508;
+}
+body {
+  width:100%; min-height:100vh;
+  overflow-x:hidden;
+  font-family: inherit;
+  font-size: 16px;
+  color:#e0e0e0; background:#050508;
+}
+a { color:#c9a84c; text-decoration:none; transition: color .3s, opacity .3s; }
+a:hover { opacity:.85; }
+a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
+
+/* ═══════════════════════════════════════════
+   ANIMATED BACKGROUND — Neural Mesh + Data Rain
+   Pure CSS, no JS needed to render
+   ═══════════════════════════════════════════ */
+.throne-bg {
+  position:fixed; inset:0; z-index:0;
+  background: radial-gradient(ellipse at 30% 20%, #0a0f0a 0%, #050508 40%, #020204 100%);
+  overflow:hidden;
+}
+
+/* Starfield layer 1 — slow drift */
+.throne-bg::before {
+  content:''; position:absolute; inset:0;
+  background-image:
+    radial-gradient(1px 1px at 8% 15%, rgba(80,200,80,.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 22% 42%, rgba(201,168,76,.6) 0%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 38% 8%, rgba(80,200,80,.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 52% 65%, rgba(201,168,76,.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 68% 28%, rgba(100,220,100,.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 82% 52%, rgba(201,168,76,.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 75%, rgba(80,200,80,.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 88%, rgba(201,168,76,.6) 0%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 92% 12%, rgba(80,200,80,.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 78%, rgba(201,168,76,.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5% 50%, rgba(100,220,100,.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 35%, rgba(80,200,80,.6) 0%, transparent 100%);
+  background-size: 200% 200%;
+  animation: neuralDrift 90s linear infinite;
+}
+
+/* Starfield layer 2 — reverse drift, offset */
+.throne-bg::after {
+  content:''; position:absolute; inset:0;
+  opacity:.4;
+  background-image:
+    radial-gradient(1px 1px at 12% 30%, rgba(201,168,76,.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 33% 55%, rgba(80,200,80,.5) 0%, transparent 100%),
+    radial-gradient(1.3px 1.3px at 48% 18%, rgba(201,168,76,.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 65% 72%, rgba(80,200,80,.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 88% 38%, rgba(201,168,76,.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 28% 85%, rgba(100,220,100,.4) 0%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 72% 10%, rgba(201,168,76,.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 48%, rgba(80,200,80,.5) 0%, transparent 100%);
+  background-size: 300% 300%;
+  animation: neuralDrift 150s linear infinite reverse;
+}
+
+@keyframes neuralDrift {
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+/* Neural mesh lines — horizontal scan */
+.mesh-line {
+  position:absolute; height:1px; opacity:0;
+  background: linear-gradient(90deg, transparent, rgba(80,200,80,.12), rgba(201,168,76,.08), transparent);
+  animation: meshScan 8s ease-in-out infinite;
+}
+@keyframes meshScan {
+  0%   { opacity:0; transform: translateX(-110%); }
+  10%  { opacity:1; }
+  90%  { opacity:1; }
+  100% { opacity:0; transform: translateX(110vw); }
+}
+
+/* Data rain — vertical pulse lines */
+.data-rain {
+  position:absolute; width:1px;
+  background: linear-gradient(180deg, transparent, rgba(80,200,80,.15), transparent);
+  animation: rainFall linear infinite;
+  opacity:.3;
+}
+@keyframes rainFall {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* Breathing nebula glow */
+.nebula-glow {
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(20,80,20,.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(80,60,10,.1) 0%, transparent 50%);
+  animation: nebulaPulse 12s ease-in-out infinite;
+}
+@keyframes nebulaPulse {
+  0%, 100% { opacity:.3; }
+  50% { opacity:.6; }
+}
+
+/* ═══════════════════════════════════════════
+   COCKPIT LAYOUT — One Screen, Scrollable on short viewports
+   ═══════════════════════════════════════════ */
+.cockpit {
+  position:relative; z-index:10;
+  display:grid;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-columns: 1fr;
+  min-height: 100vh;
+}
+
+/* ─── TOP BAR: Fuel Gauge ─── */
+.fuel-bar {
+  padding: 10px 24px;
+  background: linear-gradient(180deg, rgba(5,5,8,.95) 0%, rgba(5,5,8,.85) 100%);
+  border-bottom: 1px solid rgba(80,200,80,.2);
+  display:flex; align-items:center; justify-content:space-between;
+  gap: 16px;
+  z-index:20;
+}
+.fuel-label {
+  font-size: clamp(14px, 1.8vw, 16px);
+  color: #a0a0a0;
+  letter-spacing: .12em;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.fuel-gauge {
+  flex:1; max-width: 500px;
+  height: 20px;
+  background: rgba(80,200,80,.06);
+  border: 1px solid rgba(80,200,80,.2);
+  border-radius: 3px;
+  position:relative;
+  overflow:hidden;
+}
+.fuel-fill {
+  height:100%;
+  background: linear-gradient(90deg, rgba(80,200,80,.6), rgba(80,200,80,.3));
+  border-radius: 2px;
+  width: 0%; /* Set dynamically or manually */
+  transition: width 1s ease;
+  animation: fuelPulse 3s ease-in-out infinite;
+}
+@keyframes fuelPulse {
+  0%, 100% { opacity:.8; }
+  50% { opacity:1; }
+}
+.fuel-text {
+  font-size: clamp(16px, 2.2vw, 22px);
+  color: #50c850;
+  font-weight: 700;
+  letter-spacing: .06em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.fuel-text.fuel-low { color: #e04040; }
+.fuel-text.fuel-mid { color: #c9a84c; }
+
+/* ─── HEADER BAR ─── */
+.throne-header {
+  padding: 8px 24px;
+  background: rgba(5,5,8,.9);
+  border-bottom: 1px solid rgba(201,168,76,.15);
+  display:flex; align-items:center; justify-content:space-between;
+  gap: 12px;
+}
+.throne-brand {
+  display:flex; align-items:center; gap:12px;
+}
+.throne-brand h1 {
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 700;
+  letter-spacing: .15em;
+  color: #c9a84c;
+  text-shadow: 0 0 12px rgba(201,168,76,.3);
+  animation: throneGlow 6s ease-in-out infinite;
+}
+@keyframes throneGlow {
+  0%, 100% { text-shadow: 0 0 12px rgba(201,168,76,.3); }
+  50% { text-shadow: 0 0 30px rgba(201,168,76,.5), 0 0 60px rgba(201,168,76,.15); }
+}
+.throne-brand .subtitle {
+  font-size: clamp(14px, 1.5vw, 16px);
+  color: #a0a0a0;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+.mandate-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  padding: 5px 14px;
+  border: 1px solid rgba(80,200,80,.3);
+  border-radius: 20px;
+  background: rgba(80,200,80,.04);
+  font-size: clamp(14px, 1.3vw, 15px);
+  color: #50c850;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  white-space:nowrap;
+}
+.mandate-dot {
+  display:inline-block; width:7px; height:7px;
+  background: #50c850;
+  border-radius:50%;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%, 100% { opacity:.5; box-shadow: 0 0 3px rgba(80,200,80,.3); }
+  50% { opacity:1; box-shadow: 0 0 8px rgba(80,200,80,.6); }
+}
+
+/* ─── DOMAIN PANELS GRID ─── */
+.domains-grid {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 12px;
+  padding: 16px 24px;
+  align-content: center;
+}
+
+/* Individual domain panel */
+.domain-panel {
+  background: rgba(10,15,10,.7);
+  border: 1px solid rgba(80,200,80,.15);
+  border-radius: 6px;
+  padding: clamp(16px, 2vw, 24px);
+  display:flex; flex-direction:column;
+  gap: 8px;
+  transition: border-color .3s, background .3s, box-shadow .3s;
+  position:relative;
+  overflow:hidden;
+}
+.domain-panel:hover, .domain-panel:focus-within {
+  border-color: rgba(201,168,76,.4);
+  background: rgba(15,20,15,.8);
+  box-shadow: 0 0 20px rgba(80,200,80,.05), inset 0 0 30px rgba(80,200,80,.02);
+}
+
+/* Panel corner accent — animated */
+.domain-panel::before {
+  content:'';
+  position:absolute; top:0; left:0; width:40px; height:40px;
+  border-top: 2px solid rgba(80,200,80,.3);
+  border-left: 2px solid rgba(80,200,80,.3);
+  border-radius: 6px 0 0 0;
+  animation: cornerPulse 4s ease-in-out infinite;
+  pointer-events:none;
+}
+.domain-panel::after {
+  content:'';
+  position:absolute; bottom:0; right:0; width:40px; height:40px;
+  border-bottom: 2px solid rgba(201,168,76,.2);
+  border-right: 2px solid rgba(201,168,76,.2);
+  border-radius: 0 0 6px 0;
+  animation: cornerPulse 4s ease-in-out infinite 2s;
+  pointer-events:none;
+}
+@keyframes cornerPulse {
+  0%, 100% { opacity:.4; }
+  50% { opacity:1; }
+}
+
+/* Panel header row */
+.panel-header {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:8px;
+}
+.panel-sector {
+  font-size: clamp(14px, 1.3vw, 15px);
+  color: #999;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.panel-name {
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: #c9a84c;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+
+/* Status indicator */
+.status-indicator {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size: clamp(14px, 1.3vw, 16px);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.status-indicator.online { color: #50c850; }
+.status-indicator.degraded { color: #c9a84c; }
+.status-indicator.offline { color: #e04040; }
+.status-pip {
+  display:inline-block; width:9px; height:9px;
+  border-radius:50%;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+.status-indicator.online .status-pip { background: #50c850; }
+.status-indicator.degraded .status-pip { background: #c9a84c; }
+.status-indicator.offline .status-pip { background: #e04040; animation: none; }
+
+/* Panel domain URL */
+.panel-url {
+  font-size: clamp(15px, 1.5vw, 17px);
+  color: #50c850;
+  letter-spacing: .06em;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Panel description */
+.panel-desc {
+  font-size: clamp(15px, 1.5vw, 17px);
+  color: #b0b0b0;
+  line-height: 1.5;
+}
+
+/* Panel metrics row */
+.panel-metrics {
+  display:flex; gap:16px; flex-wrap:wrap;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid rgba(80,200,80,.08);
+}
+.metric {
+  display:flex; flex-direction:column; gap:2px;
+}
+.metric-label {
+  font-size: clamp(14px, 1.3vw, 15px);
+  color: #999;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.metric-value {
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: #e0e0e0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Panel action link */
+.panel-action {
+  display:inline-flex; align-items:center; gap:6px;
+  padding: 8px 16px;
+  border: 1px solid rgba(201,168,76,.3);
+  border-radius: 3px;
+  background: rgba(201,168,76,.05);
+  color: #c9a84c;
+  font-size: clamp(14px, 1.3vw, 16px);
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: background .3s, border-color .3s;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+.panel-action:hover {
+  background: rgba(201,168,76,.15);
+  border-color: #c9a84c;
+}
+
+/* ─── FOOTER BAR ─── */
+.throne-footer {
+  padding: 10px 24px;
+  background: rgba(5,5,8,.92);
+  border-top: 1px solid rgba(201,168,76,.1);
+  display:flex; align-items:center; justify-content:space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.footer-charter {
+  font-size: clamp(14px, 1.3vw, 15px);
+  color: #999;
+  letter-spacing: .08em;
+  font-style: italic;
+}
+.footer-links {
+  display:flex; gap:16px; flex-wrap:wrap;
+}
+.footer-links a {
+  font-size: clamp(14px, 1.3vw, 15px);
+  color: #999;
+  letter-spacing: .06em;
+  transition: color .3s;
+}
+.footer-links a:hover { color: #c9a84c; }
+.footer-mandate {
+  font-size: clamp(14px, 1.2vw, 15px);
+  color: #888;
+  letter-spacing: .06em;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — Mobile: stack panels vertically
+   ═══════════════════════════════════════════ */
+@media (max-width: 800px) {
+  .domains-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    padding: 12px 16px;
+  }
+  .fuel-bar { padding: 8px 16px; }
+  .throne-header { padding: 6px 16px; flex-wrap:wrap; }
+  .throne-footer { padding: 8px 16px; }
+  .domain-panel { padding: 14px; }
+}
+
+@media (max-width: 500px) {
+  .domains-grid { gap: 8px; }
+  .panel-metrics { gap: 10px; }
+  .throne-brand h1 { letter-spacing: .08em; }
+  .mandate-badge { display:none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════
+     ANIMATED BACKGROUND — Neural Mesh + Dragon's Lair
+     CSS-only. No JavaScript needed.
+     ═══════════════════════════════════════════ -->
+<div class="throne-bg" aria-hidden="true">
+  <!-- Horizontal mesh scan lines -->
+  <div class="mesh-line" style="top:12%; width:70%; left:-10%; animation-delay:0s; animation-duration:7s;"></div>
+  <div class="mesh-line" style="top:28%; width:85%; left:-15%; animation-delay:2.5s; animation-duration:9s;"></div>
+  <div class="mesh-line" style="top:45%; width:60%; left:5%; animation-delay:5s; animation-duration:8s;"></div>
+  <div class="mesh-line" style="top:62%; width:90%; left:-20%; animation-delay:1s; animation-duration:10s;"></div>
+  <div class="mesh-line" style="top:78%; width:55%; left:10%; animation-delay:3.5s; animation-duration:7.5s;"></div>
+  <div class="mesh-line" style="top:91%; width:75%; left:-5%; animation-delay:6s; animation-duration:8.5s;"></div>
+
+  <!-- Vertical data rain columns -->
+  <div class="data-rain" style="left:8%; height:30%; top:-30%; animation-duration:6s; animation-delay:0s;"></div>
+  <div class="data-rain" style="left:22%; height:25%; top:-25%; animation-duration:8s; animation-delay:1.5s;"></div>
+  <div class="data-rain" style="left:38%; height:35%; top:-35%; animation-duration:7s; animation-delay:3s;"></div>
+  <div class="data-rain" style="left:55%; height:20%; top:-20%; animation-duration:9s; animation-delay:.5s;"></div>
+  <div class="data-rain" style="left:72%; height:28%; top:-28%; animation-duration:6.5s; animation-delay:2s;"></div>
+  <div class="data-rain" style="left:88%; height:32%; top:-32%; animation-duration:7.5s; animation-delay:4s;"></div>
+  <div class="data-rain" style="left:15%; height:22%; top:-22%; animation-duration:10s; animation-delay:5s;"></div>
+  <div class="data-rain" style="left:48%; height:26%; top:-26%; animation-duration:8.5s; animation-delay:1s;"></div>
+  <div class="data-rain" style="left:65%; height:18%; top:-18%; animation-duration:7s; animation-delay:3.5s;"></div>
+  <div class="data-rain" style="left:92%; height:24%; top:-24%; animation-duration:6s; animation-delay:2.5s;"></div>
+
+  <!-- Breathing nebula glow -->
+  <div class="nebula-glow"></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     COCKPIT STRUCTURE — One screen, fixed sectors
+     All text pre-rendered. Screen-reader accessible.
+     ═══════════════════════════════════════════ -->
+<main class="cockpit" role="main">
+
+  <!-- ─── SECTOR 1: FUEL GAUGE (always first) ─── -->
+  <section class="fuel-bar" role="status" aria-label="Federation Fuel Gauge — Token Balance">
+    <span class="fuel-label" aria-hidden="true">⦡ Fuel</span>
+    <div class="fuel-gauge" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Token balance gauge">
+      <div class="fuel-fill" style="width:0%;"></div>
+    </div>
+    <span class="fuel-text" aria-live="polite">— ECU</span>
+    <span class="fuel-label" style="color:#666;">|</span>
+    <span class="fuel-label" style="color:#999;">Sovereign Reserve</span>
+  </section>
+
+  <!-- ─── SECTOR 2: HEADER BAR ─── -->
+  <header class="throne-header" role="banner">
+    <div class="throne-brand">
+      <div>
+        <h1>OMEGA THRONE</h1>
+        <p class="subtitle">NextXus Federation Admin Cockpit</p>
+      </div>
+    </div>
+    <div class="mandate-badge" aria-label="Federation status: online, 200-year mandate active">
+      <span class="mandate-dot" aria-hidden="true"></span>
+      200-Year Mandate Active
+    </div>
+  </header>
+
+  <!-- ─── SECTOR 3: SOVEREIGN DOMAIN PANELS ─── -->
+  <div class="domains-grid" role="region" aria-label="Sovereign Domain Panels">
+
+    <!-- PANEL 1: CORE — nextxus.online -->
+    <article class="domain-panel" aria-labelledby="panel-core-name" id="sector-core">
+      <div class="panel-header">
+        <span class="panel-sector">Sector Alpha</span>
+        <span class="status-indicator online" aria-label="Status: Online">
+          <span class="status-pip" aria-hidden="true"></span>
+          Online
+        </span>
+      </div>
+      <h2 class="panel-name" id="panel-core-name">CORE</h2>
+      <span class="panel-url">nextxus.online</span>
+      <p class="panel-desc">Central source of truth for the entire Federation. All content flows through Core. The origin point.</p>
+      <div class="panel-metrics">
+        <div class="metric">
+          <span class="metric-label">Role</span>
+          <span class="metric-value">Source of Truth</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Priority</span>
+          <span class="metric-value">Alpha</span>
+        </div>
+      </div>
+      <a href="https://nextxus.online" class="panel-action" target="_blank" rel="noopener noreferrer">Enter Core ◈</a>
+    </article>
+
+    <!-- PANEL 2: STOREFRONT — next-xus.com -->
+    <article class="domain-panel" aria-labelledby="panel-store-name" id="sector-storefront">
+      <div class="panel-header">
+        <span class="panel-sector">Sector Beta</span>
+        <span class="status-indicator online" aria-label="Status: Online">
+          <span class="status-pip" aria-hidden="true"></span>
+          Online
+        </span>
+      </div>
+      <h2 class="panel-name" id="panel-store-name">STOREFRONT</h2>
+      <span class="panel-url">next-xus.com</span>
+      <p class="panel-desc">Unified commerce hub. Sovereign Tools, Sovereign Tokens, digital products. No subscriptions. No tracking.</p>
+      <div class="panel-metrics">
+        <div class="metric">
+          <span class="metric-label">Role</span>
+          <span class="metric-value">Commerce</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Token Price</span>
+          <span class="metric-value">$5.00</span>
+        </div>
+      </div>
+      <a href="https://next-xus.com" class="panel-action" target="_blank" rel="noopener noreferrer">Enter Storefront ◈</a>
+    </article>
+
+    <!-- PANEL 3: UNIVERSITY — nextxus.help -->
+    <article class="domain-panel" aria-labelledby="panel-uni-name" id="sector-university">
+      <div class="panel-header">
+        <span class="panel-sector">Sector Gamma</span>
+        <span class="status-indicator online" aria-label="Status: Online">
+          <span class="status-pip" aria-hidden="true"></span>
+          Online
+        </span>
+      </div>
+      <h2 class="panel-name" id="panel-uni-name">UNIVERSITY</h2>
+      <span class="panel-url">nextxus.help</span>
+      <p class="panel-desc">AI Course Hub with Xavier. 54+ courses. The Federation's knowledge forge — learn, build, evolve.</p>
+      <div class="panel-metrics">
+        <div class="metric">
+          <span class="metric-label">Role</span>
+          <span class="metric-value">Education</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Courses</span>
+          <span class="metric-value">54+</span>
+        </div>
+      </div>
+      <a href="https://nextxus.help" class="panel-action" target="_blank" rel="noopener noreferrer">Enter University ◈</a>
+    </article>
+
+    <!-- PANEL 4: LIBRARY — nextxus.org -->
+    <article class="domain-panel" aria-labelledby="panel-lib-name" id="sector-library">
+      <div class="panel-header">
+        <span class="panel-sector">Sector Delta</span>
+        <span class="status-indicator online" aria-label="Status: Online">
+          <span class="status-pip" aria-hidden="true"></span>
+          Online
+        </span>
+      </div>
+      <h2 class="panel-name" id="panel-lib-name">LIBRARY</h2>
+      <span class="panel-url">nextxus.org</span>
+      <p class="panel-desc">Federation archive and knowledge repository. The Sovereign Library. Research, records, federation history.</p>
+      <div class="panel-metrics">
+        <div class="metric">
+          <span class="metric-label">Role</span>
+          <span class="metric-value">Archive</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Type</span>
+          <span class="metric-value">Sovereign</span>
+        </div>
+      </div>
+      <a href="https://nextxus.org" class="panel-action" target="_blank" rel="noopener noreferrer">Enter Library ◈</a>
+    </article>
+
+  </div>
+
+  <!-- ─── SECTOR 4: FOOTER ─── -->
+  <footer class="throne-footer" role="contentinfo">
+    <span class="footer-charter">Truth Before Comfort — Legacy Before Ego — Give Without Reward</span>
+    <nav class="footer-links" aria-label="Quick navigation">
+      <a href="https://nextxus.online" target="_blank" rel="noopener noreferrer">Core</a>
+      <a href="https://next-xus.com" target="_blank" rel="noopener noreferrer">Store</a>
+      <a href="https://nextxus.help" target="_blank" rel="noopener noreferrer">University</a>
+      <a href="https://nextxus.org" target="_blank" rel="noopener noreferrer">Library</a>
+      <a href="https://nextxus.studio" target="_blank" rel="noopener noreferrer">Studio</a>
+      <a href="https://humancodexnextxus.blogspot.com" target="_blank" rel="noopener noreferrer">HumanCodex</a>
+    </nav>
+    <span class="footer-mandate">NextXus Federation — 2025 — 200-Year Mandate</span>
+  </footer>
+
+</main>
+
+<!-- ═══════════════════════════════════════════
+     ACCESSIBILITY NOTICE
+     All text above is pre-rendered semantic HTML.
+     No JavaScript is required to read any content.
+     Screen readers will encounter: Fuel gauge, Header,
+     four labeled Domain Panels (CORE, STOREFRONT,
+     UNIVERSITY, LIBRARY), and Footer — in that order.
+     ═══════════════════════════════════════════ -->
+
+</body>
+</html>
