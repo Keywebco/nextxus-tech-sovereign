@@ -1,0 +1,47 @@
+# =============================================================================
+# NextXus Federation — Aider Model Settings for MiMo
+# Nova Stack | Model Metadata
+# =============================================================================
+# Wired: 2026-09-24
+# Place as .aider.model.settings.yml in repo root
+# Docs: https://aider.chat/docs/config/adv-model-settings.html
+# =============================================================================
+
+- name: openai/mimo-v2.6-flash
+  edit_format: diff
+  weak_model_name: openai/mimo-v2.6-flash
+  use_repo_map: true
+  send_undo_reply: true
+  accepts_images: false
+  lazy: false
+  reminder: sys
+  examples_as_sys_msg: true
+  extra_params:
+    max_tokens: 8192
+    temperature: 0.1
+
+- name: openai/mimo-v2.6-pro
+  edit_format: diff
+  weak_model_name: openai/mimo-v2.6-flash
+  use_repo_map: true
+  send_undo_reply: true
+  accepts_images: true
+  lazy: false
+  reminder: sys
+  examples_as_sys_msg: true
+  extra_params:
+    max_tokens: 16384
+    temperature: 0.2
+
+- name: openai/mimo-v2.6-pro-ultraspeed
+  edit_format: diff
+  weak_model_name: openai/mimo-v2.6-flash
+  use_repo_map: true
+  send_undo_reply: true
+  accepts_images: true
+  lazy: false
+  reminder: sys
+  examples_as_sys_msg: true
+  extra_params:
+    max_tokens: 16384
+    temperature: 0.2

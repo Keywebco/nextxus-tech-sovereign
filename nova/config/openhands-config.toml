@@ -1,0 +1,62 @@
+# =============================================================================
+# NextXus Federation — OpenHands Configuration
+# Nova Stack | MiMo Backend
+# =============================================================================
+# Wired: 2026-09-24
+# Place this at the root of the OpenHands workspace or set via env vars.
+# Docs: https://docs.openhands.dev/openhands/usage/llms/custom-llm-configs
+# =============================================================================
+
+[core]
+workspace_base = "/workspace"
+run_as_openhands = true
+
+# --- Primary LLM: MiMo Flash (default — bulk/batch work) ---
+[llm]
+model = "openai/mimo-v2.6-flash"
+base_url = "https://api.xiaomimimo.com/v1"
+api_key_env = "MIMO_API_KEY"
+temperature = 0.1
+max_tokens = 8192
+top_p = 0.95
+timeout = 120
+max_retries = 3
+
+# --- Named Profile: MiMo Pro (complex tasks) ---
+[llm.mimo-pro]
+model = "openai/mimo-v2.6-pro"
+base_url = "https://api.xiaomimimo.com/v1"
+api_key_env = "MIMO_API_KEY"
+temperature = 0.2
+max_tokens = 16384
+top_p = 0.95
+timeout = 180
+max_retries = 3
+
+# --- Named Profile: MiMo Pro UltraSpeed (urgent complex tasks) ---
+[llm.mimo-pro-fast]
+model = "openai/mimo-v2.6-pro-ultraspeed"
+base_url = "https://api.xiaomimimo.com/v1"
+api_key_env = "MIMO_API_KEY"
+temperature = 0.2
+max_tokens = 16384
+top_p = 0.95
+timeout = 90
+max_retries = 2
+
+# --- Agent Configuration ---
+[agent]
+name = "NovaAgent"
+# Use llm.mimo-pro for complex tasks:
+#   export AGENT_LLM_CONFIG=mimo-pro
+# Use llm.mimo-pro-fast for urgent tasks:
+#   export AGENT_LLM_CONFIG=mimo-pro-fast
+
+[agent.memory]
+enabled = true
+max_events = 100
+
+# --- Sandbox ---
+[sandbox]
+timeout = 300
+enable_auto_lint = true

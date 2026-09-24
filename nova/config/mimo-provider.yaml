@@ -1,0 +1,84 @@
+# =============================================================================
+# NextXus Federation — MiMo Provider Configuration
+# Nova Stack | Primary LLM Backend
+# =============================================================================
+# Wired: 2026-09-24
+# Protocol: OpenAI-compatible (v1/chat/completions)
+# Docs: https://mimo.mi.com/docs/en-US/api/chat/openai-api
+# =============================================================================
+
+provider:
+  name: xiaomi-mimo
+  type: openai-compatible
+  base_url: "${MIMO_BASE_URL:-https://api.xiaomimimo.com/v1}"
+  api_key: "${MIMO_API_KEY}"
+  # Token Plan users: override MIMO_BASE_URL with your regional endpoint
+  # e.g. https://token-plan-cn.xiaomimimo.com/v1 (China)
+  # See: https://mimo.mi.com/docs/en-US/tokenplan/Token%20Plan/quick-access
+
+models:
+  # --- FLASH: Bulk/batch operations at lowest cost ---
+  flash:
+    id: "mimo-v2.6-flash"
+    display_name: "MiMo Flash v2.6"
+    context_window: 131072
+    max_output_tokens: 16384
+    supports_streaming: true
+    supports_function_calling: true
+    supports_vision: false
+    cost_tier: low
+    use_cases:
+      - batch-generation
+      - code-scaffolding
+      - linting-and-formatting
+      - bulk-file-edits
+      - migration-scripts
+      - test-generation
+      - documentation-drafts
+
+  # --- PRO: Complex single-task reasoning ---
+  pro:
+    id: "mimo-v2.6-pro"
+    display_name: "MiMo Pro v2.6"
+    context_window: 131072
+    max_output_tokens: 16384
+    supports_streaming: true
+    supports_function_calling: true
+    supports_vision: true
+    cost_tier: standard
+    use_cases:
+      - architecture-design
+      - complex-debugging
+      - security-review
+      - refactoring
+      - code-review
+      - system-design
+
+  # --- PRO ULTRASPEED: Fast complex reasoning ---
+  pro_ultraspeed:
+    id: "mimo-v2.6-pro-ultraspeed"
+    display_name: "MiMo Pro v2.6 UltraSpeed"
+    context_window: 131072
+    max_output_tokens: 16384
+    supports_streaming: true
+    supports_function_calling: true
+    supports_vision: true
+    cost_tier: standard_plus
+    use_cases:
+      - urgent-architecture
+      - time-critical-debugging
+      - live-incident-response
+
+defaults:
+  model: "mimo-v2.6-flash"
+  temperature: 0.1
+  max_tokens: 8192
+  top_p: 0.95
+  stream: true
+
+# Health check: GET {base_url}/models should return model list
+health_check:
+  endpoint: "/models"
+  expected_models:
+    - "mimo-v2.6-flash"
+    - "mimo-v2.6-pro"

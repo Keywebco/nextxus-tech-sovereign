@@ -1,0 +1,188 @@
+# =============================================================================
+# NextXus Federation — Nova Builder Workflow
+# Trigger Nova builder agents using MiMo as LLM backend
+# =============================================================================
+# Wired: 2026-09-24
+# =============================================================================
+
+name: Nova Builder Agent
+
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: "Task description for the Nova builder agent"
+        required: true
+        type: string
+      model_tier:
+        description: "Model routing tier"
+        required: false
+        type: choice
+        options:
+          - flash
+          - pro
+          - pro-ultraspeed
+        default: flash
+      target_path:
+        description: "Target file or directory path in the repo"
+        required: false
+        type: string
+        default: "."
+      agent_type:
+        description: "Builder agent framework"
+        required: false
+        type: choice
+        options:
+          - openhands
+          - aider
+        default: aider
+      dry_run:
+        description: "Preview changes without committing"
+        required: false
+        type: boolean
+        default: false
+
+env:
+  MIMO_BASE_URL: "https://api.xiaomimimo.com/v1"
+
+jobs:
+  # ─── Model Selection ───────────────────────────────────────────────
+  resolve-model:
+    runs-on: ubuntu-latest
+    outputs:
+      model_id: ${{ steps.pick.outputs.model_id }}
+      openai_model: ${{ steps.pick.outputs.openai_model }}
+    steps:
+      - name: Select MiMo model from tier
+        id: pick
+        run: |
+          case "${{ inputs.model_tier }}" in
+            pro)
+              echo "model_id=mimo-v2.6-pro" >> "$GITHUB_OUTPUT"
+              echo "openai_model=openai/mimo-v2.6-pro" >> "$GITHUB_OUTPUT"
+              ;;
+            pro-ultraspeed)
+              echo "model_id=mimo-v2.6-pro-ultraspeed" >> "$GITHUB_OUTPUT"
+              echo "openai_model=openai/mimo-v2.6-pro-ultraspeed" >> "$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "model_id=mimo-v2.6-flash" >> "$GITHUB_OUTPUT"
+              echo "openai_model=openai/mimo-v2.6-flash" >> "$GITHUB_OUTPUT"
+              ;;
+          esac
+          echo "Selected model: ${{ inputs.model_tier }}"
+
+  # ─── Aider Agent ───────────────────────────────────────────────────
+  build-with-aider:
+    needs: resolve-model
+    if: inputs.agent_type == 'aider'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Aider
+        run: pip install aider-chat
+
+      - name: Verify MiMo connectivity
+        env:
+          OPENAI_API_KEY: ${{ secrets.MIMO_API_KEY }}
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer $OPENAI_API_KEY" \
+            "${{ env.MIMO_BASE_URL }}/models" | grep -q "200" \
+            && echo "MiMo API reachable" \
+            || (echo "ERROR: MiMo API unreachable" && exit 1)
+
+      - name: Run Aider agent
+        env:
+          OPENAI_API_KEY: ${{ secrets.MIMO_API_KEY }}
+          OPENAI_API_BASE: ${{ env.MIMO_BASE_URL }}
+        run: |
+          ARGS="--model ${{ needs.resolve-model.outputs.openai_model }}"
+          ARGS="$ARGS --message '${{ inputs.task }}'"
+          ARGS="$ARGS --yes-always"
+
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+
+          if [ -n "${{ inputs.target_path }}" ] && [ "${{ inputs.target_path }}" != "." ]; then
+            ARGS="$ARGS ${{ inputs.target_path }}"
+          fi
+
+          eval aider $ARGS
+
+      - name: Push changes
+        if: inputs.dry_run != true
+        run: |
+          git config user.name "Nova Builder"
+          git config user.email "nova@nextxus.online"
+          git push origin HEAD
+
+  # ─── OpenHands Agent ───────────────────────────────────────────────
+  build-with-openhands:
+    needs: resolve-model
+    if: inputs.agent_type == 'openhands'
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/openhands/openhands:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Copy Nova config
+        run: |
+          cp nova/config/openhands-config.toml config.toml
+          echo "OpenHands config loaded from Nova stack"
+
+      - name: Run OpenHands agent
+        env:
+          MIMO_API_KEY: ${{ secrets.MIMO_API_KEY }}
+          LLM_MODEL: ${{ needs.resolve-model.outputs.openai_model }}
+          LLM_BASE_URL: ${{ env.MIMO_BASE_URL }}
+          LLM_API_KEY: ${{ secrets.MIMO_API_KEY }}
+        run: |
+          if [ "${{ inputs.model_tier }}" = "pro" ] || [ "${{ inputs.model_tier }}" = "pro-ultraspeed" ]; then
+            export AGENT_LLM_CONFIG="${{ inputs.model_tier == 'pro' && 'mimo-pro' || 'mimo-pro-fast' }}"
+          fi
+
+          python -m openhands.core.main \
+            -t "${{ inputs.task }}" \
+            --config config.toml
+
+      - name: Push changes
+        if: inputs.dry_run != true
+        run: |
+          git config user.name "Nova Builder"
+          git config user.email "nova@nextxus.online"
+          git add -A
+          git diff --cached --quiet || git commit -m "nova: ${{ inputs.task }}"
+          git push origin HEAD
+
+  # ─── Summary ───────────────────────────────────────────────────────
+  report:
+    needs: [resolve-model, build-with-aider, build-with-openhands]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build report
+        run: |
+          echo "## Nova Builder Report" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Field | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|-------|-------|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Task | ${{ inputs.task }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Model | ${{ needs.resolve-model.outputs.model_id }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Agent | ${{ inputs.agent_type }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Dry Run | ${{ inputs.dry_run }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Target | ${{ inputs.target_path }} |" >> "$GITHUB_STEP_SUMMARY"

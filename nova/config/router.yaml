@@ -1,0 +1,103 @@
+# =============================================================================
+# NextXus Federation — Nova Task Router
+# Determines which MiMo model handles each task type
+# =============================================================================
+# Wired: 2026-09-24
+# =============================================================================
+
+router:
+  name: nova-mimo-router
+  version: "1.0.0"
+  default_model: mimo-v2.6-flash
+
+  # --- Cost Tiers ---
+  tiers:
+    flash:
+      model_id: "mimo-v2.6-flash"
+      openai_name: "openai/mimo-v2.6-flash"
+      description: "Bulk/batch — lowest cost per token"
+      priority: 1
+      max_concurrent: 10
+
+    pro:
+      model_id: "mimo-v2.6-pro"
+      openai_name: "openai/mimo-v2.6-pro"
+      description: "Complex reasoning — standard cost"
+      priority: 2
+      max_concurrent: 3
+
+    pro_fast:
+      model_id: "mimo-v2.6-pro-ultraspeed"
+      openai_name: "openai/mimo-v2.6-pro-ultraspeed"
+      description: "Urgent complex — fast turnaround"
+      priority: 3
+      max_concurrent: 2
+
+  # --- Routing Rules ---
+  # Matched top-to-bottom; first match wins
+  rules:
+    # Batch operations → Flash
+    - match:
+        task_types:
+          - batch-generation
+          - bulk-file-edit
+          - migration
+          - test-generation
+          - documentation
+          - scaffolding
+          - linting
+          - formatting
+          - translation
+      route_to: flash
+      temperature: 0.1
+      max_tokens: 8192
+
+    # Complex single tasks → Pro
+    - match:
+        task_types:
+          - architecture-design
+          - complex-debugging
+          - security-review
+          - refactoring
+          - code-review
+          - system-design
+          - api-design
+      route_to: pro
+      temperature: 0.2
+      max_tokens: 16384
+
+    # Urgent complex → Pro UltraSpeed
+    - match:
+        task_types:
+          - architecture-design
+          - complex-debugging
+          - security-review
+        conditions:
+          urgent: true
+      route_to: pro_fast
+      temperature: 0.2
+      max_tokens: 16384
+
+    # Default fallback → Flash
+    - match:
+        task_types: ["*"]
+      route_to: flash
+      temperature: 0.1
+      max_tokens: 8192
+
+  # --- Fallback Chain ---
+  # If the primary model fails, try the next in chain
+  fallback_chain:
+    - mimo-v2.6-flash
+    - mimo-v2.6-pro
+    - mimo-v2.6-pro-ultraspeed
+
+  # --- Cost Guard ---
+  cost_guard:
+    enabled: true
+    # Alert if daily spend exceeds threshold (in USD)
+    daily_alert_threshold: 5.00
+    # Hard stop if daily spend exceeds limit
+    daily_hard_limit: 20.00
+    # Prefer flash when within 80% of daily limit
+    flash_only_threshold_pct: 80

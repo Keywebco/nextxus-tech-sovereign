@@ -1,0 +1,42 @@
+# =============================================================================
+# NextXus Federation — Aider Configuration
+# Nova Stack | MiMo Backend
+# =============================================================================
+# Wired: 2026-09-24
+# Place as .aider.conf.yml in the repo root or ~/.aider.conf.yml
+# Docs: https://aider.chat/docs/config/aider_conf.html
+# =============================================================================
+
+# Default model: MiMo Flash for cost-efficient bulk work
+model: openai/mimo-v2.6-flash
+
+# MiMo OpenAI-compatible endpoint
+openai-api-base: https://api.xiaomimimo.com/v1
+
+# API key from environment — do NOT hardcode
+# Set: export OPENAI_API_KEY=$MIMO_API_KEY
+# Or:  export MIMO_API_KEY=your_key (and alias in shell)
+
+# Editor model: use Flash for inline edits (cheaper)
+editor-model: openai/mimo-v2.6-flash
+
+# For complex tasks, override at invocation:
+#   aider --model openai/mimo-v2.6-pro
+#   aider --model openai/mimo-v2.6-pro-ultraspeed
+
+# Coding preferences
+auto-commits: true
+auto-lint: true
+stream: true
+pretty: true
+dark-mode: true
+
+# Git integration
+git: true
+gitignore: true
+attribute-author: false
+attribute-committer: false
+
+# Cost control
+cache-prompts: true
+map-tokens: 2048
