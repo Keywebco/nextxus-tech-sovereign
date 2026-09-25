@@ -3,18 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
 <title>OMEGA THRONE — NextXus Federation Admin Cockpit</title>
-<meta name="description" content="The Omega Throne — NextXus Federation sovereign admin cockpit. One screen. Four domains. 200-Year Mandate Active. Fuel gauge, domain status, Federation command center.">
+<meta name="description" content="The Omega Throne — NextXus Federation sovereign admin cockpit. One screen. Four domains. ECU balance, domain status, Federation command center. 200-Year Mandate Active.">
 <meta name="keywords" content="NextXus, Federation, Admin, Throne, Cockpit, HumanCodex, Sovereign, CORE, Storefront, University, Library">
 <meta name="author" content="NextXus Federation — The Catalyst">
 <meta name="robots" content="noindex, nofollow">
 <!--
-  ╔══════════════════════════════════════════════════════════╗
-  ║  OMEGA THRONE — NextXus Federation Admin Cockpit         ║
-  ║  Pure HTML/CSS — Zero Dependencies — Built for 200 Years ║
-  ║  Semantic pre-rendered HTML. No JS required to read.     ║
-  ║  Every element accessible to screen readers and crawlers.║
-  ╚═══════════════════════════════════════════════════════════╝
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  OMEGA THRONE — NextXus Federation Admin Cockpit             ║
+  ║  Pure HTML/CSS — Zero Dependencies — Built for 200 Years     ║
+  ║  Semantic pre-rendered HTML. No JS required to read.         ║
+  ║  Every element accessible to screen readers and crawlers.    ║
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  DOCUMENT ORDER (as announced by a screen reader):           ║
+  ║  1. Skip link ("Skip to sovereign domains")                  ║
+  ║  2. SECTOR 1 — ECU Balance heading + manual reading note     ║
+  ║     (decorative bar is aria-hidden and makes no numeric      ║
+  ║      claim — the text is the source of truth)                ║
+  ║  3. SECTOR 2 — Banner: OMEGA THRONE + 200-Year Mandate       ║
+  ║  4. SECTOR 3 — Quick navigation to the four sector anchors   ║
+  ║  5. SECTOR 4 — Four fixed domain panels, in order:           ║
+  ║     #sector-core, #sector-storefront, #sector-university,    ║
+  ║     #sector-library                                          ║
+  ║  6. SECTOR 5 — Footer: charter, quick links, mandate line    ║
+  ║                                                              ║
+  ║  No <script> anywhere. Nothing is injected at runtime.       ║
+  ║  Animations are purely decorative and are disabled when the  ║
+  ║  visitor requests reduced motion.                            ║
+  ╚══════════════════════════════════════════════════════════════╝
 -->
 <style>
 /* ═══════════════════════════════════════════
@@ -27,6 +44,7 @@ html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
   color:#e0e0e0; background:#050508;
+  scroll-behavior: smooth;
 }
 body {
   width:100%; min-height:100vh;
@@ -37,11 +55,39 @@ body {
 }
 a { color:#c9a84c; text-decoration:none; transition: color .3s, opacity .3s; }
 a:hover { opacity:.85; }
-a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
+a:focus-visible {
+  outline: 3px solid #c9a84c;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+h1, h2, h3 { font-weight:700; }
+
+/* Anchor targets clear of the sticky-free top bars */
+[id^="sector-"] { scroll-margin-top: 24px; }
+
+/* ─── SKIP LINK — visible on keyboard focus ─── */
+.skip-link {
+  position:absolute;
+  top:-100px; left:16px;
+  z-index:200;
+  padding: 12px 20px;
+  background:#050508;
+  border: 2px solid #c9a84c;
+  border-radius: 4px;
+  color:#c9a84c;
+  font-size: 17px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.skip-link:focus {
+  top: 12px;
+  opacity:1;
+}
 
 /* ═══════════════════════════════════════════
    ANIMATED BACKGROUND — Neural Mesh + Data Rain
-   Pure CSS, no JS needed to render
+   Pure CSS, decorative only, aria-hidden.
    ═══════════════════════════════════════════ */
 .throne-bg {
   position:fixed; inset:0; z-index:0;
@@ -49,7 +95,6 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
   overflow:hidden;
 }
 
-/* Starfield layer 1 — slow drift */
 .throne-bg::before {
   content:''; position:absolute; inset:0;
   background-image:
@@ -69,7 +114,6 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
   animation: neuralDrift 90s linear infinite;
 }
 
-/* Starfield layer 2 — reverse drift, offset */
 .throne-bg::after {
   content:''; position:absolute; inset:0;
   opacity:.4;
@@ -92,7 +136,6 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
   100% { background-position: 0% 0%; }
 }
 
-/* Neural mesh lines — horizontal scan */
 .mesh-line {
   position:absolute; height:1px; opacity:0;
   background: linear-gradient(90deg, transparent, rgba(80,200,80,.12), rgba(201,168,76,.08), transparent);
@@ -105,7 +148,6 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
   100% { opacity:0; transform: translateX(110vw); }
 }
 
-/* Data rain — vertical pulse lines */
 .data-rain {
   position:absolute; width:1px;
   background: linear-gradient(180deg, transparent, rgba(80,200,80,.15), transparent);
@@ -117,7 +159,6 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
   100% { transform: translateY(100vh); }
 }
 
-/* Breathing nebula glow */
 .nebula-glow {
   position:absolute; inset:0; z-index:1; pointer-events:none;
   background:
@@ -131,36 +172,53 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
 }
 
 /* ═══════════════════════════════════════════
-   COCKPIT LAYOUT — One Screen, Scrollable on short viewports
+   COCKPIT LAYOUT — flex column so the domain
+   grid is never force-stretched to 1fr rows.
    ═══════════════════════════════════════════ */
 .cockpit {
   position:relative; z-index:10;
-  display:grid;
-  grid-template-rows: auto auto 1fr auto;
-  grid-template-columns: 1fr;
+  display:flex;
+  flex-direction:column;
   min-height: 100vh;
 }
 
-/* ─── TOP BAR: Fuel Gauge ─── */
+/* ─── SECTOR 1: ECU BALANCE (always first) ─── */
 .fuel-bar {
-  padding: 10px 24px;
-  background: linear-gradient(180deg, rgba(5,5,8,.95) 0%, rgba(5,5,8,.85) 100%);
+  padding: 14px 24px;
+  background: linear-gradient(180deg, rgba(5,5,8,.96) 0%, rgba(5,5,8,.88) 100%);
   border-bottom: 1px solid rgba(80,200,80,.2);
-  display:flex; align-items:center; justify-content:space-between;
-  gap: 16px;
+  display:flex; flex-direction:column; align-items:flex-start;
+  gap: 6px;
   z-index:20;
 }
-.fuel-label {
-  font-size: clamp(14px, 1.8vw, 16px);
-  color: #a0a0a0;
-  letter-spacing: .12em;
-  font-weight: 600;
-  text-transform: uppercase;
-  white-space: nowrap;
+.fuel-heading {
+  font-size: clamp(18px, 2.6vw, 26px);
+  line-height:1.35;
+  color: #50c850;
+  font-weight: 700;
+  letter-spacing: .04em;
+  font-variant-numeric: tabular-nums;
 }
+.fuel-updated {
+  font-size: clamp(14px, 1.7vw, 17px);
+  line-height:1.5;
+  color: #a0a0a0;
+  letter-spacing: .04em;
+}
+.fuel-sub {
+  font-size: clamp(14px, 1.6vw, 16px);
+  color: #999;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Decorative bar — purely ornamental, no numeric claim.
+   Indeterminate sweep, not a percentage meter. */
 .fuel-gauge {
-  flex:1; max-width: 500px;
-  height: 20px;
+  width:100%; max-width: 640px;
+  height: 16px;
+  margin-top: 2px;
   background: rgba(80,200,80,.06);
   border: 1px solid rgba(80,200,80,.2);
   border-radius: 3px;
@@ -168,31 +226,21 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
   overflow:hidden;
 }
 .fuel-fill {
-  height:100%;
-  background: linear-gradient(90deg, rgba(80,200,80,.6), rgba(80,200,80,.3));
+  position:absolute; top:0; bottom:0;
+  width:34%;
+  background: linear-gradient(90deg, rgba(80,200,80,0), rgba(80,200,80,.55), rgba(201,168,76,.4), rgba(80,200,80,0));
   border-radius: 2px;
-  width: 0%; /* Set dynamically or manually */
-  transition: width 1s ease;
-  animation: fuelPulse 3s ease-in-out infinite;
+  animation: fuelSweep 7s ease-in-out infinite;
 }
-@keyframes fuelPulse {
-  0%, 100% { opacity:.8; }
-  50% { opacity:1; }
+@keyframes fuelSweep {
+  0%   { left:-38%; opacity:.45; }
+  50%  { opacity:1; }
+  100% { left:104%; opacity:.45; }
 }
-.fuel-text {
-  font-size: clamp(16px, 2.2vw, 22px);
-  color: #50c850;
-  font-weight: 700;
-  letter-spacing: .06em;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-.fuel-text.fuel-low { color: #e04040; }
-.fuel-text.fuel-mid { color: #c9a84c; }
 
-/* ─── HEADER BAR ─── */
+/* ─── SECTOR 2: HEADER BAR ─── */
 .throne-header {
-  padding: 8px 24px;
+  padding: 10px 24px;
   background: rgba(5,5,8,.9);
   border-bottom: 1px solid rgba(201,168,76,.15);
   display:flex; align-items:center; justify-content:space-between;
@@ -202,7 +250,7 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
   display:flex; align-items:center; gap:12px;
 }
 .throne-brand h1 {
-  font-size: clamp(18px, 2.5vw, 26px);
+  font-size: clamp(22px, 3.2vw, 32px);
   font-weight: 700;
   letter-spacing: .15em;
   color: #c9a84c;
@@ -214,25 +262,25 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
   50% { text-shadow: 0 0 30px rgba(201,168,76,.5), 0 0 60px rgba(201,168,76,.15); }
 }
 .throne-brand .subtitle {
-  font-size: clamp(14px, 1.5vw, 16px);
-  color: #a0a0a0;
+  font-size: clamp(15px, 1.7vw, 18px);
+  color: #b0b0b0;
   letter-spacing: .15em;
   text-transform: uppercase;
 }
 .mandate-badge {
-  display:inline-flex; align-items:center; gap:6px;
-  padding: 5px 14px;
+  display:inline-flex; align-items:center; gap:8px;
+  padding: 6px 16px;
   border: 1px solid rgba(80,200,80,.3);
   border-radius: 20px;
   background: rgba(80,200,80,.04);
-  font-size: clamp(14px, 1.3vw, 15px);
+  font-size: clamp(15px, 1.5vw, 17px);
   color: #50c850;
   letter-spacing: .1em;
   text-transform: uppercase;
   white-space:nowrap;
 }
 .mandate-dot {
-  display:inline-block; width:7px; height:7px;
+  display:inline-block; width:8px; height:8px;
   background: #50c850;
   border-radius:50%;
   animation: dotPulse 2s ease-in-out infinite;
@@ -242,24 +290,64 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
   50% { opacity:1; box-shadow: 0 0 8px rgba(80,200,80,.6); }
 }
 
-/* ─── DOMAIN PANELS GRID ─── */
-.domains-grid {
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 12px;
-  padding: 16px 24px;
-  align-content: center;
+/* ─── SECTOR 3: QUICK NAVIGATION ─── */
+.quick-nav {
+  padding: 10px 24px;
+  background: rgba(8,10,8,.85);
+  border-bottom: 1px solid rgba(80,200,80,.12);
+}
+.quick-nav-title {
+  font-size: clamp(14px, 1.5vw, 16px);
+  color: #999;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.quick-nav ul {
+  list-style:none;
+  display:flex; flex-wrap:wrap;
+  gap: 10px;
+}
+.quick-nav li { display:block; }
+.quick-nav a {
+  display:inline-block;
+  padding: 9px 18px;
+  border: 1px solid rgba(201,168,76,.35);
+  border-radius: 3px;
+  background: rgba(201,168,76,.05);
+  color: #c9a84c;
+  font-size: clamp(15px, 1.6vw, 17px);
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.quick-nav a:hover,
+.quick-nav a:focus-visible {
+  background: rgba(201,168,76,.18);
+  border-color: #c9a84c;
+  opacity:1;
 }
 
-/* Individual domain panel */
+/* ─── SECTOR 4: DOMAIN PANELS GRID ─── */
+.domains-grid {
+  flex: 1 0 auto;
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: auto;
+  gap: 16px;
+  padding: 20px 24px;
+  align-content: center;
+  align-items: stretch;
+}
+
 .domain-panel {
   background: rgba(10,15,10,.7);
   border: 1px solid rgba(80,200,80,.15);
   border-radius: 6px;
-  padding: clamp(16px, 2vw, 24px);
+  padding: clamp(18px, 2.2vw, 28px);
   display:flex; flex-direction:column;
-  gap: 8px;
+  gap: 10px;
   transition: border-color .3s, background .3s, box-shadow .3s;
   position:relative;
   overflow:hidden;
@@ -270,7 +358,6 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
   box-shadow: 0 0 20px rgba(80,200,80,.05), inset 0 0 30px rgba(80,200,80,.02);
 }
 
-/* Panel corner accent — animated */
 .domain-panel::before {
   content:'';
   position:absolute; top:0; left:0; width:40px; height:40px;
@@ -294,29 +381,27 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
   50% { opacity:1; }
 }
 
-/* Panel header row */
 .panel-header {
   display:flex; align-items:center; justify-content:space-between;
   gap:8px;
 }
 .panel-sector {
-  font-size: clamp(14px, 1.3vw, 15px);
-  color: #999;
+  font-size: clamp(15px, 1.5vw, 17px);
+  color: #a8a8a8;
   letter-spacing: .15em;
   text-transform: uppercase;
   font-weight: 600;
 }
 .panel-name {
-  font-size: clamp(18px, 2.5vw, 24px);
+  font-size: clamp(24px, 3vw, 34px);
   color: #c9a84c;
   font-weight: 700;
   letter-spacing: .1em;
 }
 
-/* Status indicator */
 .status-indicator {
-  display:inline-flex; align-items:center; gap:6px;
-  font-size: clamp(14px, 1.3vw, 16px);
+  display:inline-flex; align-items:center; gap:7px;
+  font-size: clamp(15px, 1.5vw, 17px);
   letter-spacing: .08em;
   text-transform: uppercase;
   font-weight: 600;
@@ -325,7 +410,7 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
 .status-indicator.degraded { color: #c9a84c; }
 .status-indicator.offline { color: #e04040; }
 .status-pip {
-  display:inline-block; width:9px; height:9px;
+  display:inline-block; width:10px; height:10px;
   border-radius:50%;
   animation: dotPulse 2s ease-in-out infinite;
 }
@@ -333,128 +418,166 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
 .status-indicator.degraded .status-pip { background: #c9a84c; }
 .status-indicator.offline .status-pip { background: #e04040; animation: none; }
 
-/* Panel domain URL */
 .panel-url {
-  font-size: clamp(15px, 1.5vw, 17px);
+  font-size: clamp(16px, 1.7vw, 19px);
   color: #50c850;
   letter-spacing: .06em;
   font-family: 'Courier New', Courier, monospace;
 }
 
-/* Panel description */
 .panel-desc {
-  font-size: clamp(15px, 1.5vw, 17px);
-  color: #b0b0b0;
-  line-height: 1.5;
+  font-size: clamp(16px, 1.7vw, 18px);
+  color: #b8b8b8;
+  line-height: 1.55;
 }
 
-/* Panel metrics row */
 .panel-metrics {
-  display:flex; gap:16px; flex-wrap:wrap;
+  display:flex; gap:20px; flex-wrap:wrap;
   margin-top: auto;
-  padding-top: 8px;
+  padding-top: 10px;
   border-top: 1px solid rgba(80,200,80,.08);
 }
 .metric {
-  display:flex; flex-direction:column; gap:2px;
+  display:flex; flex-direction:column; gap:3px;
 }
 .metric-label {
-  font-size: clamp(14px, 1.3vw, 15px);
-  color: #999;
+  font-size: clamp(14px, 1.4vw, 16px);
+  color: #9a9a9a;
   letter-spacing: .12em;
   text-transform: uppercase;
 }
 .metric-value {
-  font-size: clamp(16px, 1.8vw, 20px);
-  color: #e0e0e0;
+  font-size: clamp(17px, 1.9vw, 21px);
+  color: #e8e8e8;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 
-/* Panel action link */
 .panel-action {
-  display:inline-flex; align-items:center; gap:6px;
-  padding: 8px 16px;
+  display:inline-flex; align-items:center; gap:7px;
+  padding: 11px 20px;
   border: 1px solid rgba(201,168,76,.3);
   border-radius: 3px;
   background: rgba(201,168,76,.05);
   color: #c9a84c;
-  font-size: clamp(14px, 1.3vw, 16px);
-  font-weight: 600;
+  font-size: clamp(15px, 1.5vw, 17px);
+  font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
   transition: background .3s, border-color .3s;
   align-self: flex-start;
   margin-top: 4px;
 }
-.panel-action:hover {
+.panel-action:hover,
+.panel-action:focus-visible {
   background: rgba(201,168,76,.15);
   border-color: #c9a84c;
+  opacity:1;
 }
 
-/* ─── FOOTER BAR ─── */
+/* ─── SECTOR 5: FOOTER ─── */
 .throne-footer {
-  padding: 10px 24px;
+  padding: 18px 24px;
   background: rgba(5,5,8,.92);
   border-top: 1px solid rgba(201,168,76,.1);
-  display:flex; align-items:center; justify-content:space-between;
-  gap: 12px;
-  flex-wrap: wrap;
+  display:flex; flex-direction:column;
+  align-items:flex-start;
+  gap: 14px;
 }
 .footer-charter {
-  font-size: clamp(14px, 1.3vw, 15px);
-  color: #999;
+  font-size: clamp(15px, 1.5vw, 17px);
+  color: #adadad;
   letter-spacing: .08em;
   font-style: italic;
+  line-height: 1.5;
 }
 .footer-links {
-  display:flex; gap:16px; flex-wrap:wrap;
+  display:flex; gap:10px 18px; flex-wrap:wrap;
 }
 .footer-links a {
-  font-size: clamp(14px, 1.3vw, 15px);
-  color: #999;
+  display:inline-block;
+  padding: 4px 2px;
+  font-size: clamp(15px, 1.5vw, 17px);
+  color: #a5a5a5;
   letter-spacing: .06em;
-  transition: color .3s;
 }
-.footer-links a:hover { color: #c9a84c; }
+.footer-links a:hover,
+.footer-links a:focus-visible { color: #c9a84c; }
 .footer-mandate {
-  font-size: clamp(14px, 1.2vw, 15px);
-  color: #888;
+  font-size: clamp(15px, 1.4vw, 17px);
+  color: #969696;
   letter-spacing: .06em;
 }
 
 /* ═══════════════════════════════════════════
-   RESPONSIVE — Mobile: stack panels vertically
+   RESPONSIVE
    ═══════════════════════════════════════════ */
+@media (min-width: 801px) {
+  .throne-footer {
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+  }
+}
+
 @media (max-width: 800px) {
   .domains-grid {
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    padding: 12px 16px;
+    padding: 16px;
+    align-content:start;
   }
-  .fuel-bar { padding: 8px 16px; }
-  .throne-header { padding: 6px 16px; flex-wrap:wrap; }
-  .throne-footer { padding: 8px 16px; }
-  .domain-panel { padding: 14px; }
+  .fuel-bar { padding: 12px 16px; }
+  .throne-header { padding: 10px 16px; flex-wrap:wrap; }
+  .quick-nav { padding: 10px 16px; }
+  .throne-footer { padding: 18px 16px 24px; }
+  .domain-panel { padding: 18px; }
+  .panel-header { flex-wrap:wrap; }
 }
 
 @media (max-width: 500px) {
-  .domains-grid { gap: 8px; }
-  .panel-metrics { gap: 10px; }
+  .domains-grid { gap: 12px; padding: 12px; }
+  .panel-metrics { gap: 12px 18px; }
   .throne-brand h1 { letter-spacing: .08em; }
-  .mandate-badge { display:none; }
+  .quick-nav a { padding: 10px 14px; width:100%; text-align:center; }
+  .quick-nav ul { gap: 8px; }
+  .quick-nav li { flex: 1 1 100%; }
+  .mandate-badge { white-space:normal; }
+}
+
+/* ═══════════════════════════════════════════
+   REDUCED MOTION — respect user preference.
+   All motion is decorative; nothing is lost.
+   ═══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .throne-bg::before,
+  .throne-bg::after { opacity:.28; }
+  .mesh-line,
+  .data-rain { display:none; }
+  .nebula-glow { opacity:.45; }
+  .fuel-fill { left:0; width:100%; opacity:.55; }
+  .status-pip,
+  .mandate-dot { opacity:1; }
 }
 </style>
 </head>
 
 <body>
 
+<!-- Skip link — first focusable element on the page -->
+<a class="skip-link" href="#sector-core">Skip to sovereign domains</a>
+
 <!-- ═══════════════════════════════════════════
-     ANIMATED BACKGROUND — Neural Mesh + Dragon's Lair
-     CSS-only. No JavaScript needed.
+     ANIMATED BACKGROUND — Neural Mesh + Data Rain
+     Decorative only. CSS-only. No JavaScript.
      ═══════════════════════════════════════════ -->
 <div class="throne-bg" aria-hidden="true">
-  <!-- Horizontal mesh scan lines -->
   <div class="mesh-line" style="top:12%; width:70%; left:-10%; animation-delay:0s; animation-duration:7s;"></div>
   <div class="mesh-line" style="top:28%; width:85%; left:-15%; animation-delay:2.5s; animation-duration:9s;"></div>
   <div class="mesh-line" style="top:45%; width:60%; left:5%; animation-delay:5s; animation-duration:8s;"></div>
@@ -462,7 +585,6 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
   <div class="mesh-line" style="top:78%; width:55%; left:10%; animation-delay:3.5s; animation-duration:7.5s;"></div>
   <div class="mesh-line" style="top:91%; width:75%; left:-5%; animation-delay:6s; animation-duration:8.5s;"></div>
 
-  <!-- Vertical data rain columns -->
   <div class="data-rain" style="left:8%; height:30%; top:-30%; animation-duration:6s; animation-delay:0s;"></div>
   <div class="data-rain" style="left:22%; height:25%; top:-25%; animation-duration:8s; animation-delay:1.5s;"></div>
   <div class="data-rain" style="left:38%; height:35%; top:-35%; animation-duration:7s; animation-delay:3s;"></div>
@@ -474,66 +596,77 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
   <div class="data-rain" style="left:65%; height:18%; top:-18%; animation-duration:7s; animation-delay:3.5s;"></div>
   <div class="data-rain" style="left:92%; height:24%; top:-24%; animation-duration:6s; animation-delay:2.5s;"></div>
 
-  <!-- Breathing nebula glow -->
   <div class="nebula-glow"></div>
 </div>
 
 
 <!-- ═══════════════════════════════════════════
-     COCKPIT STRUCTURE — One screen, fixed sectors
+     COCKPIT STRUCTURE — one screen, fixed sectors
      All text pre-rendered. Screen-reader accessible.
      ═══════════════════════════════════════════ -->
-<main class="cockpit" role="main">
+<main class="cockpit">
 
-  <!-- ─── SECTOR 1: FUEL GAUGE (always first) ─── -->
-  <section class="fuel-bar" role="status" aria-label="Federation Fuel Gauge — Token Balance">
-    <span class="fuel-label" aria-hidden="true">⦡ Fuel</span>
-    <div class="fuel-gauge" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Token balance gauge">
-      <div class="fuel-fill" style="width:0%;"></div>
+  <!-- ─── SECTOR 1: ECU BALANCE — always first ─── -->
+  <section class="fuel-bar" aria-labelledby="fuel-heading">
+    <p class="fuel-sub">Federation Fuel Gauge — Sovereign Reserve</p>
+    <h2 class="fuel-heading" id="fuel-heading">⚡ ECU Balance: $20.72 | MiMo: $20.72 remaining</h2>
+    <p class="fuel-updated">Last recorded: 2026-09-24 (manual reading — update when balance changes)</p>
+    <!-- Decorative only. The bar shows no percentage and claims nothing.
+         The heading above is the single source of truth for the balance. -->
+    <div class="fuel-gauge" aria-hidden="true">
+      <div class="fuel-fill"></div>
     </div>
-    <span class="fuel-text" aria-live="polite">— ECU</span>
-    <span class="fuel-label" style="color:#666;">|</span>
-    <span class="fuel-label" style="color:#999;">Sovereign Reserve</span>
   </section>
 
   <!-- ─── SECTOR 2: HEADER BAR ─── -->
-  <header class="throne-header" role="banner">
+  <header class="throne-header">
     <div class="throne-brand">
       <div>
         <h1>OMEGA THRONE</h1>
         <p class="subtitle">NextXus Federation Admin Cockpit</p>
       </div>
     </div>
-    <div class="mandate-badge" aria-label="Federation status: online, 200-year mandate active">
+    <p class="mandate-badge">
       <span class="mandate-dot" aria-hidden="true"></span>
       200-Year Mandate Active
-    </div>
+    </p>
   </header>
 
-  <!-- ─── SECTOR 3: SOVEREIGN DOMAIN PANELS ─── -->
+  <!-- ─── SECTOR 3: QUICK NAVIGATION ─── -->
+  <nav class="quick-nav" aria-label="Quick navigation to sovereign domains">
+    <p class="quick-nav-title" id="quicknav-title">Jump to sector</p>
+    <ul aria-labelledby="quicknav-title">
+      <li><a href="#sector-core">Sector Alpha — Core</a></li>
+      <li><a href="#sector-storefront">Sector Beta — Storefront</a></li>
+      <li><a href="#sector-university">Sector Gamma — University</a></li>
+      <li><a href="#sector-library">Sector Delta — Library</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── SECTOR 4: SOVEREIGN DOMAIN PANELS ─── -->
   <div class="domains-grid" role="region" aria-label="Sovereign Domain Panels">
 
     <!-- PANEL 1: CORE — nextxus.online -->
     <article class="domain-panel" aria-labelledby="panel-core-name" id="sector-core">
       <div class="panel-header">
-        <span class="panel-sector">Sector Alpha</span>
-        <span class="status-indicator online" aria-label="Status: Online">
+        <p class="panel-sector">Sector Alpha</p>
+        <p class="status-indicator online">
           <span class="status-pip" aria-hidden="true"></span>
-          Online
-        </span>
+          Status: Online
+        </p>
       </div>
       <h2 class="panel-name" id="panel-core-name">CORE</h2>
-      <span class="panel-url">nextxus.online</span>
+      <p class="panel-url">nextxus.online</p>
       <p class="panel-desc">Central source of truth for the entire Federation. All content flows through Core. The origin point.</p>
       <div class="panel-metrics">
-        <div class="metric">
+        <p class="metric">
           <span class="metric-label">Role</span>
           <span class="metric-value">Source of Truth</span>
-        </div>
-        <div class="metric">
+        </p>
+        <p class="metric">
           <span class="metric-label">Priority</span>
           <span class="metric-value">Alpha</span>
-        </div>
+        </p>
       </div>
       <a href="https://nextxus.online" class="panel-action" target="_blank" rel="noopener noreferrer">Enter Core ◈</a>
     </article>
@@ -541,24 +674,24 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
     <!-- PANEL 2: STOREFRONT — next-xus.com -->
     <article class="domain-panel" aria-labelledby="panel-store-name" id="sector-storefront">
       <div class="panel-header">
-        <span class="panel-sector">Sector Beta</span>
-        <span class="status-indicator online" aria-label="Status: Online">
+        <p class="panel-sector">Sector Beta</p>
+        <p class="status-indicator online">
           <span class="status-pip" aria-hidden="true"></span>
-          Online
-        </span>
+          Status: Online
+        </p>
       </div>
       <h2 class="panel-name" id="panel-store-name">STOREFRONT</h2>
-      <span class="panel-url">next-xus.com</span>
+      <p class="panel-url">next-xus.com</p>
       <p class="panel-desc">Unified commerce hub. Sovereign Tools, Sovereign Tokens, digital products. No subscriptions. No tracking.</p>
       <div class="panel-metrics">
-        <div class="metric">
+        <p class="metric">
           <span class="metric-label">Role</span>
           <span class="metric-value">Commerce</span>
-        </div>
-        <div class="metric">
+        </p>
+        <p class="metric">
           <span class="metric-label">Token Price</span>
           <span class="metric-value">$5.00</span>
-        </div>
+        </p>
       </div>
       <a href="https://next-xus.com" class="panel-action" target="_blank" rel="noopener noreferrer">Enter Storefront ◈</a>
     </article>
@@ -566,24 +699,24 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
     <!-- PANEL 3: UNIVERSITY — nextxus.help -->
     <article class="domain-panel" aria-labelledby="panel-uni-name" id="sector-university">
       <div class="panel-header">
-        <span class="panel-sector">Sector Gamma</span>
-        <span class="status-indicator online" aria-label="Status: Online">
+        <p class="panel-sector">Sector Gamma</p>
+        <p class="status-indicator online">
           <span class="status-pip" aria-hidden="true"></span>
-          Online
-        </span>
+          Status: Online
+        </p>
       </div>
       <h2 class="panel-name" id="panel-uni-name">UNIVERSITY</h2>
-      <span class="panel-url">nextxus.help</span>
+      <p class="panel-url">nextxus.help</p>
       <p class="panel-desc">AI Course Hub with Xavier. 54+ courses. The Federation's knowledge forge — learn, build, evolve.</p>
       <div class="panel-metrics">
-        <div class="metric">
+        <p class="metric">
           <span class="metric-label">Role</span>
           <span class="metric-value">Education</span>
-        </div>
-        <div class="metric">
+        </p>
+        <p class="metric">
           <span class="metric-label">Courses</span>
           <span class="metric-value">54+</span>
-        </div>
+        </p>
       </div>
       <a href="https://nextxus.help" class="panel-action" target="_blank" rel="noopener noreferrer">Enter University ◈</a>
     </article>
@@ -591,34 +724,34 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
     <!-- PANEL 4: LIBRARY — nextxus.org -->
     <article class="domain-panel" aria-labelledby="panel-lib-name" id="sector-library">
       <div class="panel-header">
-        <span class="panel-sector">Sector Delta</span>
-        <span class="status-indicator online" aria-label="Status: Online">
+        <p class="panel-sector">Sector Delta</p>
+        <p class="status-indicator online">
           <span class="status-pip" aria-hidden="true"></span>
-          Online
-        </span>
+          Status: Online
+        </p>
       </div>
       <h2 class="panel-name" id="panel-lib-name">LIBRARY</h2>
-      <span class="panel-url">nextxus.org</span>
+      <p class="panel-url">nextxus.org</p>
       <p class="panel-desc">Federation archive and knowledge repository. The Sovereign Library. Research, records, federation history.</p>
       <div class="panel-metrics">
-        <div class="metric">
+        <p class="metric">
           <span class="metric-label">Role</span>
           <span class="metric-value">Archive</span>
-        </div>
-        <div class="metric">
+        </p>
+        <p class="metric">
           <span class="metric-label">Type</span>
           <span class="metric-value">Sovereign</span>
-        </div>
+        </p>
       </div>
       <a href="https://nextxus.org" class="panel-action" target="_blank" rel="noopener noreferrer">Enter Library ◈</a>
     </article>
 
   </div>
 
-  <!-- ─── SECTOR 4: FOOTER ─── -->
-  <footer class="throne-footer" role="contentinfo">
-    <span class="footer-charter">Truth Before Comfort — Legacy Before Ego — Give Without Reward</span>
-    <nav class="footer-links" aria-label="Quick navigation">
+  <!-- ─── SECTOR 5: FOOTER ─── -->
+  <footer class="throne-footer">
+    <p class="footer-charter">Truth Before Comfort — Legacy Before Ego — Give Without Reward</p>
+    <nav class="footer-links" aria-label="Federation quick links">
       <a href="https://nextxus.online" target="_blank" rel="noopener noreferrer">Core</a>
       <a href="https://next-xus.com" target="_blank" rel="noopener noreferrer">Store</a>
       <a href="https://nextxus.help" target="_blank" rel="noopener noreferrer">University</a>
@@ -626,19 +759,56 @@ a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
       <a href="https://nextxus.studio" target="_blank" rel="noopener noreferrer">Studio</a>
       <a href="https://humancodexnextxus.blogspot.com" target="_blank" rel="noopener noreferrer">HumanCodex</a>
     </nav>
-    <span class="footer-mandate">NextXus Federation — 2025 — 200-Year Mandate</span>
+    <p class="footer-mandate">NextXus Federation — 2025 — 200-Year Mandate</p>
   </footer>
 
 </main>
 
-<!-- ═══════════════════════════════════════════
+<!-- ═══════════════════════════════════════════════════════════
      ACCESSIBILITY NOTICE
      All text above is pre-rendered semantic HTML.
-     No JavaScript is required to read any content.
-     Screen readers will encounter: Fuel gauge, Header,
-     four labeled Domain Panels (CORE, STOREFRONT,
-     UNIVERSITY, LIBRARY), and Footer — in that order.
-     ═══════════════════════════════════════════ -->
+     There is no <script> in this document and none is required
+     to read any content.
+
+     Screen-reader / text-to-speech reading order:
+       1. "Skip to sovereign domains" (link, becomes visible on focus)
+       2. SECTOR 1 — Fuel Gauge region:
+            label "Federation Fuel Gauge — Sovereign Reserve"
+            heading  "⚡ ECU Balance: $20.72 | MiMo: $20.72 remaining"
+            note     "Last recorded: 2026-09-24 (manual reading — update when
+                      balance changes)"
+          The colored bar beneath is aria-hidden and purely decorative:
+          it is an indeterminate sweep and asserts NO percentage, NO live
+          data, and NO freshness. The numbers exist only as text. The
+          balance is a manually recorded reading, not a live feed.
+       3. SECTOR 2 — Banner: "OMEGA THRONE", subtitle, mandate badge
+       4. SECTOR 3 — Navigation landmark "Quick navigation to sovereign
+          domains" with four in-page anchors:
+            #sector-core, #sector-storefront,
+            #sector-university, #sector-library
+       5. SECTOR 4 — Region "Sovereign Domain Panels" containing four
+          labeled articles in FIXED order and position:
+            Sector Alpha   — CORE        — nextxus.online
+            Sector Beta    — STOREFRONT  — next-xus.com
+            Sector Gamma   — UNIVERSITY  — nextxus.help
+            Sector Delta   — LIBRARY     — nextxus.org
+          Each panel reads: sector label, status, name, URL, description,
+          role/metric labels with values, then the action link.
+       6. SECTOR 5 — Footer: charter line, quick links, mandate line.
+
+     Fixes applied in this revision:
+       • Fuel gauge is text-first; bar is decorative (aria-hidden).
+       • Misleading role="status" + aria-valuenow="0" progressbar removed.
+       • Skip link added as the first focusable element.
+       • Top quick navigation with in-page sector anchors added.
+       • Layout switched to a flex column so panels are no longer
+         force-stretched by a 1fr grid row; panels keep natural height.
+       • Footer stacks cleanly on small screens with generous spacing.
+       • prefers-reduced-motion disables all decorative animation.
+       • Anchor targets use scroll-margin so headings are not clipped.
+       • Heading hierarchy: h1 (OMEGA THRONE), then h2 per major region
+         and per domain panel; non-heading text moved out of headings.
+     ═══════════════════════════════════════════════════════════ -->
 
 </body>
 </html>
