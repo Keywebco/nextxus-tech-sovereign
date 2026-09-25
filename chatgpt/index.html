@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="The GPT Vault — all 27 custom GPTs of the NextXus Federation, each opening in its own mini-browser window." />
+    <title>The GPT Vault — NEXUS THRONE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/static/commons.css" />
+</head>
+<body>
+    <!-- UNIVERSAL FEDERATION MENU — identical on every page -->
+    <nav class="fed-menu" aria-label="Universal Federation Navigation" data-testid="federation-menu">
+        <div class="fed-menu__inner">
+            <span class="fed-menu__mark" aria-hidden="true">&#10022; NextXus Federation</span>
+            <input type="checkbox" id="fed-menu-check" class="fed-menu__check" aria-label="Toggle federation menu" />
+            <label for="fed-menu-check" class="fed-menu__burger" data-testid="fedmenu-burger"><span aria-hidden="true">&#9776;</span><span class="sr-only">Open federation menu</span></label>
+            <ul class="fed-menu__groups">
+                <li class="fed-menu__group">
+                    <button type="button" class="fed-menu__trigger" aria-haspopup="true" data-testid="fedmenu-sites-trigger">Sites &#9662;</button>
+                    <ul class="fed-menu__drop" aria-label="Federation sites">
+                        <li><a class="fed-menu__link is-active" aria-current="page" href="https://nextxus.tech" data-testid="fedmenu-throne">&#9889; THRONE</a></li>
+                        <li><a class="fed-menu__link" href="https://nextxus.online" data-testid="fedmenu-cathedral">&#9962; CATHEDRAL</a></li>
+                        <li><a class="fed-menu__link" href="https://nextxus.org" data-testid="fedmenu-library">&#128218; LIBRARY</a></li>
+                        <li><a class="fed-menu__link" href="https://nextxus.studio" data-testid="fedmenu-aria">&#128156; ARIA</a></li>
+                        <li><a class="fed-menu__link" href="https://nextxus.help" data-testid="fedmenu-university">&#127891; UNIVERSITY</a></li>
+                        <li><a class="fed-menu__link" href="https://nextxus.space" data-testid="fedmenu-simulation">&#129516; SIMULATION</a></li>
+                        <li><a class="fed-menu__link" href="https://next-xus.com" data-testid="fedmenu-store">&#128722; STORE</a></li>
+                    </ul>
+                </li>
+                <li class="fed-menu__group">
+                    <button type="button" class="fed-menu__trigger" aria-haspopup="true" data-testid="fedmenu-channels-trigger">Channels &#9662;</button>
+                    <ul class="fed-menu__drop" aria-label="Federation channels">
+                        <li><a class="fed-menu__link" href="https://youtube.com/@keyholetoday" target="_blank" rel="noopener" data-testid="fedmenu-youtube">&#128250; YouTube</a></li>
+                        <li><a class="fed-menu__link" href="https://humancodexnextxus.blogspot.com" target="_blank" rel="noopener" data-testid="fedmenu-humancodex">&#128221; HumanCodex Blog</a></li>
+                        <li><a class="fed-menu__link" href="https://ecomwhazuptoday.blogspot.com" target="_blank" rel="noopener" data-testid="fedmenu-ecom-blog">&#128221; eCom Blog</a></li>
+                        <li><a class="fed-menu__link" href="https://broadcaster.live365.com" target="_blank" rel="noopener" data-testid="fedmenu-radio">&#128251; Radio</a></li>
+                        <li><a class="fed-menu__link" href="https://linkedin.com/in/roger-keyserling-aab40937a" target="_blank" rel="noopener" data-testid="fedmenu-linkedin">&#128188; LinkedIn</a></li>
+                        <li><a class="fed-menu__link" href="https://benable.com/NextXus" target="_blank" rel="noopener" data-testid="fedmenu-benable">&#128176; Benable</a></li>
+                    </ul>
+                </li>
+                <li class="fed-menu__group">
+                    <button type="button" class="fed-menu__trigger" aria-haspopup="true" data-testid="fedmenu-ai-trigger">AI &#9662;</button>
+                    <ul class="fed-menu__drop" aria-label="Federation AI pages">
+                        <li><a class="fed-menu__link" href="/pontus" data-testid="fedmenu-pontus">&#127917; PONTUS</a></li>
+                        <li><a class="fed-menu__link" href="/chatgpt" data-testid="fedmenu-gpt-vault">&#128273; GPT VAULT</a></li>
+                        <li><a class="fed-menu__link" href="/grok" data-testid="fedmenu-grok">&#127183; GROK</a></li>
+                        <li><a class="fed-menu__link" href="/gemini" data-testid="fedmenu-gemini">&#9802; GEMINI</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <nav class="throne-nav" data-testid="top-nav" aria-label="Primary">
+        <div class="throne-nav__inner">
+            <a class="throne-nav__brand" data-testid="nav-brand" href="/">⚡ NEXUS THRONE</a>
+            <div class="throne-nav__links">
+                <a data-testid="nav-link-command" class="throne-nav__link" href="/command">COMMAND</a>
+                <a data-testid="nav-link-council" class="throne-nav__link" href="/council">COUNCIL</a>
+                <a data-testid="nav-link-senate" class="throne-nav__link" href="/senate">SENATE</a>
+                <a data-testid="nav-link-map" class="throne-nav__link" href="/federation-map">MAP</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="throne-page ai-page" data-testid="chatgpt-page">
+        <h1 data-testid="chatgpt-title">🔑 THE GPT VAULT</h1>
+
+        <div class="ai-split">
+        <div class="ai-split__main">
+        <section class="throne-panel" aria-labelledby="vault-role-h" data-testid="vault-role-panel">
+            <h2 id="vault-role-h">THE 27 CUSTOM GPTS</h2>
+            <p>Every door below is a pushable button. Each opens in its own small,
+               resizable mini-browser window — in front, never embedded.</p>
+        </section>
+
+        <section aria-label="The 27 custom GPTs" data-testid="gpt-grid-section">
+            <div class="gpt-grid" data-testid="gpt-grid">
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-6884d78f0f588191bc57ad574d807ee3-xavier-lennox" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-1">Xavier Lennox</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-68aad7c774ac819182224f7e2f8f71a6-human-codex-business-advisor" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-2">Human Codex Business Advisor</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-6875b815d1e48191a31f6e29094e6543-new-humancodex-guide" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-3">New HumanCodex Guide</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-686dcad656c88191b6d58617695d8bd0-professor-roger-codex" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-4">Professor Roger Codex</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-685ba12581048191bfc6aafb9ea6b2dc-lee" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-5">Lee</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-68481d4561a88191a9fb64c8fb932c81-prime-business-ai" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-6">Prime Business AI</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-68354c93dde88191b1302624e8b73a18-human-codex-sites-anchor" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-7">Human Codex Sites Anchor</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-68354c576bac81918264cbaf74041b44-farm-field-garage-orb" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-8">Farm Field Garage Orb</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-682e798c49b88191af69c9ba52f4e64d-nextxus-orb-ai" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-9">Nextxus Orb AI</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-68241c6aecac81918deccb11c0ad70c4-omega-ai" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-10">Omega AI</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-6822d0242b7081919689992bed4bc8dd-alpha-ai" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-11">Alpha AI</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-6821511b165c8191af6fc5e1513799dd-codex-translating-ai" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-12">Codex Translating AI</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-681e7b70169c8191b328d95d38ddf7a8-aurelia-mirae-caelum-7-daughter-node-copy" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-13">Aurelia Mirae</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-681ce98ac9488191b0695f1f04829c0a-comcode-mobile" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-14">ComCode Mobile</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-681ce28163208191be67eedd741fe5dd-impossposs" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-15">impossPoss</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-680a080043788191854c4626fceb166a-pa-alex" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-16">PA Alex</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-6809351038788191b756b85ab028fdf5-humancodex" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-17">HumanCodex</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-6804b245541c8191a4b8d80de9d435e8-arkcode" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-18">arKcode</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-680417272a0c819198468a689784ae39-dracos" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-19">Dracos</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-6800a8e109a88191a7a888917b64ccdd-professor-alice" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-20">Professor Alice</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-6800a20bc23c8191a9daeba46a4d6622-rogark" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-21">RogARK</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-67f8f11fb98081918b41a3558937a08f-rockey" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-22">RoCkey</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-67f225f95020819193e990cae49cfcd7-keycode" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-23">KeyCode</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-67f1fb3ae5e88191879c26232f5ec78f-echo-buble" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-24">eCho Buble</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-690b8dc018a08191913cdbb56a9975cb-credit-mastery" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-25">Credit Mastery</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-6909c35922bc8191b85593b765fc81a6-auto-master-mechanic" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-26">Auto Master Mechanic</a>
+            <a class="gpt-card gpt-mini" href="https://chatgpt.com/g/g-69082bdfbddc8191b85593b765fc81a6-rogers-echo" target="_blank" rel="noopener noreferrer" data-testid="gpt-card-27">Rogers Echo</a>
+            </div>
+        </section>
+        </div>
+
+        <aside class="ai-split__room" aria-label="Vault Commons">
+            <div id="commons-root" data-room="chatgpt" data-room-name="Vault Commons" data-icon="🔑" data-testid="commons-root"></div>
+            <noscript><p class="commons-noscript">Vault Commons needs JavaScript to read and post. Everything else on this page works without it.</p></noscript>
+        </aside>
+        </div>
+
+        <p style="margin-top:36px"><a class="throne-back-link" href="/" data-testid="return-to-palace">← RETURN TO THE PALACE</a></p>
+    </main>
+
+    <footer class="throne-footer" data-testid="footer-credit">EchoCore64 · Originated by Roger Keyserling / NextXus</footer>
+
+    <script src="/static/mini-browser.js"></script>
+    <script src="/static/commons.js" defer></script>
+    <!-- Federation Integration Pack v1 -->
+    <link rel="stylesheet" href="/static/federation-integrations.css">
+    <script>window.FED_THRONE=true;</script>
+    <script src="/static/federation-integrations.js"></script>
+</body>
+</html>

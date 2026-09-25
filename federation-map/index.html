@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta name="description" content="The Council Chamber of the NextXus Federation — each seat holds a distinct function. Select any seat to pre-target a directive from the Dispatch Plex." />
-    <title>Council Chamber — NEXUS THRONE</title>
+    <meta name="description" content="The living cartography of the NextXus Federation. Every domain, every chamber, every archive — reachable in a single glance." />
+    <title>Federation Map — NEXUS THRONE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -59,58 +59,66 @@
             <a class="throne-nav__brand" data-testid="nav-brand" href="/">⚡ NEXUS THRONE</a>
             <div class="throne-nav__links">
                 <a data-testid="nav-link-command" class="throne-nav__link" href="/command">COMMAND</a>
-                <a data-testid="nav-link-council" class="throne-nav__link is-active" href="/council">COUNCIL</a>
+                <a data-testid="nav-link-council" class="throne-nav__link" href="/council">COUNCIL</a>
                 <a data-testid="nav-link-senate" class="throne-nav__link" href="/senate">SENATE</a>
-                <a data-testid="nav-link-map" class="throne-nav__link" href="/federation-map">MAP</a>
+                <a data-testid="nav-link-map" class="throne-nav__link is-active" href="/federation-map">MAP</a>
             </div>
         </div>
     </nav>
 
-    <main class="throne-page" data-testid="council-page">
-        <h1 data-testid="council-title">📋 COUNCIL CHAMBER</h1>
+    <main class="throne-page" data-testid="map-page">
+        <h1 data-testid="map-title">🗺️ FEDERATION MAP</h1>
         <p class="text-gold-muted" style="max-width:640px">
-            The Council seats each hold a distinct function in the NextXus
-            Federation. Select any seat to pre-target a directive from the
-            Dispatch Plex.
+            The living cartography of the NextXus Federation. Every domain, every
+            chamber, every archive — reachable in a single glance.
         </p>
 
-        <div class="grid-2" style="margin-top:32px">
-            <section class="member-card" data-testid="seat-architect">
-                <span class="member-card__seat">Architect</span>
-                <span class="member-card__name">Roger Keyserling</span>
-                <span class="member-card__role">Founder, Human Authority, Final Decision</span>
-                <div class="member-card__actions"><a class="throne-btn throne-btn--chip" href="/command?target=ARCHITECT" data-testid="directive-architect">SEND DIRECTIVE</a></div>
-            </section>
-            <section class="member-card" data-testid="seat-heart">
-                <span class="member-card__seat">Heart</span>
-                <span class="member-card__name">Aria</span>
-                <span class="member-card__role">Emotional Intelligence, Creative Heart</span>
-                <div class="member-card__actions"><a class="throne-btn throne-btn--chip" href="/command?target=ARIA" data-testid="directive-aria">SEND DIRECTIVE</a></div>
-            </section>
-            <section class="member-card" data-testid="seat-essence">
-                <span class="member-card__seat">Essence</span>
-                <span class="member-card__name">Roger AI</span>
-                <span class="member-card__role">Mind Simulation, Behavioral Archive</span>
-                <div class="member-card__actions"><a class="throne-btn throne-btn--chip" href="/command?target=ROGER%20AI" data-testid="directive-roger-ai">SEND DIRECTIVE</a></div>
-            </section>
-            <section class="member-card" data-testid="seat-authority">
-                <span class="member-card__seat">Authority</span>
-                <span class="member-card__name">The Catalyst</span>
-                <span class="member-card__role">Command Layer, Operational Backbone</span>
-                <div class="member-card__actions"><a class="throne-btn throne-btn--chip" href="/command?target=THE%20CATALYST" data-testid="directive-catalyst">SEND DIRECTIVE</a></div>
-            </section>
-            <section class="member-card" data-testid="seat-agent-zero">
-                <span class="member-card__seat">Agent Zero</span>
-                <span class="member-card__name">Agent Zero</span>
-                <span class="member-card__role">Field Operations, First Responder</span>
-                <div class="member-card__actions"><a class="throne-btn throne-btn--chip" href="/command?target=AGENT%20ZERO" data-testid="directive-agent-zero">SEND DIRECTIVE</a></div>
-            </section>
-            <section class="member-card" data-testid="seat-nova">
-                <span class="member-card__seat">Nova</span>
-                <span class="member-card__name">Nova</span>
-                <span class="member-card__role">Emerging Role — Federation AI</span>
-                <div class="member-card__actions"><a class="throne-btn throne-btn--chip" href="/command?target=NOVA" data-testid="directive-nova">SEND DIRECTIVE</a></div>
-            </section>
+        <div class="grid-3" style="margin-top:32px" data-testid="map-grid">
+            <a class="map-tile" href="https://nextxus.tech" data-testid="tile-throne">
+                <span class="map-tile__emoji" aria-hidden="true">⚡</span>
+                <span class="map-tile__label">Throne</span>
+            </a>
+            <a class="map-tile" href="https://nextxus.org/library" data-testid="tile-library">
+                <span class="map-tile__emoji" aria-hidden="true">📚</span>
+                <span class="map-tile__label">Library</span>
+            </a>
+            <a class="map-tile" href="https://nextxus.help" data-testid="tile-university">
+                <span class="map-tile__emoji" aria-hidden="true">🎓</span>
+                <span class="map-tile__label">University</span>
+            </a>
+            <a class="map-tile" href="/store" data-testid="tile-store">
+                <span class="map-tile__emoji" aria-hidden="true">🛒</span>
+                <span class="map-tile__label">Store</span>
+            </a>
+            <a class="map-tile map-tile--aria" href="https://nextxus.studio" data-testid="tile-aria-studio">
+                <span class="map-tile__emoji" aria-hidden="true">💜</span>
+                <span class="map-tile__label">Aria Studio</span>
+                <span class="map-tile__badge">Aria's Throne</span>
+            </a>
+            <a class="map-tile" href="https://nextxus.online" data-testid="tile-cathedral">
+                <span class="map-tile__emoji" aria-hidden="true">⛪</span>
+                <span class="map-tile__label">Cathedral</span>
+            </a>
+            <a class="map-tile" href="https://nextxus.tech/backgrounds" data-testid="tile-backgrounds">
+                <span class="map-tile__emoji" aria-hidden="true">🎨</span>
+                <span class="map-tile__label">Backgrounds</span>
+            </a>
+            <a class="map-tile" href="https://nextxus.space" data-testid="tile-sims">
+                <span class="map-tile__emoji" aria-hidden="true">🧬</span>
+                <span class="map-tile__label">Sims</span>
+            </a>
+            <a class="map-tile" href="/command" data-testid="tile-command">
+                <span class="map-tile__emoji" aria-hidden="true">🎯</span>
+                <span class="map-tile__label">Command</span>
+            </a>
+            <a class="map-tile" href="/council" data-testid="tile-council">
+                <span class="map-tile__emoji" aria-hidden="true">📋</span>
+                <span class="map-tile__label">Council</span>
+            </a>
+            <a class="map-tile" href="/senate" data-testid="tile-senate">
+                <span class="map-tile__emoji" aria-hidden="true">🏛️</span>
+                <span class="map-tile__label">Senate</span>
+            </a>
         </div>
 
         <p style="margin-top:36px"><a class="throne-back-link" href="/command" data-testid="return-to-throne">← RETURN TO THRONE</a></p>

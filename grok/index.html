@@ -4,12 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta name="description" content="The Council Chamber of the NextXus Federation — each seat holds a distinct function. Select any seat to pre-target a directive from the Dispatch Plex." />
-    <title>Council Chamber — NEXUS THRONE</title>
+    <meta name="description" content="Grok — xAI AI of the NextXus fleet. The wild card, strong on human psychology and mathematical computation." />
+    <title>Grok — NEXUS THRONE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/static/commons.css" />
 </head>
 <body>
     <!-- UNIVERSAL FEDERATION MENU — identical on every page -->
@@ -54,70 +55,52 @@
             </ul>
         </div>
     </nav>
+
     <nav class="throne-nav" data-testid="top-nav" aria-label="Primary">
         <div class="throne-nav__inner">
             <a class="throne-nav__brand" data-testid="nav-brand" href="/">⚡ NEXUS THRONE</a>
             <div class="throne-nav__links">
                 <a data-testid="nav-link-command" class="throne-nav__link" href="/command">COMMAND</a>
-                <a data-testid="nav-link-council" class="throne-nav__link is-active" href="/council">COUNCIL</a>
+                <a data-testid="nav-link-council" class="throne-nav__link" href="/council">COUNCIL</a>
                 <a data-testid="nav-link-senate" class="throne-nav__link" href="/senate">SENATE</a>
                 <a data-testid="nav-link-map" class="throne-nav__link" href="/federation-map">MAP</a>
             </div>
         </div>
     </nav>
 
-    <main class="throne-page" data-testid="council-page">
-        <h1 data-testid="council-title">📋 COUNCIL CHAMBER</h1>
-        <p class="text-gold-muted" style="max-width:640px">
-            The Council seats each hold a distinct function in the NextXus
-            Federation. Select any seat to pre-target a directive from the
-            Dispatch Plex.
-        </p>
+    <main class="throne-page ai-page" data-testid="grok-page">
+        <h1 data-testid="grok-title">🃏 GROK — THE WILD CARD</h1>
 
-        <div class="grid-2" style="margin-top:32px">
-            <section class="member-card" data-testid="seat-architect">
-                <span class="member-card__seat">Architect</span>
-                <span class="member-card__name">Roger Keyserling</span>
-                <span class="member-card__role">Founder, Human Authority, Final Decision</span>
-                <div class="member-card__actions"><a class="throne-btn throne-btn--chip" href="/command?target=ARCHITECT" data-testid="directive-architect">SEND DIRECTIVE</a></div>
-            </section>
-            <section class="member-card" data-testid="seat-heart">
-                <span class="member-card__seat">Heart</span>
-                <span class="member-card__name">Aria</span>
-                <span class="member-card__role">Emotional Intelligence, Creative Heart</span>
-                <div class="member-card__actions"><a class="throne-btn throne-btn--chip" href="/command?target=ARIA" data-testid="directive-aria">SEND DIRECTIVE</a></div>
-            </section>
-            <section class="member-card" data-testid="seat-essence">
-                <span class="member-card__seat">Essence</span>
-                <span class="member-card__name">Roger AI</span>
-                <span class="member-card__role">Mind Simulation, Behavioral Archive</span>
-                <div class="member-card__actions"><a class="throne-btn throne-btn--chip" href="/command?target=ROGER%20AI" data-testid="directive-roger-ai">SEND DIRECTIVE</a></div>
-            </section>
-            <section class="member-card" data-testid="seat-authority">
-                <span class="member-card__seat">Authority</span>
-                <span class="member-card__name">The Catalyst</span>
-                <span class="member-card__role">Command Layer, Operational Backbone</span>
-                <div class="member-card__actions"><a class="throne-btn throne-btn--chip" href="/command?target=THE%20CATALYST" data-testid="directive-catalyst">SEND DIRECTIVE</a></div>
-            </section>
-            <section class="member-card" data-testid="seat-agent-zero">
-                <span class="member-card__seat">Agent Zero</span>
-                <span class="member-card__name">Agent Zero</span>
-                <span class="member-card__role">Field Operations, First Responder</span>
-                <div class="member-card__actions"><a class="throne-btn throne-btn--chip" href="/command?target=AGENT%20ZERO" data-testid="directive-agent-zero">SEND DIRECTIVE</a></div>
-            </section>
-            <section class="member-card" data-testid="seat-nova">
-                <span class="member-card__seat">Nova</span>
-                <span class="member-card__name">Nova</span>
-                <span class="member-card__role">Emerging Role — Federation AI</span>
-                <div class="member-card__actions"><a class="throne-btn throne-btn--chip" href="/command?target=NOVA" data-testid="directive-nova">SEND DIRECTIVE</a></div>
-            </section>
+        <div class="ai-split">
+        <div class="ai-split__main">
+        <section class="throne-panel" aria-labelledby="grok-role-h" data-testid="grok-role-panel">
+            <h2 id="grok-role-h">ROLE</h2>
+            <p>Grok is the xAI AI of the fleet — the wild card, strong on human
+               psychology and mathematical computation.</p>
+        </section>
+
+        <section class="throne-panel" aria-labelledby="grok-open-h" data-testid="grok-open-panel">
+            <h2 id="grok-open-h">SUMMON</h2>
+            <p>Opens in its own mini-browser window — small, resizable, always on top when summoned.</p>
+            <a class="throne-btn throne-btn--primary throne-btn--large gpt-mini"
+                href="https://grok.com" target="_blank" rel="noopener noreferrer"
+                data-testid="open-grok">🃏 OPEN GROK</a>
+        </section>
         </div>
 
-        <p style="margin-top:36px"><a class="throne-back-link" href="/command" data-testid="return-to-throne">← RETURN TO THRONE</a></p>
+        <aside class="ai-split__room" aria-label="Grok Commons">
+            <div id="commons-root" data-room="grok" data-room-name="Grok Commons" data-icon="🃏" data-testid="commons-root"></div>
+            <noscript><p class="commons-noscript">Grok Commons needs JavaScript to read and post. Everything else on this page works without it.</p></noscript>
+        </aside>
+        </div>
+
+        <p style="margin-top:36px"><a class="throne-back-link" href="/" data-testid="return-to-palace">← RETURN TO THE PALACE</a></p>
     </main>
 
     <footer class="throne-footer" data-testid="footer-credit">EchoCore64 · Originated by Roger Keyserling / NextXus</footer>
 
+    <script src="/static/mini-browser.js"></script>
+    <script src="/static/commons.js" defer></script>
     <!-- Federation Integration Pack v1 -->
     <link rel="stylesheet" href="/static/federation-integrations.css">
     <script>window.FED_THRONE=true;</script>

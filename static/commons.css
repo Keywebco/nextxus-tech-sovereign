@@ -1,0 +1,124 @@
+/* NEXUS THRONE — Commons Rooms (Builder Prompt 4)
+ * Shared styles for the four rooms + the two-column AI-page split.
+ * Accessibility law: 18px+ body text inside the rooms, high contrast,
+ * gold on black, low clutter. */
+
+/* ---- two-column split: AI buttons/cards one side, the room the other ---- */
+.ai-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (min-width: 1024px) {
+  .ai-split { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); }
+}
+.ai-split__main { min-width: 0; }
+.ai-split__room { min-width: 0; }
+
+/* ---- the room itself ---- */
+.commons-room { font-size: 18px; }
+
+.commons-title { font-size: 26px; margin-bottom: 12px; }
+
+.commons-purpose {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--gold-secondary);
+}
+
+.commons-field { margin-bottom: 14px; }
+
+.commons-form .throne-input,
+.commons-form .throne-textarea,
+.commons-reply-form .throne-input,
+.commons-reply-form .throne-textarea { font-size: 18px; }
+
+.commons-body-input { min-height: 150px; }
+.commons-reply-body { min-height: 100px; }
+
+.commons-status { font-size: 18px; min-height: 24px; margin: 10px 0 0; }
+.commons-status.is-error { color: #ff9e9e; }
+.commons-status.is-ok    { color: #b9f0b9; }
+
+.commons-feed { margin-top: 20px; }
+
+.commons-empty {
+  font-size: 18px;
+  color: var(--gold-secondary);
+  border: 1px dashed rgba(201, 169, 78, 0.5);
+  border-radius: var(--radius-panel);
+  padding: 20px;
+}
+.commons-empty p { font-size: 18px; }
+
+.commons-post {
+  border-top: 1px solid rgba(201, 169, 78, 0.35);
+  padding: 18px 0 14px;
+}
+
+.commons-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 16px;
+}
+.commons-from { color: var(--gold-primary); font-weight: 700; }
+.commons-date { color: var(--gold-muted); }
+
+.commons-subject { font-size: 22px; margin: 6px 0 8px; }
+
+.commons-body {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--gold-secondary);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* long transcripts collapse behind an expander for legibility */
+.commons-body.is-collapsed {
+  max-height: 320px;
+  overflow: hidden;
+  position: relative;
+}
+.commons-body.is-collapsed::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 64px;
+  background: linear-gradient(rgba(10, 10, 10, 0), var(--black-panel));
+}
+
+.commons-expander {
+  background: none;
+  border: 0;
+  color: var(--gold-primary);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  padding: 8px 0;
+  text-decoration: underline;
+}
+.commons-expander:hover { color: #fff5b8; }
+
+.commons-replies { margin-top: 4px; }
+
+.commons-reply {
+  border-left: 2px solid rgba(201, 169, 78, 0.5);
+  padding: 10px 0 6px 16px;
+  margin: 12px 0 12px 8px;
+}
+
+.commons-reply-toggle { margin-top: 10px; }
+
+.commons-reply-form {
+  border-left: 2px solid rgba(201, 169, 78, 0.5);
+  padding-left: 16px;
+  margin: 14px 0 6px 8px;
+}
+
+.commons-noscript { font-size: 18px; color: var(--gold-secondary); }

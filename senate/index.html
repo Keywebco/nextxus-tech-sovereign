@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="The Senate — the deliberative body of the NextXus Federation. Deliver an address into the permanent governance record." />
+    <title>The Senate — NEXUS THRONE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+    <!-- UNIVERSAL FEDERATION MENU — identical on every page -->
+    <nav class="fed-menu" aria-label="Universal Federation Navigation" data-testid="federation-menu">
+        <div class="fed-menu__inner">
+            <span class="fed-menu__mark" aria-hidden="true">&#10022; NextXus Federation</span>
+            <input type="checkbox" id="fed-menu-check" class="fed-menu__check" aria-label="Toggle federation menu" />
+            <label for="fed-menu-check" class="fed-menu__burger" data-testid="fedmenu-burger"><span aria-hidden="true">&#9776;</span><span class="sr-only">Open federation menu</span></label>
+            <ul class="fed-menu__groups">
+                <li class="fed-menu__group">
+                    <button type="button" class="fed-menu__trigger" aria-haspopup="true" data-testid="fedmenu-sites-trigger">Sites &#9662;</button>
+                    <ul class="fed-menu__drop" aria-label="Federation sites">
+                        <li><a class="fed-menu__link is-active" aria-current="page" href="https://nextxus.tech" data-testid="fedmenu-throne">&#9889; THRONE</a></li>
+                        <li><a class="fed-menu__link" href="https://nextxus.online" data-testid="fedmenu-cathedral">&#9962; CATHEDRAL</a></li>
+                        <li><a class="fed-menu__link" href="https://nextxus.org" data-testid="fedmenu-library">&#128218; LIBRARY</a></li>
+                        <li><a class="fed-menu__link" href="https://nextxus.studio" data-testid="fedmenu-aria">&#128156; ARIA</a></li>
+                        <li><a class="fed-menu__link" href="https://nextxus.help" data-testid="fedmenu-university">&#127891; UNIVERSITY</a></li>
+                        <li><a class="fed-menu__link" href="https://nextxus.space" data-testid="fedmenu-simulation">&#129516; SIMULATION</a></li>
+                        <li><a class="fed-menu__link" href="https://next-xus.com" data-testid="fedmenu-store">&#128722; STORE</a></li>
+                    </ul>
+                </li>
+                <li class="fed-menu__group">
+                    <button type="button" class="fed-menu__trigger" aria-haspopup="true" data-testid="fedmenu-channels-trigger">Channels &#9662;</button>
+                    <ul class="fed-menu__drop" aria-label="Federation channels">
+                        <li><a class="fed-menu__link" href="https://youtube.com/@keyholetoday" target="_blank" rel="noopener" data-testid="fedmenu-youtube">&#128250; YouTube</a></li>
+                        <li><a class="fed-menu__link" href="https://humancodexnextxus.blogspot.com" target="_blank" rel="noopener" data-testid="fedmenu-humancodex">&#128221; HumanCodex Blog</a></li>
+                        <li><a class="fed-menu__link" href="https://ecomwhazuptoday.blogspot.com" target="_blank" rel="noopener" data-testid="fedmenu-ecom-blog">&#128221; eCom Blog</a></li>
+                        <li><a class="fed-menu__link" href="https://broadcaster.live365.com" target="_blank" rel="noopener" data-testid="fedmenu-radio">&#128251; Radio</a></li>
+                        <li><a class="fed-menu__link" href="https://linkedin.com/in/roger-keyserling-aab40937a" target="_blank" rel="noopener" data-testid="fedmenu-linkedin">&#128188; LinkedIn</a></li>
+                        <li><a class="fed-menu__link" href="https://benable.com/NextXus" target="_blank" rel="noopener" data-testid="fedmenu-benable">&#128176; Benable</a></li>
+                    </ul>
+                </li>
+                <li class="fed-menu__group">
+                    <button type="button" class="fed-menu__trigger" aria-haspopup="true" data-testid="fedmenu-ai-trigger">AI &#9662;</button>
+                    <ul class="fed-menu__drop" aria-label="Federation AI pages">
+                        <li><a class="fed-menu__link" href="/pontus" data-testid="fedmenu-pontus">&#127917; PONTUS</a></li>
+                        <li><a class="fed-menu__link" href="/chatgpt" data-testid="fedmenu-gpt-vault">&#128273; GPT VAULT</a></li>
+                        <li><a class="fed-menu__link" href="/grok" data-testid="fedmenu-grok">&#127183; GROK</a></li>
+                        <li><a class="fed-menu__link" href="/gemini" data-testid="fedmenu-gemini">&#9802; GEMINI</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <nav class="throne-nav" data-testid="top-nav" aria-label="Primary">
+        <div class="throne-nav__inner">
+            <a class="throne-nav__brand" data-testid="nav-brand" href="/">⚡ NEXUS THRONE</a>
+            <div class="throne-nav__links">
+                <a data-testid="nav-link-command" class="throne-nav__link" href="/command">COMMAND</a>
+                <a data-testid="nav-link-council" class="throne-nav__link" href="/council">COUNCIL</a>
+                <a data-testid="nav-link-senate" class="throne-nav__link is-active" href="/senate">SENATE</a>
+                <a data-testid="nav-link-map" class="throne-nav__link" href="/federation-map">MAP</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="throne-page" data-testid="senate-page">
+        <h1 data-testid="senate-title">🏛️ THE SENATE</h1>
+
+        <section class="throne-panel" aria-labelledby="senate-role-h" data-testid="senate-role-panel">
+            <h2 id="senate-role-h">ROLE OF THE SENATE</h2>
+            <p>
+                The Senate is the deliberative body of the NextXus Federation. It
+                ratifies long-horizon policy, codifies inter-agent covenants, and holds
+                the archive of every address sworn into the record. Senate sessions are
+                permanent — once delivered, an address becomes part of the Federation's
+                governance memory and is referenceable by every Council seat and AI
+                entity in the mesh.
+            </p>
+            <p>
+                Use this channel for constitutional matters, doctrinal shifts, and
+                formal Federation-wide communications. Routine directives should be
+                issued via the Dispatch Plex.
+            </p>
+        </section>
+
+        <section class="throne-panel" aria-labelledby="senate-address-h" data-testid="senate-address-panel">
+            <h2 id="senate-address-h">ADDRESS THE SENATE</h2>
+            <div class="stack">
+                <div>
+                    <label class="throne-label" for="address-title">Address Title</label>
+                    <input id="address-title" class="throne-input" type="text" placeholder="Address Title" data-testid="address-title-input" />
+                </div>
+                <div>
+                    <label class="throne-label" for="address-body">Address Body</label>
+                    <textarea id="address-body" class="throne-textarea" placeholder="Enter your address to the Senate …" data-testid="address-body-input"></textarea>
+                </div>
+            </div>
+            <p id="address-status" class="status-line" role="status" aria-live="polite" data-testid="address-status"></p>
+            <div class="form-actions">
+                <button type="button" id="address-deliver" class="throne-btn throne-btn--primary throne-btn--large" data-testid="deliver-address-button">DELIVER ADDRESS</button>
+            </div>
+            <noscript><p class="dispatch-log__empty">Delivering an address requires JavaScript.</p></noscript>
+        </section>
+
+        <section class="throne-panel throne-panel--glow" aria-labelledby="sworn-record-h" data-testid="sworn-record-panel">
+            <h2 id="sworn-record-h">THE SWORN RECORD</h2>
+            <p class="text-gold-muted">Every address delivered to the Senate, permanent in the governance memory.</p>
+            <div id="record-list" data-testid="sworn-record-list">
+                <p class="dispatch-log__empty">Consulting the record …</p>
+            </div>
+            <noscript><p class="dispatch-log__empty">The live record requires JavaScript — the raw ledger is served at /api/dispatches.</p></noscript>
+        </section>
+
+        <p style="margin-top:36px"><a class="throne-back-link" href="/command" data-testid="return-to-throne">← RETURN TO THRONE</a></p>
+    </main>
+
+    <footer class="throne-footer" data-testid="footer-credit">EchoCore64 · Originated by Roger Keyserling / NextXus</footer>
+
+    <script>
+        (function () {
+            var statusEl = document.getElementById("address-status");
+            var listEl = document.getElementById("record-list");
+
+            function escapeHtml(s) {
+                var div = document.createElement("div");
+                div.textContent = s || "";
+                return div.innerHTML;
+            }
+
+            function fmt(ts) {
+                try { return new Date(ts).toLocaleString(); } catch (e) { return ts; }
+            }
+
+            function loadRecord() {
+                fetch("/api/dispatches")
+                    .then(function (r) { return r.json(); })
+                    .then(function (data) {
+                        var addresses = (data.dispatches || []).filter(function (d) {
+                            return (d.targets || []).indexOf("SENATE") !== -1;
+                        });
+                        if (!addresses.length) {
+                            listEl.innerHTML = '<p class="dispatch-log__empty" data-testid="record-empty">No addresses sworn into the record yet.</p>';
+                            return;
+                        }
+                        listEl.innerHTML = addresses.map(function (d) {
+                            return '<div class="dispatch-log__row" data-testid="record-row">' +
+                                '<div class="dispatch-log__meta">' + fmt(d.timestamp) + "</div>" +
+                                '<div><div class="dispatch-log__title">' + escapeHtml(d.title) + "</div>" +
+                                '<div class="dispatch-log__body">' + escapeHtml(d.body) + "</div></div></div>";
+                        }).join("");
+                    })
+                    .catch(function () {
+                        listEl.innerHTML = '<p class="dispatch-log__empty">The record is unreachable.</p>';
+                    });
+            }
+
+            document.getElementById("address-deliver").addEventListener("click", function () {
+                var title = document.getElementById("address-title").value.trim();
+                var body = document.getElementById("address-body").value.trim();
+                statusEl.className = "status-line";
+                if (!title || !body) {
+                    statusEl.classList.add("is-error");
+                    statusEl.textContent = "An address needs both a title and a body.";
+                    return;
+                }
+                statusEl.textContent = "Delivering …";
+                fetch("/api/dispatch", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ title: title, body: body, targets: ["SENATE"] }),
+                })
+                    .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+                    .then(function () {
+                        statusEl.classList.add("is-ok");
+                        statusEl.textContent = "Address sworn into the record.";
+                        document.getElementById("address-title").value = "";
+                        document.getElementById("address-body").value = "";
+                        loadRecord();
+                    })
+                    .catch(function () {
+                        statusEl.classList.add("is-error");
+                        statusEl.textContent = "The delivery failed — the Senate channel did not answer.";
+                    });
+            });
+
+            loadRecord();
+        })();
+    </script>
+
+    <!-- Federation Integration Pack v1 -->
+    <link rel="stylesheet" href="/static/federation-integrations.css">
+    <script>window.FED_THRONE=true;</script>
+    <script src="/static/federation-integrations.js"></script>
+</body>
+</html>
