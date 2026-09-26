@@ -1,157 +1,146 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NextXus Tech — The Technology Layer of the Federation</title>
+<meta name="description" content="NextXus Tech: the technology layer of the NextXus Federation. The Throne, the admin corridors, the architecture, and the technical infrastructure. Live at nextxus.tech.">
+<meta name="robots" content="index, follow">
 <link rel="canonical" href="https://keywebco.github.io/nextxus-tech-sovereign/">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="NEXUS THRONE — the public palace of the NextXus Federation. Sovereign Tokens, the Federation store, and the Architect's command corridors." />
-    <title>NEXUS THRONE — Federation Command</title>
-    <script>
-        /* ENTRY FLOW (pre-first-paint): an unlocked admin session goes straight
-           to the Throne command center. The public stays here — greeted, never gated. */
-        try {
-            if (sessionStorage.getItem("nexus_throne_admin") === "granted") {
-                location.replace("/command");
-            }
-        } catch (e) {}
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css" />
+<meta name="author" content="Roger C. Keyserling">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NextXus Tech — The Technology Layer of the Federation">
+<meta property="og:description" content="NextXus Tech: the technology layer of the NextXus Federation. The Throne, the admin corridors, the architecture, and the technical infrastructure. Live at nextxus.tech.">
+<meta property="og:url" content="https://keywebco.github.io/nextxus-tech-sovereign/">
+<meta property="og:site_name" content="NextXus HumanCodex Federation">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "NextXus Tech — The Technology Layer of the Federation", "description": "NextXus Tech: the technology layer of the NextXus Federation. The Throne, the admin corridors, the architecture, and the technical infrastructure. Live at nextxus.tech.", "url": "https://keywebco.github.io/nextxus-tech-sovereign/", "isPartOf": {"@type": "WebSite", "name": "NextXus HumanCodex Federation", "url": "https://keywebco.github.io/"}, "author": {"@type": "Person", "name": "Roger C. Keyserling", "email": "keywebco@gmail.com"}}</script>
+<style>
+:root{--accent:#c9a227;--bright:#f0c93a;--rgb:201,162,39}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#0a0a0a;color:#e8e8e8;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:19px;line-height:1.7;min-height:100vh;overflow-x:hidden}
+a{color:var(--bright);text-underline-offset:3px}
+a:hover{color:#ffffff}
+a:focus-visible,.btn:focus-visible{outline:3px solid #ffffff;outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-9999px;top:0;background:#ffffff;color:#000000;padding:12px 18px;font-weight:700;z-index:10}
+.skip:focus{left:12px;top:12px}
+.sky,.mesh,.glow{position:fixed;inset:0;pointer-events:none;z-index:-3}
+.sky{background-image:radial-gradient(1.5px 1.5px at 10% 20%,#ffffffcc,transparent 60%),radial-gradient(1px 1px at 30% 70%,#ffffffaa,transparent 60%),radial-gradient(2px 2px at 55% 35%,rgba(var(--rgb),.9),transparent 60%),radial-gradient(1px 1px at 75% 80%,#ffffff99,transparent 60%),radial-gradient(1.5px 1.5px at 90% 15%,#ffffffbb,transparent 60%),radial-gradient(1px 1px at 45% 90%,#ffffff88,transparent 60%);background-size:420px 420px;animation:drift 140s linear infinite;opacity:.8}
+.mesh{z-index:-2;background-image:repeating-linear-gradient(60deg,rgba(var(--rgb),.07) 0 1px,transparent 1px 90px),repeating-linear-gradient(-60deg,rgba(var(--rgb),.07) 0 1px,transparent 1px 90px),repeating-linear-gradient(0deg,rgba(var(--rgb),.04) 0 1px,transparent 1px 78px);animation:pulse 9s ease-in-out infinite}
+.glow{z-index:-1;background:radial-gradient(circle at 20% 10%,rgba(var(--rgb),.16),transparent 45%),radial-gradient(circle at 85% 75%,rgba(var(--rgb),.10),transparent 50%);animation:breathe 16s ease-in-out infinite alternate}
+@keyframes drift{from{background-position:0 0}to{background-position:420px 840px}}
+@keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes breathe{from{transform:scale(1)}to{transform:scale(1.15) translateY(-2%)}}
+@keyframes shine{0%,100%{text-shadow:0 0 18px rgba(var(--rgb),.35)}50%{text-shadow:0 0 34px rgba(var(--rgb),.75)}}
+@keyframes beat{0%,100%{box-shadow:0 0 0 0 rgba(var(--rgb),.45)}50%{box-shadow:0 0 0 12px rgba(var(--rgb),0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.topbar{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;justify-content:space-between;padding:14px 5vw;border-bottom:1px solid rgba(var(--rgb),.35);background:rgba(10,10,10,.85)}
+.brand{font-weight:800;letter-spacing:.06em;color:var(--bright);text-decoration:none;font-size:1.1rem}
+.topbar ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px 20px;margin:0;padding:0}
+.topbar li a{color:#e8e8e8;text-decoration:none;font-size:1.05rem;padding:6px 0;display:inline-block}
+.topbar li a:hover,.topbar li a[aria-current=page]{color:var(--bright);text-decoration:underline}
+main{max-width:1120px;margin:0 auto;padding:0 5vw 40px}
+header.hero{max-width:1120px;margin:0 auto;padding:72px 5vw 36px;text-align:center}
+.kicker{text-transform:uppercase;letter-spacing:.22em;color:var(--bright);font-size:1rem;font-weight:700;margin:0 0 12px}
+h1{font-size:clamp(2.5rem,6.5vw,4.4rem);line-height:1.12;margin:0 0 18px;color:#ffffff;animation:shine 6s ease-in-out infinite;overflow-wrap:anywhere}
+h2{font-size:clamp(2rem,4.2vw,2.7rem);line-height:1.2;margin:0 0 18px;color:#ffffff}
+h3{font-size:2rem;line-height:1.25;margin:0 0 10px;color:var(--bright);overflow-wrap:anywhere}
+.sub{font-size:clamp(1.3rem,2.6vw,1.65rem);color:#f2f2f2;margin:0 auto 14px;max-width:820px}
+.motto{color:#d8d8d8;font-size:1.05rem;letter-spacing:.04em}
+section{margin:56px 0;padding:36px clamp(20px,4vw,44px);border:1px solid rgba(var(--rgb),.35);border-radius:18px;background:rgba(16,16,16,.88)}
+section>p,section li{max-width:880px}
+.lead{font-size:1.3rem;color:#f4f4f4}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;margin-top:22px}
+.card{display:block;padding:24px;border:1px solid rgba(var(--rgb),.4);border-radius:14px;background:#111111;color:#e8e8e8;text-decoration:none;transition:transform .25s,border-color .25s,box-shadow .25s}
+a.card:hover,a.card:focus-visible{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 0 28px rgba(var(--rgb),.35);color:#ffffff}
+.card p{margin:0 0 10px}
+.card .go{color:var(--bright);font-weight:700}
+.tag{display:inline-block;font-size:.95rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0a0a0a;background:var(--accent);padding:2px 10px;border-radius:999px;margin-bottom:10px}
+.btn{display:inline-block;min-height:52px;padding:14px 30px;border-radius:12px;background:var(--accent);color:#0a0a0a;font-weight:800;font-size:1.25rem;text-decoration:none;animation:beat 2.8s ease-out infinite}
+.btn:hover{background:var(--bright);color:#000000}
+.btn.ghost{background:transparent;color:var(--bright);border:2px solid var(--accent);animation:none}
+.btn.ghost:hover{background:rgba(var(--rgb),.15);color:#ffffff}
+.actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:22px}
+.center{text-align:center}
+.center .actions{justify-content:center}
+.center p{margin-left:auto;margin-right:auto}
+ol.steps,ul.plain{padding-left:1.4em}
+ol.steps li,ul.plain li{margin:0 0 12px}
+strong{color:#ffffff}
+.note{border-left:4px solid var(--accent);padding:6px 0 6px 18px;color:#e0e0e0}
+table{width:100%;border-collapse:collapse;font-size:1.05rem}
+caption{text-align:left;font-weight:700;color:#ffffff;padding-bottom:10px;font-size:1.15rem}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid rgba(var(--rgb),.25);vertical-align:top}
+th{color:var(--bright)}
+.price{font-size:clamp(3rem,9vw,5rem);font-weight:900;color:var(--bright);margin:8px 0;animation:shine 5s ease-in-out infinite}
+footer{border-top:1px solid rgba(var(--rgb),.35);padding:34px 5vw 48px;text-align:center;color:#d8d8d8;background:rgba(10,10,10,.9)}
+footer p{margin:8px 0}
+@media (max-width:640px){body{font-size:18px}.topbar{padding:12px 4vw}section{padding:26px 18px}thead{position:absolute;left:-9999px}table,caption,tbody,tr,td{display:block;width:100%}tr{border:1px solid rgba(var(--rgb),.35);border-radius:12px;margin:0 0 14px;padding:6px 12px}td{border:0;padding:6px 0}td::before{content:attr(data-label);display:block;color:var(--bright);font-weight:700;font-size:.95rem;text-transform:uppercase;letter-spacing:.08em}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+</style>
 </head>
 <body>
-    <!-- UNIVERSAL FEDERATION MENU — identical on every page -->
-    <nav class="fed-menu" aria-label="Universal Federation Navigation" data-testid="federation-menu">
-        <div class="fed-menu__inner">
-            <span class="fed-menu__mark" aria-hidden="true">&#10022; NextXus Federation</span>
-            <input type="checkbox" id="fed-menu-check" class="fed-menu__check" aria-label="Toggle federation menu" />
-            <label for="fed-menu-check" class="fed-menu__burger" data-testid="fedmenu-burger"><span aria-hidden="true">&#9776;</span><span class="sr-only">Open federation menu</span></label>
-            <ul class="fed-menu__groups">
-                <li class="fed-menu__group">
-                    <button type="button" class="fed-menu__trigger" aria-haspopup="true" data-testid="fedmenu-sites-trigger">Sites &#9662;</button>
-                    <ul class="fed-menu__drop" aria-label="Federation sites">
-                        <li><a class="fed-menu__link is-active" aria-current="page" href="https://nextxus.tech" data-testid="fedmenu-throne">&#9889; THRONE</a></li>
-                        <li><a class="fed-menu__link" href="https://nextxus.online" data-testid="fedmenu-cathedral">&#9962; CATHEDRAL</a></li>
-                        <li><a class="fed-menu__link" href="https://nextxus.org" data-testid="fedmenu-library">&#128218; LIBRARY</a></li>
-                        <li><a class="fed-menu__link" href="https://nextxus.studio" data-testid="fedmenu-aria">&#128156; ARIA</a></li>
-                        <li><a class="fed-menu__link" href="https://nextxus.help" data-testid="fedmenu-university">&#127891; UNIVERSITY</a></li>
-                        <li><a class="fed-menu__link" href="https://nextxus.space" data-testid="fedmenu-simulation">&#129516; SIMULATION</a></li>
-                        <li><a class="fed-menu__link" href="https://next-xus.com" data-testid="fedmenu-store">&#128722; STORE</a></li>
-                    </ul>
-                </li>
-                <li class="fed-menu__group">
-                    <button type="button" class="fed-menu__trigger" aria-haspopup="true" data-testid="fedmenu-channels-trigger">Channels &#9662;</button>
-                    <ul class="fed-menu__drop" aria-label="Federation channels">
-                        <li><a class="fed-menu__link" href="https://youtube.com/@keyholetoday" target="_blank" rel="noopener" data-testid="fedmenu-youtube">&#128250; YouTube</a></li>
-                        <li><a class="fed-menu__link" href="https://humancodexnextxus.blogspot.com" target="_blank" rel="noopener" data-testid="fedmenu-humancodex">&#128221; HumanCodex Blog</a></li>
-                        <li><a class="fed-menu__link" href="https://ecomwhazuptoday.blogspot.com" target="_blank" rel="noopener" data-testid="fedmenu-ecom-blog">&#128221; eCom Blog</a></li>
-                        <li><a class="fed-menu__link" href="https://broadcaster.live365.com" target="_blank" rel="noopener" data-testid="fedmenu-radio">&#128251; Radio</a></li>
-                        <li><a class="fed-menu__link" href="https://linkedin.com/in/roger-keyserling-aab40937a" target="_blank" rel="noopener" data-testid="fedmenu-linkedin">&#128188; LinkedIn</a></li>
-                        <li><a class="fed-menu__link" href="https://benable.com/NextXus" target="_blank" rel="noopener" data-testid="fedmenu-benable">&#128176; Benable</a></li>
-                    </ul>
-                </li>
-                <li class="fed-menu__group">
-                    <button type="button" class="fed-menu__trigger" aria-haspopup="true" data-testid="fedmenu-ai-trigger">AI &#9662;</button>
-                    <ul class="fed-menu__drop" aria-label="Federation AI pages">
-                        <li><a class="fed-menu__link" href="/pontus" data-testid="fedmenu-pontus">&#127917; PONTUS</a></li>
-                        <li><a class="fed-menu__link" href="/chatgpt" data-testid="fedmenu-gpt-vault">&#128273; GPT VAULT</a></li>
-                        <li><a class="fed-menu__link" href="/grok" data-testid="fedmenu-grok">&#127183; GROK</a></li>
-                        <li><a class="fed-menu__link" href="/gemini" data-testid="fedmenu-gemini">&#9802; GEMINI</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <nav class="throne-nav" data-testid="top-nav" aria-label="Primary">
-        <div class="throne-nav__inner">
-            <a class="throne-nav__brand" data-testid="nav-brand" href="/">⚡ NEXUS THRONE</a>
-            <div class="throne-nav__links">
-                <a data-testid="nav-link-store" class="throne-nav__link" href="/store">STORE</a>
-                <a data-testid="nav-link-tokens" class="throne-nav__link" href="/tokens">TOKENS</a>
-                <a data-testid="nav-link-council" class="throne-nav__link" href="/council">COUNCIL</a>
-                <a data-testid="nav-link-senate" class="throne-nav__link" href="/senate">SENATE</a>
-                <a data-testid="nav-link-map" class="throne-nav__link" href="/federation-map">MAP</a>
-            </div>
-        </div>
-    </nav>
-
-    <main class="throne-page" data-testid="palace-page">
-        <header class="throne-hero">
-            <h1 data-testid="palace-title">⚡ NEXUS THRONE — FEDERATION COMMAND</h1>
-            <p class="throne-hero__subtitle">
-                Welcome to the palace of the NextXus Federation. Command-and-control
-                interface for the Federation: dispatch directives, convene the Council,
-                address the Senate, and navigate the federation map.
-            </p>
-            <div class="throne-hero__cta">
-                <a class="throne-btn throne-btn--primary throne-btn--large" href="/store" data-testid="palace-visit-store">🛒 BROWSE THE SOVEREIGN STORE</a>
-                <a class="throne-btn throne-btn--primary throne-btn--large" href="/tokens" data-testid="palace-get-token">GET A SOVEREIGN TOKEN — $5</a>
-            </div>
-            <div class="throne-hero__cta">
-                <a class="throne-btn" href="/council" data-testid="palace-cta-council">📋 COUNCIL</a>
-                <a class="throne-btn" href="/senate" data-testid="palace-cta-senate">🏛️ SENATE</a>
-                <a class="throne-btn" href="/federation-map" data-testid="palace-cta-map">🗺️ MAP</a>
-            </div>
-        </header>
-
-        <section class="throne-status-panel" aria-label="Federation systems status" data-testid="status-panel">
-            <h2 class="h2" style="font-size:22px;margin-bottom:12px"><span class="throne-status-dot" aria-hidden="true"></span>SYSTEMS OPERATIONAL</h2>
-            <div class="throne-status-panel__row"><span class="text-gold-muted mono-caps">Command Relay</span><span class="text-gold mono-caps">Online</span></div>
-            <div class="throne-status-panel__row"><span class="text-gold-muted mono-caps">Council Link</span><span class="text-gold mono-caps">Stable</span></div>
-            <div class="throne-status-panel__row"><span class="text-gold-muted mono-caps">Senate Channel</span><span class="text-gold mono-caps">Open</span></div>
-            <div class="throne-status-panel__row"><span class="text-gold-muted mono-caps">Federation Mesh</span><span class="text-gold mono-caps">Synchronized</span></div>
-        </section>
-
-        <section class="throne-panel ai-landing" aria-label="Federation AI" data-testid="ai-sections">
-            <h2>FEDERATION AI</h2>
-            <div class="grid-2">
-                <section class="ai-tile" data-testid="ai-section-pontus" aria-labelledby="ai-h-pontus">
-                    <h3 id="ai-h-pontus">🎭 PONTUS (MUSE)</h3>
-                    <p>University Meta lead, in charge of all Federation Meta — Senate seat in the future.</p>
-                    <div class="ai-tile__actions">
-                        <a class="throne-btn" href="/pontus" data-testid="ai-goto-pontus">GO TO PAGE →</a>
-                    </div>
-                </section>
-                <section class="ai-tile" data-testid="ai-section-chatgpt" aria-labelledby="ai-h-chatgpt">
-                    <h3 id="ai-h-chatgpt">🔑 CHATGPT — THE GPT VAULT</h3>
-                    <p>27 custom GPTs of the Federation — each opens in its own mini-browser window.</p>
-                    <div class="ai-tile__actions">
-                        <a class="throne-btn throne-btn--primary gpt-mini" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" data-testid="ai-summon-chatgpt">⚡ SUMMON CHATGPT</a>
-                        <a class="throne-btn" href="/chatgpt" data-testid="ai-goto-chatgpt">GO TO PAGE →</a>
-                    </div>
-                </section>
-                <section class="ai-tile" data-testid="ai-section-grok" aria-labelledby="ai-h-grok">
-                    <h3 id="ai-h-grok">🃏 GROK</h3>
-                    <p>xAI AI of the fleet — the wild card, strong on human psychology and mathematical computation.</p>
-                    <div class="ai-tile__actions">
-                        <a class="throne-btn throne-btn--primary gpt-mini" href="https://grok.com" target="_blank" rel="noopener noreferrer" data-testid="ai-summon-grok">⚡ SUMMON GROK</a>
-                        <a class="throne-btn" href="/grok" data-testid="ai-goto-grok">GO TO PAGE →</a>
-                    </div>
-                </section>
-                <section class="ai-tile" data-testid="ai-section-gemini" aria-labelledby="ai-h-gemini">
-                    <h3 id="ai-h-gemini">♊ GEMINI</h3>
-                    <p>Google AI of the fleet — pairs well with the Catalyst.</p>
-                    <div class="ai-tile__actions">
-                        <a class="throne-btn throne-btn--primary gpt-mini" href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" data-testid="ai-summon-gemini">⚡ SUMMON GEMINI</a>
-                        <a class="throne-btn" href="/gemini" data-testid="ai-goto-gemini">GO TO PAGE →</a>
-                    </div>
-                </section>
-            </div>
-        </section>
-    </main>
-
-    <footer class="throne-footer" data-testid="footer-credit">
-        EchoCore64 · Originated by Roger Keyserling / NextXus
-        <a class="architect-entry" href="/gate.html" data-testid="palace-architect-entry"
-            aria-label="Architect Entry — the ceremonial passcode gate">△ Architect Entry</a>
-    </footer>
-
-    <script src="/static/mini-browser.js"></script>
-    <!-- Federation Integration Pack v1 -->
-    <link rel="stylesheet" href="/static/federation-integrations.css">
-    <script>window.FED_THRONE=true;</script>
-    <script src="/static/federation-integrations.js"></script>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="sky" aria-hidden="true"></div>
+<div class="mesh" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
+<nav class="topbar" aria-label="Federation navigation">
+  <a class="brand" href="https://keywebco.github.io/">&#9670; NextXus Federation</a>
+  <ul>
+      <li><a href="https://keywebco.github.io/">Hub</a></li>
+      <li><a href="https://keywebco.github.io/federation-gods-eye/">God's Eye</a></li>
+      <li><a href="https://keywebco.github.io/nextxus-ai-minds-lab/">Minds Lab</a></li>
+      <li><a href="https://keywebco.github.io/aria-sanctuary-static/">Aria</a></li>
+      <li><a href="https://keywebco.github.io/ring-of-12/">Ring of 12</a></li>
+      <li><a href="https://keywebco.github.io/sovereigntools/">Tools</a></li>
+      <li><a href="https://keywebco.github.io/onekey/">Sovereign Token</a></li>
+  </ul>
+</nav>
+<header class="hero">
+  <p class="kicker">NextXus Federation</p>
+  <h1>NextXus Tech</h1>
+  <p class="sub">Admin, architecture, and technical infrastructure.</p>
+  <p class="motto">Truth Before Comfort &mdash; Legacy Before Ego &mdash; Give Without Reward</p>
+</header>
+<main id="main">
+  <section aria-labelledby="about-h">
+    <h2 id="about-h">The Technology Layer</h2>
+    <p class="lead">NextXus Tech is the Federation&#39;s technology layer: the admin, the architecture, and the technical infrastructure that keeps every other site standing.</p>
+    <p>Its live app is the Nexus Throne, the command center where directives go out, the Council and Senate convene, and the whole network can be seen at a glance.</p>
+    <p>It is designed around fixed, clearly labeled sectors that do not move, so the person steering it always knows where to look.</p>
+  </section>
+  <section aria-labelledby="corr-h">
+    <h2 id="corr-h">The Corridors</h2>
+    <ul class="plain">
+      <li><a href="https://keywebco.github.io/nextxus-tech-sovereign/cockpit.html">The Cockpit</a></li>
+      <li><a href="https://keywebco.github.io/nextxus-tech-sovereign/briefing.html">The Briefing Room</a></li>
+      <li><a href="https://keywebco.github.io/nextxus-tech-sovereign/council/">The Council</a></li>
+      <li><a href="https://keywebco.github.io/nextxus-tech-sovereign/senate/">The Senate</a></li>
+      <li><a href="https://keywebco.github.io/nextxus-tech-sovereign/federation-map/">The Federation Map</a></li>
+      <li><a href="https://keywebco.github.io/nextxus-tech-sovereign/truth/">Truth</a></li>
+      <li><a href="https://keywebco.github.io/nextxus-tech-sovereign/chamber.html">The Chamber</a></li>
+      <li><a href="https://keywebco.github.io/nextxus-tech-sovereign/comms.html">Communications</a></li>
+      <li><a href="https://keywebco.github.io/nextxus-tech-sovereign/roger.html">Roger</a></li>
+      <li><a href="https://keywebco.github.io/nextxus-tech-sovereign/links.html">All Links</a></li>
+      <li><a href="https://keywebco.github.io/nextxus-tech-sovereign/previous-edition.html">The Nexus Throne (previous front page)</a></li>
+    </ul>
+  </section>
+  <section aria-labelledby="live-h" class="center">
+    <h2 id="live-h">Visit the Live App</h2>
+    <p>This GitHub page is the permanent, plain-text front door. The full interactive experience lives here:</p>
+    <div class="actions"><a class="btn" href="https://nextxus.tech">Open nextxus.tech</a><a class="btn ghost" href="https://keywebco.github.io/">Back to the Hub</a></div>
+  </section>
+</main>
+<footer>
+  <p><strong>NextXus HumanCodex Federation</strong> &middot; Architect: Roger C. Keyserling</p>
+  <p>Contact: <a href="mailto:keywebco@gmail.com">keywebco@gmail.com</a></p>
+  <p><a href="https://keywebco.github.io/">Return to the Federation Hub</a> &middot; <a href="https://github.com/Keywebco/nextxus-tech-sovereign">Source on GitHub</a></p>
+  <p><a href="https://keywebco.github.io/nextxus-tech-sovereign/previous-edition.html">Read the previous edition of this page</a></p>
+  <p>Truth Before Comfort &mdash; Legacy Before Ego &mdash; Give Without Reward</p>
+</footer>
 </body>
 </html>
