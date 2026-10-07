@@ -108,6 +108,17 @@
   .site-foot p{margin:0}
   @media (max-width:640px){h1{font-size:2.3rem}.emblem{width:140px;height:140px}.ring-node{transform:rotate(calc(var(--i) * 30deg)) translateY(-58px) rotate(calc(var(--i) * -30deg))}.emblem-core{inset:46px}}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+.usefree{background:var(--panel);border:2px solid var(--accent);border-radius:10px;padding:1.2rem 1.4rem;margin:1.5rem 0}
+.usefree h2{margin-top:0;color:var(--accent)} .usefree h3{color:var(--green);margin:1rem 0 .3rem}
+.usefree a{color:var(--accent);text-decoration:underline} .usefree li{margin:.35rem 0}
+.keyform{display:grid;gap:.6rem;max-width:34rem;margin-top:1rem}
+.keyform label{font-weight:700}
+.keyform input,.keyform select{background:#000;color:var(--text);border:2px solid var(--accent);border-radius:6px;padding:.7rem;font-size:1.05rem}
+.keyform button{background:var(--accent);color:#000;border:0;border-radius:6px;padding:.75rem 1rem;font-size:1.05rem;font-weight:700;cursor:pointer}
+.keyform button#key-clear{background:transparent;color:var(--text);border:2px solid var(--muted)}
+.keyform input:focus,.keyform select:focus,.keyform button:focus{outline:3px solid var(--focus);outline-offset:2px}
+.usefree .note{color:var(--muted)}
 </style>
 </head>
 <body>
@@ -115,7 +126,7 @@
 
 <section class="fuel" aria-label="Fuel gauge">
   <div class="wrap">
-    <p id="fuel-gauge">⚡ ECU Balance: [BALANCE_PLACEHOLDER] | Updated: [DATE_PLACEHOLDER]</p>
+    <p id="fuel-gauge" role="status">Status: Free, using your own key. <span id="key-state">No key saved yet.</span></p>
   </div>
 </section>
 
@@ -146,6 +157,45 @@
 
 <main class="wrap ring-page" id="main">
   <p class="lede">Twelve Sims sit in the Ring. Each holds one seat and one function, and every one of them answers under the same six Agent Zero truth-first conditions. Choose a seat to read its full function and speak with that Sim.</p>
+
+
+  <section class="usefree" id="use-free" aria-labelledby="use-free-title">
+    <h2 id="use-free-title">Use it free, with your own key</h2>
+    <p>The Sims answer through an AI provider. You bring your own free key. It stays in this browser on your device. It is sent only to the provider you choose, and nowhere else. Nobody pays for your questions but you, and a free key costs nothing.</p>
+    <h3>Step by step</h3>
+    <ol>
+      <li><strong>Pick a provider and make a free account.</strong> Most free keys need only an email address.</li>
+      <li><strong>Create an API key</strong> on the provider's keys page and copy it.</li>
+      <li><strong>Choose the provider below, paste the key, and press Save key.</strong></li>
+      <li><strong>Pick a seat and ask.</strong> If an answer says you hit a limit, wait a minute or try the other provider.</li>
+    </ol>
+    <h3>Your choices</h3>
+    <ul class="providers">
+      <li><strong>Groq (suggested first).</strong> Free tier with per-model limits. <a href="https://console.groq.com/keys" rel="noopener">Get a key</a> | <a href="https://console.groq.com/docs/rate-limits" rel="noopener">Current limits</a></li>
+      <li><strong>OpenRouter free models.</strong> Free models end in :free. <a href="https://openrouter.ai/keys" rel="noopener">Get a key</a> | <a href="https://openrouter.ai/docs/api-reference/limits" rel="noopener">Current limits</a></li>
+      <li><strong>Cohere trial.</strong> Trial key, monthly call limit. <a href="https://dashboard.cohere.com/api-keys" rel="noopener">Get a key</a> | <a href="https://docs.cohere.com/docs/rate-limits" rel="noopener">Current limits</a></li>
+      <li><strong>Hugging Face.</strong> Small monthly free credit. <a href="https://huggingface.co/settings/tokens" rel="noopener">Get a key</a> | <a href="https://huggingface.co/docs/inference-providers/pricing" rel="noopener">Current limits</a></li>
+      <li><strong>DeepSeek and MiMo.</strong> Paid by use, not free. <a href="https://platform.deepseek.com/api_keys" rel="noopener">DeepSeek</a> | <a href="https://platform.xiaomimimo.com" rel="noopener">MiMo</a></li>
+    </ul>
+    <p>Free limits change. Always read the provider's own limits page, linked above, before you rely on a number.</p>
+    <form id="key-form" class="keyform" autocomplete="off">
+      <label for="provider-select">Provider</label>
+      <select id="provider-select" name="provider">
+        <option value="groq">Groq</option>
+        <option value="openrouter">OpenRouter (free model)</option>
+        <option value="cohere">Cohere</option>
+        <option value="huggingface">Hugging Face</option>
+        <option value="deepseek">DeepSeek (paid)</option>
+        <option value="mimo">MiMo (paid)</option>
+      </select>
+      <label for="key-input">Your API key</label>
+      <input id="key-input" name="key" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your key here">
+      <button type="submit" id="key-save">Save key</button>
+      <button type="button" id="key-clear">Remove saved key</button>
+      <p id="key-msg" role="status" aria-live="polite"></p>
+    </form>
+    <p class="note">What we store: your key and your provider choice, in this browser only (localStorage). We never see them. Clear them any time with the button above.</p>
+  </section>
 
   <section class="ring" id="ring" aria-labelledby="ring-title">
     <h2 id="ring-title">The Twelve Seats</h2>
@@ -786,19 +836,44 @@ const SIM_NAMES = {
   ARCHITECT: "The Architect",
 };
 
-const MIMO_API_KEY = 'MIMO_API_KEY_PLACEHOLDER';
-const KEY_NOT_INJECTED = MIMO_API_KEY === 'MIMO_API_KEY_' + 'PLACEHOLDER';
+const PROVIDERS = {
+  groq:        { url: 'https://api.groq.com/openai/v1/chat/completions',           model: 'llama-3.3-70b-versatile' },
+  openrouter:  { url: 'https://openrouter.ai/api/v1/chat/completions',             model: null, pickFree: true },
+  cohere:      { url: 'https://api.cohere.com/compatibility/v1/chat/completions', model: 'command-r-08-2024' },
+  huggingface: { url: 'https://router.huggingface.co/v1/chat/completions',         model: 'meta-llama/Llama-3.3-70B-Instruct' },
+  deepseek:    { url: 'https://api.deepseek.com/chat/completions',                 model: 'deepseek-chat' },
+  mimo:        { url: 'https://api.xiaomimimo.com/v1/chat/completions',            model: 'mimo-v2.6-flash' }
+};
+function getSaved() {
+  try { return { provider: localStorage.getItem('ring12_provider') || 'groq', key: localStorage.getItem('ring12_key') || '' }; }
+  catch (e) { return { provider: 'groq', key: '' }; }
+}
+function noKey() { return !getSaved().key; }
+let freeModelCache = null;
+async function pickOpenRouterFreeModel() {
+  if (freeModelCache) return freeModelCache;
+  const r = await fetch('https://openrouter.ai/api/v1/models');
+  const d = await r.json();
+  const free = (d.data || []).filter(m => /:free$/.test(m.id));
+  if (!free.length) throw new Error('OpenRouter lists no free models right now. Try another provider.');
+  freeModelCache = (free.find(m => /llama|qwen|mistral|gemma/i.test(m.id)) || free[0]).id;
+  return freeModelCache;
+}
 const histories = {};
 
 async function sendMessage(simName, systemPrompt, userMessage, history) {
-    const response = await fetch('https://api.xiaomimimo.com/v1/chat/completions', {
+    const saved = getSaved();
+    const prov = PROVIDERS[saved.provider];
+    if (!prov) throw new Error('Unknown provider.');
+    const model = prov.pickFree ? await pickOpenRouterFreeModel() : prov.model;
+    const response = await fetch(prov.url, {
         method: 'POST',
         headers: {
-            'Authorization': 'Bearer ' + MIMO_API_KEY,
+            'Authorization': 'Bearer ' + saved.key,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            model: 'mimo-v2.6-flash',
+            model: model,
             messages: [
                 {role: 'system', content: systemPrompt},
                 ...(history || []),
@@ -853,8 +928,8 @@ document.querySelectorAll('.chat-form').forEach(function (form) {
         if (!message || button.disabled) return;
         addMessage(log, 'You', message, 'user');
         input.value = '';
-        if (KEY_NOT_INJECTED) {
-            addMessage(log, 'System', 'Truth first: the MiMo API key has not been injected into this page yet, so ' + name + ' cannot answer right now. Nothing was sent.', 'error');
+        if (noKey()) {
+            addMessage(log, 'System', 'Truth first: no key is saved yet, so ' + name + ' cannot answer. Open "Use it free" above, pick a provider, paste your free key, and press Save key. Nothing was sent.', 'error');
             return;
         }
         button.disabled = true;
@@ -888,6 +963,20 @@ document.querySelectorAll('.seat-radio').forEach(function (radio) {
         }
     });
 });
+
+(function(){
+  const form=document.getElementById('key-form'), sel=document.getElementById('provider-select'),
+        inp=document.getElementById('key-input'), msg=document.getElementById('key-msg'),
+        st=document.getElementById('key-state');
+  function refresh(){ const v=getSaved(); sel.value=v.provider; st.textContent=v.key?('Key saved for '+sel.options[sel.selectedIndex].text+'.'):'No key saved yet.'; }
+  form.addEventListener('submit',function(e){ e.preventDefault(); const k=inp.value.trim();
+    if(!k){ msg.textContent='Paste a key first.'; return; }
+    try{ localStorage.setItem('ring12_provider',sel.value); localStorage.setItem('ring12_key',k); inp.value=''; msg.textContent='Saved in this browser only.'; }
+    catch(err){ msg.textContent='This browser blocked saving. Private mode can do that.'; }
+    refresh(); });
+  document.getElementById('key-clear').addEventListener('click',function(){ try{ localStorage.removeItem('ring12_key'); }catch(e){} msg.textContent='Key removed from this browser.'; refresh(); });
+  refresh();
+})();
 </script>
 </body>
 </html>
